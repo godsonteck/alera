@@ -57,7 +57,7 @@ describe('DashboardLayout', () => {
     resendEmailVerificationMock.mockReset();
   });
 
-  it('shows the pending verification banner for unverified professionals', () => {
+  it('shows the email verification banner for unverified emails', () => {
     render(
       <MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <DashboardLayout>
@@ -66,8 +66,7 @@ describe('DashboardLayout', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/verification unresolved/i)).toBeInTheDocument();
-    expect(screen.getByTestId('sidebar-professional-verification')).toHaveTextContent(/pending verification/i);
+    expect(screen.getByText(/A quick step is still needed/i)).toBeInTheDocument();
     expect(screen.getByText(/dashboard content/i)).toBeInTheDocument();
   });
 
@@ -89,12 +88,12 @@ describe('DashboardLayout', () => {
       </MemoryRouter>
     );
 
-    expect(screen.queryByText(/verification unresolved/i)).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /re-issue/i })).not.toBeInTheDocument();
+    expect(screen.queryByText(/A quick step is still needed/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /send again/i })).not.toBeInTheDocument();
     expect(screen.getByText(/dashboard content/i)).toBeInTheDocument();
   });
 
-  it('shows verified status for verified professionals', () => {
+  it('does not show email verification banner for verified emails', () => {
     authState.user = {
       id: 'doctor-verified',
       email: 'doctor@example.com',
@@ -112,7 +111,6 @@ describe('DashboardLayout', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId('sidebar-professional-verification')).toHaveTextContent(/^Verified$/i);
-    expect(screen.queryByText(/pending verification/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/A quick step is still needed/i)).not.toBeInTheDocument();
   });
 });

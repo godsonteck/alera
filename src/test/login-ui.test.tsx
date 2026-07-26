@@ -14,6 +14,14 @@ vi.mock('@/contexts/useAuth', () => ({
   }),
 }));
 
+vi.mock('@/components/auth/GoogleAuthSection', () => ({
+  GoogleAuthSection: () => <div data-testid="google-auth-section" />,
+}));
+
+vi.mock('@/components/auth/AppleAuthButton', () => ({
+  AppleAuthButton: () => <div data-testid="apple-auth-button" />,
+}));
+
 vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }: { children?: React.ReactNode }) => <div {...props}>{children}</div>,

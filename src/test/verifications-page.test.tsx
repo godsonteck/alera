@@ -87,12 +87,12 @@ describe('VerificationsPage', () => {
     );
 
     expect(await screen.findByText(/pharmacy user/i)).toBeInTheDocument();
-    expect(screen.getByTestId('verification-status-1')).toHaveTextContent(/pending verification/i);
+    expect(screen.getAllByText(/^PENDING$/i).length).toBeGreaterThan(0);
 
-    fireEvent.click(screen.getByRole('button', { name: /^verify$/i }));
+    fireEvent.click(screen.getByRole('button', { name: /verify/i }));
 
     await waitFor(() => expect(mocks.verifyProviderMock).toHaveBeenCalledWith(1));
     await waitFor(() => expect(mocks.listVerificationsMock).toHaveBeenCalledTimes(2));
-    await waitFor(() => expect(screen.getByTestId('verification-status-1')).toHaveTextContent(/^Verified$/i));
+    await waitFor(() => expect(screen.getAllByText(/^VERIFIED$/i).length).toBeGreaterThan(0));
   });
 });

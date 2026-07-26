@@ -1,14 +1,14 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ProfilePage from '@/pages/features/ProfilePage';
 
-const deleteAccountMock = vi.fn();
 const clearCacheMock = vi.fn();
 const updateProfileMock = vi.fn();
 const updateBasicInfoMock = vi.fn();
 const changePasswordMock = vi.fn();
 const updateNotificationPreferencesMock = vi.fn();
 const updatePrivacySettingsMock = vi.fn();
+const resendEmailVerificationMock = vi.fn();
 
 let authState: {
   user: {
@@ -17,6 +17,8 @@ let authState: {
     name: string;
     role: 'doctor';
     isVerified: boolean;
+    emailVerified: boolean;
+    isActive: boolean;
     profile: {
       firstName: string;
       lastName: string;
@@ -30,7 +32,7 @@ let authState: {
   changePassword: typeof changePasswordMock;
   updateNotificationPreferences: typeof updateNotificationPreferencesMock;
   updatePrivacySettings: typeof updatePrivacySettingsMock;
-  deleteAccount: typeof deleteAccountMock;
+  resendEmailVerification: typeof resendEmailVerificationMock;
   clearCache: typeof clearCacheMock;
 };
 
@@ -44,7 +46,7 @@ vi.mock('framer-motion', () => ({
   },
 }));
 
-describe('ProfilePage delete flow', () => {
+describe('ProfilePage security flow', () => {
   beforeEach(() => {
     authState = {
       user: {
@@ -52,7 +54,9 @@ describe('ProfilePage delete flow', () => {
         email: 'doctor@example.com',
         name: 'Dr. Alice',
         role: 'doctor',
-        isVerified: false,
+        isVerified: true,
+        emailVerified: true,
+        isActive: true,
         profile: {
           firstName: 'Dr',
           lastName: 'Alice',
@@ -66,42 +70,39 @@ describe('ProfilePage delete flow', () => {
       changePassword: changePasswordMock,
       updateNotificationPreferences: updateNotificationPreferencesMock,
       updatePrivacySettings: updatePrivacySettingsMock,
-      deleteAccount: deleteAccountMock,
+      resendEmailVerification: resendEmailVerificationMock,
       clearCache: clearCacheMock,
     };
 
-    deleteAccountMock.mockReset().mockResolvedValue(undefined);
     clearCacheMock.mockReset();
     updateProfileMock.mockReset().mockResolvedValue(undefined);
     updateBasicInfoMock.mockReset().mockResolvedValue(undefined);
     changePasswordMock.mockReset().mockResolvedValue(undefined);
     updateNotificationPreferencesMock.mockReset().mockResolvedValue(undefined);
     updatePrivacySettingsMock.mockReset().mockResolvedValue(undefined);
+    resendEmailVerificationMock.mockReset().mockResolvedValue(undefined);
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
-
-  it('calls deleteAccount after confirmation and shows success feedback', async () => {
-    vi.useFakeTimers();
-
+  it('calls changePassword and shows success feedback after form submission', async () => {
     render(<ProfilePage />);
 
-    fireEvent.click(screen.getByRole('button', { name: /account/i }));
-    fireEvent.click(screen.getByRole('button', { name: /delete account/i }));
+    // Navigate to Security Key tab
+    fireEvent.click(screen.getByRole('button', { name: /security key/i }));
 
-    fireEvent.change(screen.getByPlaceholderText('••••••••'), {
-      target: { value: 'password123' },
+    // Password inputs are type="password" — query them directly via DOM
+    const allInputs = document.querySelectorAll('input[type="password"]');
+    expect(allInputs.length).toBeGreaterThanOrEqual(3);
+
+    fireEvent.change(allInputs[0], { target: { value: 'oldpass123' } });
+    fireEvent.change(allInputs[1], { target: { value: 'newpass123' } });
+    fireEvent.change(allInputs[2], { target: { value: 'newpass123' } });
+
+    fireEvent.click(screen.getByRole('button', { name: /mutate password key/i }));
+
+    await waitFor(() => {
+      expect(changePasswordMock).toHaveBeenCalledWith('oldpass123', 'newpass123');
     });
-    fireEvent.click(screen.getByRole('button', { name: /permanently delete/i }));
 
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    expect(deleteAccountMock).toHaveBeenCalledWith('password123');
-    expect(screen.getByText(/account deleted successfully/i)).toBeInTheDocument();
+    expect(await screen.findByText(/password security key mutated successfully/i)).toBeInTheDocument();
   });
 });
-

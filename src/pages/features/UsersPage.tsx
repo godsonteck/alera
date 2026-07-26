@@ -98,7 +98,7 @@ const UsersPage = () => {
         toast({ title: 'Validation fault', description: 'Credential parameters missing for professional.', variant: 'destructive' }); setIsLoading(false); return;
       }
       if (elevatedRoles.includes(formData.role)) {
-        await api.admin.createAdmin({ email: formData.email, username, password: formData.password, first_name: firstName, last_name: lastName, phone: undefined, role: formData.role });
+        await api.admin.createAdmin({ email: formData.email, username, password: formData.password, first_name: firstName, last_name: lastName, phone: undefined, role: formData.role as 'admin' | 'super_admin' });
       } else {
         await api.admin.createUser({ email: formData.email, username, password: formData.password, first_name: firstName, last_name: lastName, phone: undefined, role: backendRoleMap[formData.role] ?? 'patient', license_number: formData.role === 'patient' ? undefined : formData.licenseNumber.trim(), license_state: formData.role === 'patient' ? undefined : formData.licenseState.trim(), specialty: formData.role === 'patient' ? undefined : formData.specialty.trim() || undefined });
       }

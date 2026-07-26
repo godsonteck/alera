@@ -144,7 +144,7 @@ export const SmartAppointmentRemindersPage: React.FC = () => {
                         <div className={`text-[11px] font-bold uppercase ${selectedAppointments.has(apt.id) ? 'text-cyan-400' : 'text-[#ECEEF2]'}`}>
                           {apt.doctorName} <span className="text-slate-500 mx-1">/</span> {apt.type}
                         </div>
-                        <span className={`px-1.5 py-0.5 rounded-[2px] text-[9px] font-bold uppercase border ${apt.status === 'confirmed' ? 'bg-emerald-950/40 border-emerald-600/60 text-emerald-400' : 'bg-amber-950/40 border-amber-600/60 text-amber-400'}`}>
+                        <span className={`px-1.5 py-0.5 rounded-[2px] text-[9px] font-bold uppercase border ${apt.status === 'confirmed-by-doctor' ? 'bg-emerald-950/40 border-emerald-600/60 text-emerald-400' : 'bg-amber-950/40 border-amber-600/60 text-amber-400'}`}>
                           {apt.status}
                         </span>
                       </div>

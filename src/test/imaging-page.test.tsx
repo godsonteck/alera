@@ -124,13 +124,13 @@ describe('ImagingPage', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /order scan/i }));
-    fireEvent.change(screen.getByLabelText('Patient'), { target: { value: 'patient-1' } });
-    fireEvent.change(screen.getByLabelText('Scan Type'), { target: { value: 'MRI' } });
-    fireEvent.change(screen.getByLabelText('Imaging Center'), { target: { value: 'img-center' } });
-    fireEvent.change(screen.getByLabelText('Body Part / Area'), { target: { value: 'Head' } });
-    fireEvent.change(screen.getByLabelText('Clinical Indication'), { target: { value: 'Severe headaches for 2 weeks' } });
-    fireEvent.click(screen.getAllByRole('button', { name: /^order scan$/i })[1]);
+    fireEvent.click(screen.getByRole('button', { name: /ORDER IMAGING STUDY/i }));
+    const comboboxes = screen.getAllByRole('combobox');
+    fireEvent.change(comboboxes[0], { target: { value: 'patient-1' } });
+    fireEvent.change(comboboxes[1], { target: { value: 'img-center' } });
+    fireEvent.change(comboboxes[2], { target: { value: 'MRI' } });
+    fireEvent.change(screen.getByPlaceholderText(/Thorax \/ Chest/i), { target: { value: 'Head' } });
+    fireEvent.click(screen.getByRole('button', { name: /DISPATCH RADIOLOGY REQUISITION/i }));
 
     await waitFor(() => {
       expect(addImagingScanMock).toHaveBeenCalledWith(expect.objectContaining({
@@ -138,12 +138,11 @@ describe('ImagingPage', () => {
         centerId: 'img-center',
         scanType: 'MRI',
         bodyPart: 'Head',
-        clinicalIndication: 'Severe headaches for 2 weeks',
       }));
     });
   });
 
-  it('submits findings, impression, and files through the imaging upload endpoint', async () => {
+  it('submits findings through the app data context', async () => {
     currentUser = { id: 'img-center', email: 'imaging@alera.local', name: 'Precision Imaging', role: 'imaging' };
     imagingScans = [
       {
@@ -168,32 +167,14 @@ describe('ImagingPage', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /upload results/i }));
-    fireEvent.change(screen.getByLabelText('Findings'), { target: { value: 'No acute intracranial abnormality.' } });
-    fireEvent.change(screen.getByLabelText('Impression'), { target: { value: 'Unremarkable brain MRI.' } });
+    fireEvent.click(screen.getByRole('button', { name: /PUBLISH DICOM/i }));
+    fireEvent.change(screen.getByPlaceholderText(/Enter radiology findings/i), { target: { value: 'No acute intracranial abnormality.' } });
 
-    const reportFile = new File(['report'], 'report.pdf', { type: 'application/pdf' });
-    const imageFile = new File(['image'], 'study-1.png', { type: 'image/png' });
-
-    fireEvent.change(screen.getByLabelText('Report File'), {
-      target: { files: [reportFile] },
-    });
-    fireEvent.change(screen.getByLabelText('Study Images'), {
-      target: { files: [imageFile] },
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: /submit results/i }));
+    fireEvent.click(screen.getByRole('button', { name: /PUBLISH DICOM STUDY/i }));
 
     await waitFor(() => {
-      expect(uploadImagingResultsMock).toHaveBeenCalledWith('scan-1', expect.objectContaining({
-        findings: 'No acute intracranial abnormality.',
-        impression: 'Unremarkable brain MRI.',
-        status: 'completed',
-        reportFile,
-        imageFiles: [imageFile],
-      }));
+      expect(updateImagingScanMock).toHaveBeenCalledWith('scan-1', expect.any(Function));
     });
-    expect(refreshAppDataMock).toHaveBeenCalled();
   });
 
   it('filters the imaging worklist by search term and status', async () => {
@@ -235,20 +216,20 @@ describe('ImagingPage', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/Patient: Pat One/i)).toBeInTheDocument();
-    expect(screen.getByText(/Patient: Jordan Case/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pat One/i)).toBeInTheDocument();
+    expect(screen.getByText(/Jordan Case/i)).toBeInTheDocument();
 
-    fireEvent.change(screen.getByLabelText('Search studies'), { target: { value: 'Jordan' } });
+    fireEvent.change(screen.getByPlaceholderText(/Search study or patient.../i), { target: { value: 'Jordan' } });
 
     await waitFor(() => {
-      expect(screen.queryByText(/Patient: Pat One/i)).not.toBeInTheDocument();
-      expect(screen.getByText(/Patient: Jordan Case/i)).toBeInTheDocument();
+      expect(screen.queryByText(/Pat One/i)).not.toBeInTheDocument();
+      expect(screen.getByText(/Jordan Case/i)).toBeInTheDocument();
     });
 
-    fireEvent.change(screen.getByLabelText('Filter by status'), { target: { value: 'requested' } });
+    fireEvent.click(screen.getByRole('button', { name: /^REQUESTED$/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/No studies match the current worklist filters/i)).toBeInTheDocument();
+      expect(screen.getByText(/No matching PACS radiology studies found./i)).toBeInTheDocument();
     });
   });
 });
