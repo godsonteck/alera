@@ -25,28 +25,16 @@
   --domain-messaging: #3D7A8C;
   --domain-tasks: #5A6472;
 
-  /* Workflow states */
-  --workflow-completed: #1B8A5A;
-  --workflow-pending: #8A7A4A;
-  --workflow-blocked: #8E1E1E;
-  --workflow-archived: #6B6F76;
-  --workflow-offline: #6B6F76;
-  --workflow-online: #1B8A5A;
-  --workflow-review-required: #B8752E;
-  --workflow-verified: #1E7F72;
-  --workflow-draft: #8A8F98;
-  --workflow-cancelled: #6B6F76;
-
-  /* Surfaces — light */
-  --surface-base: #F6F7F8;
-  --surface-secondary: #EEF0F2;
+  /* Surfaces — default light */
+  --surface-base: #F4F6F8;
+  --surface-secondary: #E8ECEF;
   --surface-elevated: #FFFFFF;
   --surface-floating: #FFFFFF;
   --surface-modal: #FFFFFF;
   --surface-nav: #0B3D62;
-  --surface-workspace: #F6F7F8;
+  --surface-workspace: #F4F6F8;
 
-  /* Text — light */
+  /* Text — default light */
   --text-high: #12181E;
   --text-medium: #4A535C;
   --text-low: #7A8390;
@@ -114,43 +102,102 @@
   --easing-critical: cubic-bezier(0, 0, 0.2, 1);
 }
 
+/* Light Theme */
+.light,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-base: #F4F6F8;
+  --surface-secondary: #E8ECEF;
+  --surface-elevated: #FFFFFF;
+  --surface-floating: #FFFFFF;
+  --surface-modal: #FFFFFF;
+  --surface-nav: #0B3D62;
+  --surface-workspace: #F4F6F8;
+
+  --text-high: #12181E;
+  --text-medium: #4A535C;
+  --text-low: #7A8390;
+
+  --background: 210 22% 96%;
+  --foreground: 213 20% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 213 20% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 213 20% 14%;
+  --muted: 210 18% 94%;
+  --muted-foreground: 213 18% 45%;
+  --border: 210 18% 86%;
+  --input: 210 18% 86%;
+}
+
+/* Dark Theme */
 .dark,
 [data-theme="dark"] {
   color-scheme: dark;
 
-  /* Surfaces — dark */
-  --surface-base: #10161C;
-  --surface-secondary: #161D24;
-  --surface-elevated: #1B232B;
-  --surface-floating: #212A33;
-  --surface-modal: #1B232B;
-  --surface-nav: #081824;
-  --surface-workspace: #10161C;
+  --surface-base: #0B0F14;
+  --surface-secondary: #121820;
+  --surface-elevated: #18202A;
+  --surface-floating: #1E2835;
+  --surface-modal: #18202A;
+  --surface-nav: #08121C;
+  --surface-workspace: #0B0F14;
 
-  /* Text — dark */
-  --text-high: #EAEDEF;
-  --text-medium: #AEB6BD;
-  --text-low: #7E868F;
-  --text-disabled: #565E66;
+  --text-high: #F0F4F8;
+  --text-medium: #B0BAC5;
+  --text-low: #788594;
+  --text-disabled: #4A5664;
 
-  /* Tailwind-compatible aliases */
-  --background: 220 20% 8%;
-  --foreground: 210 20% 92%;
+  --background: 220 20% 7%;
+  --foreground: 210 20% 95%;
   --card: 220 18% 11%;
-  --card-foreground: 210 20% 92%;
+  --card-foreground: 210 20% 95%;
   --popover: 220 18% 11%;
-  --popover-foreground: 210 20% 92%;
-  --primary: 206 70% 24%;
-  --primary-foreground: 210 20% 92%;
-  --secondary: 180 38% 24%;
-  --secondary-foreground: 210 20% 92%;
-  --muted: 220 18% 13%;
-  --muted-foreground: 213 14% 62%;
-  --accent: 220 18% 13%;
-  --accent-foreground: 210 20% 92%;
-  --destructive: 7 60% 54%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 220 16% 20%;
-  --input: 220 16% 20%;
+  --popover-foreground: 210 20% 95%;
+  --primary: 206 70% 30%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 220 18% 14%;
+  --muted-foreground: 213 14% 65%;
+  --border: 220 16% 22%;
+  --input: 220 16% 22%;
   --ring: 180 38% 36%;
+}
+
+/* High Contrast Clinical Theme */
+.high-contrast,
+[data-theme="high-contrast"] {
+  color-scheme: dark;
+
+  --surface-base: #000000;
+  --surface-secondary: #0A0A0A;
+  --surface-elevated: #121212;
+  --surface-floating: #1A1A1A;
+  --surface-modal: #121212;
+  --surface-nav: #000000;
+  --surface-workspace: #000000;
+
+  --text-high: #FFFFFF;
+  --text-medium: #E0E0E0;
+  --text-low: #B0B0B0;
+  --text-disabled: #707070;
+
+  --brand-primary: #00E5FF;
+  --brand-secondary: #00FF88;
+  --state-warning: #FFD700;
+  --state-danger: #FF3366;
+
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 180 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 85%;
+  --border: 0 0% 40%;
+  --input: 0 0% 40%;
+  --ring: 180 100% 50%;
 }

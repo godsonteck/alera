@@ -22,16 +22,16 @@ const MainLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="alera-care-backdrop flex min-h-screen flex-col text-[#223127]">
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/92 backdrop-blur-sm">
+    <div className="alera-care-backdrop flex min-h-screen flex-col text-[var(--text-high)]">
+      <header className="sticky top-0 z-50 border-b border-slate-700/40 bg-[var(--surface-elevated)]/90 backdrop-blur-md transition-colors">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="alera-focus-ring flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#0b3d62] text-white">
               <HeartPulse className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#223127]">Alera</p>
-              <p className="text-[10px] text-[#6e7d71]">Care coordination</p>
+              <p className="text-sm font-semibold text-[var(--text-high)]">Alera</p>
+              <p className="text-[10px] text-[var(--text-medium)]">Care coordination</p>
             </div>
           </Link>
 
@@ -43,7 +43,7 @@ const MainLayout = () => {
                   key={item.label}
                   to={item.href}
                   className={`alera-focus-ring border-b-2 px-0 py-2 text-sm transition-colors ${
-                    isActive ? 'border-[#0b3d62] font-semibold text-[#0b3d62]' : 'border-transparent text-[#4f6154] hover:border-slate-300 hover:text-[#223127]'
+                    isActive ? 'border-sky-500 font-semibold text-sky-400' : 'border-transparent text-[var(--text-medium)] hover:border-slate-500 hover:text-[var(--text-high)]'
                   }`}
                 >
                   {item.label}

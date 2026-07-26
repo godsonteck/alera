@@ -44,13 +44,10 @@
   /* Shared photographic canvas: keeps long-form and workspace pages visually grounded
      while the translucent overlays preserve text and form contrast. */
   .alera-care-backdrop {
-    background-color: #f5f7f8;
+    background-color: var(--surface-base);
     background-image:
-      linear-gradient(135deg, rgba(245, 247, 248, 0.86), rgba(245, 247, 248, 0.72) 54%, rgba(245, 247, 248, 0.88)),
-      url('/images/hero_medical_team.png');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+      linear-gradient(135deg, var(--surface-base), var(--surface-secondary));
+    transition: background-color var(--motion-normal) var(--easing-standard), color var(--motion-normal) var(--easing-standard);
   }
 
   .alera-focus-ring:focus-visible {

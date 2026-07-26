@@ -266,15 +266,15 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
       {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
       {/* Main Console Deck */}
-      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen bg-[var(--surface-base)] text-[var(--text-high)] transition-colors">
         {/* Top Control Header with FIXED PATIENT ANCHOR BAR */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#e7efe9] bg-white/90 px-4 backdrop-blur-sm sm:px-6">
-          <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[#4f6154] hover:text-[#223127]">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-700/30 bg-[var(--surface-elevated)]/90 px-4 backdrop-blur-md transition-colors sm:px-6">
+          <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[var(--text-medium)] hover:text-[var(--text-high)]">
             <Menu className="w-5 h-5" />
           </button>
 
           {/* FIXED PATIENT ANCHOR BAR */}
-          <div className="flex items-center gap-3 border-l-2 border-[#0b3d62] bg-slate-50 px-3 py-1.5 text-xs">
+          <div className="flex items-center gap-3 border-l-2 border-sky-500 bg-[var(--surface-secondary)] px-3 py-1.5 text-xs rounded-r-md">
             <div className="h-2 w-2 animate-pulse rounded-full bg-[#4a785c]" />
             <div>
               <span className="text-[#6e7d71]">Today: </span>
