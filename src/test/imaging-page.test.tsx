@@ -11,6 +11,7 @@ const {
   uploadImagingResultsMock,
   deleteImagingScanMock,
   updateImagingScanApiMock,
+  orderImagingScanMock,
 } = vi.hoisted(() => ({
   addImagingScanMock: vi.fn(),
   updateImagingScanMock: vi.fn(),
@@ -19,6 +20,7 @@ const {
   uploadImagingResultsMock: vi.fn(() => Promise.resolve({})),
   deleteImagingScanMock: vi.fn(() => Promise.resolve({})),
   updateImagingScanApiMock: vi.fn(() => Promise.resolve({})),
+  orderImagingScanMock: vi.fn(() => Promise.resolve({})),
 }));
 
 let currentUser: {
@@ -92,6 +94,7 @@ vi.mock('@/lib/apiService', () => ({
       uploadImagingResults: uploadImagingResultsMock,
       deleteImagingScan: deleteImagingScanMock,
       updateImagingScan: updateImagingScanApiMock,
+      orderImagingScan: orderImagingScanMock,
     },
   },
 }));
@@ -113,6 +116,7 @@ describe('ImagingPage', () => {
     uploadImagingResultsMock.mockClear();
     deleteImagingScanMock.mockClear();
     updateImagingScanApiMock.mockClear();
+    orderImagingScanMock.mockClear();
   });
 
   it('passes the selected imaging center and clinical indication when a doctor orders a scan', async () => {

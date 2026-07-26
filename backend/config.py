@@ -1,6 +1,6 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict, PydanticBaseSettingsSource
 from pydantic import field_validator, Field, model_validator
-from typing import List
+from typing import List, Tuple, Type, Any
 import sys
 import os
 import json
@@ -30,7 +30,7 @@ def infer_database_url_default() -> str:
 def infer_frontend_url_default() -> str:
     vercel_environment = (os.environ.get("VERCEL_ENV") or "").strip().lower()
 
-    candidate_hosts: list[str] = []
+    candidate_hosts: list[str | None] = []
     if vercel_environment == "production":
         candidate_hosts.extend(
             [
@@ -90,7 +90,7 @@ def _is_local_origin(value: str | None) -> bool:
 
 def _vercel_origin_candidates() -> list[str]:
     vercel_environment = (os.environ.get("VERCEL_ENV") or "").strip().lower()
-    candidate_hosts: list[str] = []
+    candidate_hosts: list[str | None] = []
 
     if vercel_environment == "production":
         candidate_hosts.extend(
@@ -145,40 +145,13 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     COOKIE_SECURE: bool = Field(default=True, description="Use secure cookies (HTTPS only) in production")
+    JWT_EXPIRE_HOURS: int = 24
 
     # Bootstrap administrators are opt-in. Never ship default privileged credentials.
     ADMIN_EMAIL: str = ""
     ADMIN_PASSWORD: str = ""
     SUPER_ADMIN_EMAIL: str = ""
     SUPER_ADMIN_PASSWORD: str = ""
-
-    @field_validator("COOKIE_SECURE", mode="before")
-    @classmethod
-    def set_cookie_secure(cls, value):
-        if isinstance(value, bool):
-            return value
-        if isinstance(value, str):
-            normalized = value.strip().lower()
-            if normalized in {"1", "true", "yes", "on"}:
-                return True
-            if normalized in {"0", "false", "no", "off"}:
-                return False
-        return infer_environment_default().strip().lower() in {"production", "staging"}
-
-    @field_validator("ENVIRONMENT", mode="before")
-    @classmethod
-    def normalize_environment(cls, value):
-        normalized = str(value).strip().lower() if value is not None else ""
-        vercel_environment = os.environ.get("VERCEL_ENV")
-        if vercel_environment:
-            normalized_vercel_environment = vercel_environment.strip().lower()
-            if normalized_vercel_environment in {"preview", "development"}:
-                return normalized_vercel_environment
-            if normalized in {"", "development", "preview"}:
-                return normalized_vercel_environment
-        return normalized or infer_environment_default()
-
-    JWT_EXPIRE_HOURS: int = 24
 
     # CORS
     CORS_ORIGINS: List[str] = [
@@ -245,15 +218,41 @@ class Settings(BaseSettings):
         extra="allow",  # Allow extra fields from environment variables
     )
 
+    @field_validator("COOKIE_SECURE", mode="before")
+    @classmethod
+    def set_cookie_secure(cls, value: Any) -> bool:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"1", "true", "yes", "on"}:
+                return True
+            if normalized in {"0", "false", "no", "off"}:
+                return False
+        return infer_environment_default().strip().lower() in {"production", "staging"}
+
+    @field_validator("ENVIRONMENT", mode="before")
+    @classmethod
+    def normalize_environment(cls, value: Any) -> str:
+        normalized = str(value).strip().lower() if value is not None else ""
+        vercel_environment = os.environ.get("VERCEL_ENV")
+        if vercel_environment:
+            normalized_vercel_environment = vercel_environment.strip().lower()
+            if normalized_vercel_environment in {"preview", "development"}:
+                return normalized_vercel_environment
+            if normalized in {"", "development", "preview"}:
+                return normalized_vercel_environment
+        return normalized or infer_environment_default()
+
     @classmethod
     def settings_customise_sources(
         cls,
-        settings_cls,
-        init_settings,
-        env_settings,
-        dotenv_settings,
-        file_secret_settings,
-    ):
+        settings_cls: Type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> Tuple[PydanticBaseSettingsSource, ...]:
         if os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV"):
             return (
                 init_settings,
@@ -270,7 +269,7 @@ class Settings(BaseSettings):
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
-    def parse_cors_origins(cls, value):
+    def parse_cors_origins(cls, value: Any) -> List[str]:
         if isinstance(value, list):
             return value
         if value is None:
@@ -289,7 +288,7 @@ class Settings(BaseSettings):
 
     @field_validator("DEBUG", mode="before")
     @classmethod
-    def parse_debug_flag(cls, value):
+    def parse_debug_flag(cls, value: Any) -> bool:
         if isinstance(value, bool):
             return value
 
@@ -307,7 +306,7 @@ class Settings(BaseSettings):
 
     @field_validator("EXPOSE_API_DOCS", mode="before")
     @classmethod
-    def parse_docs_flag(cls, value):
+    def parse_docs_flag(cls, value: Any) -> bool:
         if isinstance(value, bool):
             return value
 
@@ -325,21 +324,21 @@ class Settings(BaseSettings):
 
     @field_validator("SECRET_KEY")
     @classmethod
-    def validate_secret_key(cls, value: str):
+    def validate_secret_key(cls, value: str) -> str:
         if not value or len(value.strip()) < 12:
             raise ValueError("SECRET_KEY must be set to a strong value")
         return value
 
     @field_validator("ENCRYPTION_KEY")
     @classmethod
-    def validate_encryption_key(cls, value: str):
+    def validate_encryption_key(cls, value: str) -> str:
         if not value or len(value.strip()) < 12:
             raise ValueError("ENCRYPTION_KEY must be set to a strong value")
         return value
 
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
-    def validate_database_url(cls, value: object):
+    def validate_database_url(cls, value: object) -> str:
         normalized = _normalize_optional_string(value)
         if normalized is None:
             fallback = infer_database_url_default()
@@ -350,7 +349,7 @@ class Settings(BaseSettings):
 
     @field_validator("FRONTEND_URL", mode="before")
     @classmethod
-    def validate_frontend_url(cls, value: object):
+    def validate_frontend_url(cls, value: object) -> str:
         normalized = _normalize_optional_string(value)
         if normalized is None:
             fallback = infer_frontend_url_default()
@@ -386,10 +385,17 @@ class Settings(BaseSettings):
             if normalized_origin and not _is_local_origin(normalized_origin):
                 return normalized_origin
 
+        # Last resort: use the known production deployment URL for this project
+        # when running in a production environment with no other hints.
+        known_production_url = _normalize_origin("https://alera-typescript.vercel.app")
+        environment = (os.environ.get("ENVIRONMENT") or "").strip().lower()
+        if environment == "production" and known_production_url:
+            return known_production_url
+
         return explicit_frontend or inferred_frontend or "http://localhost:5173"
 
     @model_validator(mode="after")
-    def validate_production_requirements(self):
+    def validate_production_requirements(self) -> 'Settings':
         self.FRONTEND_URL = self._best_frontend_origin(self.FRONTEND_URL, self.CORS_ORIGINS)
         normalized_frontend_origin = _normalize_origin(self.FRONTEND_URL)
 

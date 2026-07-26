@@ -40,14 +40,14 @@ describe('Recovery flows', () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/you@example.com/i), { target: { value: 'patient@example.com' } });
-    fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
+    fireEvent.change(screen.getByPlaceholderText(/clinician@hospital\.org/i), { target: { value: 'patient@example.com' } });
+    fireEvent.click(screen.getByRole('button', { name: /dispatch recovery token/i }));
 
     await waitFor(() => {
       expect(requestPasswordResetMock).toHaveBeenCalledWith('patient@example.com');
     });
 
-    expect(await screen.findByText(/reset link has been sent/i)).toBeInTheDocument();
+    expect(await screen.findByText(/cryptographic recovery token has been dispatched/i)).toBeInTheDocument();
   });
 
   it('submits a reset-password token exchange', async () => {
@@ -59,15 +59,15 @@ describe('Recovery flows', () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/create a new password/i), { target: { value: 'newpassword123' } });
-    fireEvent.change(screen.getByPlaceholderText(/confirm your password/i), { target: { value: 'newpassword123' } });
-    fireEvent.click(screen.getByRole('button', { name: /reset password/i }));
+    fireEvent.change(screen.getByPlaceholderText(/at least 8 characters/i), { target: { value: 'newpassword123' } });
+    fireEvent.change(screen.getByPlaceholderText(/re-enter new password key/i), { target: { value: 'newpassword123' } });
+    fireEvent.click(screen.getByRole('button', { name: /re-establish password key/i }));
 
     await waitFor(() => {
       expect(resetPasswordMock).toHaveBeenCalledWith('reset-token-123', 'newpassword123', 'newpassword123');
     });
 
-    expect(await screen.findByText(/password has been reset successfully/i)).toBeInTheDocument();
+    expect(await screen.findByText(/password key re-established/i)).toBeInTheDocument();
   });
 
   it('verifies an email token on load', async () => {
@@ -83,6 +83,6 @@ describe('Recovery flows', () => {
       expect(verifyEmailMock).toHaveBeenCalledWith('verify-token-123');
     });
 
-    expect(await screen.findByText(/email address has been verified/i)).toBeInTheDocument();
+    expect(await screen.findByText(/email coordinates verified/i)).toBeInTheDocument();
   });
 });
