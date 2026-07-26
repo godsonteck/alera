@@ -22,7 +22,7 @@
   }
 
   * {
-    @apply border-slate-800/60;
+    border-color: var(--border);
     box-sizing: border-box;
   }
 
@@ -31,7 +31,7 @@
     background: var(--surface-base);
     color: var(--text-high);
     font-family: var(--font-body);
-    selection-background-color: var(--brand-secondary);
+    transition: background-color var(--motion-normal) var(--easing-standard), color var(--motion-normal) var(--easing-standard);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -40,9 +40,56 @@
   }
 }
 
+/* Dynamic Theme Overrides for Components using Utility Classes */
+.dark,
+[data-theme="dark"],
+[data-theme="high-contrast"] {
+  /* Dynamic Surface Overrides */
+  .bg-white,
+  .bg-white\/95,
+  .bg-white\/90,
+  .bg-white\/85,
+  .bg-white\/80 {
+    background-color: var(--surface-elevated) !important;
+    color: var(--text-high) !important;
+  }
+
+  .bg-slate-50,
+  .bg-slate-100 {
+    background-color: var(--surface-secondary) !important;
+    color: var(--text-high) !important;
+  }
+
+  .bg-slate-900 {
+    background-color: var(--surface-base) !important;
+  }
+
+  /* Dynamic Text Color Overrides */
+  .text-slate-900,
+  .text-slate-800,
+  .text-\[\#223127\] {
+    color: var(--text-high) !important;
+  }
+
+  .text-slate-600,
+  .text-slate-700,
+  .text-[#4f6154],
+  .text-[#6e7d71] {
+    color: var(--text-medium) !important;
+  }
+
+  /* Dynamic Border Overrides */
+  .border-slate-200,
+  .border-slate-300,
+  .border-\[\#dfe8e0\],
+  .border-\[\#dce5dd\],
+  .border-\[\#e7efe9\] {
+    border-color: var(--border) !important;
+  }
+}
+
 @layer utilities {
-  /* Shared photographic canvas: keeps long-form and workspace pages visually grounded
-     while the translucent overlays preserve text and form contrast. */
+  /* Shared photographic canvas */
   .alera-care-backdrop {
     background-color: var(--surface-base);
     background-image:
@@ -56,23 +103,14 @@
   }
 
   .alera-dark-backdrop {
-    background-color: #06080c;
+    background-color: var(--surface-base);
     background-image:
-      linear-gradient(135deg, rgba(6, 8, 12, 0.9), rgba(6, 8, 12, 0.76) 54%, rgba(6, 8, 12, 0.94)),
-      url('/images/hero_command_center.png');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+      linear-gradient(135deg, var(--surface-base), var(--surface-secondary));
+    transition: background-color var(--motion-normal) var(--easing-standard), color var(--motion-normal) var(--easing-standard);
   }
 
   .alera-navy-backdrop {
-    background-color: #102238;
-    background-image:
-      linear-gradient(135deg, rgba(16, 34, 56, 0.82), rgba(16, 34, 56, 0.62) 54%, rgba(16, 34, 56, 0.84)),
-      url('/images/hero_medical_team.png');
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    background-color: var(--surface-nav);
   }
 
   /* ALERA DESIGN SYSTEM — UTILITY CLASSES */
@@ -96,78 +134,5 @@
     background-color: var(--surface-modal);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
-  }
-
-  .alera-panel {
-    background: var(--surface-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--elev-1);
-    transition: border-color var(--motion-fast) var(--easing-standard), box-shadow var(--motion-fast) var(--easing-standard);
-  }
-
-  .alera-panel:hover {
-    border-color: var(--text-low);
-  }
-
-  .alera-instrument-bezel {
-    background: linear-gradient(180deg, var(--surface-secondary) 0%, var(--surface-elevated) 100%);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--elev-1);
-  }
-
-  .alera-font-display {
-    font-family: var(--font-display);
-  }
-
-  .alera-font-body {
-    font-family: var(--font-body);
-  }
-
-  .alera-font-data {
-    font-family: var(--font-data);
-    letter-spacing: 0.04em;
-  }
-
-  /* Signal glow effects — semantic signals only */
-  .signal-glow-critical {
-    box-shadow: 0 0 16px color-mix(in srgb, var(--state-critical) 24%, transparent);
-  }
-
-  .signal-glow-urgent {
-    box-shadow: 0 0 16px color-mix(in srgb, var(--state-warning) 24%, transparent);
-  }
-
-  .signal-glow-stable {
-    box-shadow: 0 0 16px color-mix(in srgb, var(--state-success) 24%, transparent);
-  }
-
-  .signal-glow-accent {
-    box-shadow: 0 0 16px color-mix(in srgb, var(--brand-secondary) 24%, transparent);
-  }
-
-  /* Technical Grid Substrate */
-  .alera-grid-substrate {
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-
-  /* Custom Scrollbar — Engineered */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--surface-base);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--surface-secondary);
-    border-radius: var(--radius-sm);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--brand-secondary);
   }
 }
