@@ -132,7 +132,7 @@ const PricingSettingsPage: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-3 text-xs">
             <div>
               <label className="text-[10px] text-slate-400 uppercase block mb-1">Service Classification</label>
-              <select value={formData.serviceType} onChange={(e) => setFormData(cur => ({...cur, serviceType: e.target.value as any}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
+              <select value={formData.serviceType} onChange={(e) => setFormData(cur => ({...cur, serviceType: e.target.value as ProviderPricing['serviceType']}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
                 {serviceTypes.map((type) => <option key={type} value={type}>{type}</option>)}
               </select>
             </div>
@@ -167,7 +167,7 @@ const PricingSettingsPage: React.FC = () => {
             className="w-full h-8 pl-8 pr-3 rounded-[2px] border border-[#252A35] bg-[#090D14] text-[#ECEEF2] text-xs placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50"
           />
         </div>
-        <select value={serviceTypeFilter} onChange={(e) => setServiceTypeFilter(e.target.value as any)} className="h-8 px-2 rounded-[2px] border border-[#252A35] bg-[#090D14] text-xs text-[#ECEEF2] uppercase font-bold tracking-wider">
+        <select value={serviceTypeFilter} onChange={(e) => setServiceTypeFilter(e.target.value as 'all' | ProviderPricing['serviceType'])} className="h-8 px-2 rounded-[2px] border border-[#252A35] bg-[#090D14] text-xs text-[#ECEEF2] uppercase font-bold tracking-wider">
           <option value="all">ALL CLASSES</option>
           {serviceTypes.map((type) => <option key={type} value={type}>{type}</option>)}
         </select>

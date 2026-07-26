@@ -21,7 +21,7 @@ interface OrbitNode {
   distance: number;
   angle: number;
   metrics: string;
-  icon: any;
+  icon: React.ElementType;
 }
 
 export const CareNetworkOrbit: React.FC = () => {

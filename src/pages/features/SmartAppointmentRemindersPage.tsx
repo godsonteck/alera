@@ -33,13 +33,13 @@ export const SmartAppointmentRemindersPage: React.FC = () => {
 
   const handleSelectAppointment = (id: string) => {
     const next = new Set(selectedAppointments);
-    next.has(id) ? next.delete(id) : next.add(id);
+    if (next.has(id)) { next.delete(id); } else { next.add(id); }
     setSelectedAppointments(next);
   };
 
   const handleToggleReminder = (type: '24h' | '1h' | '15m') => {
     const next = new Set(selectedReminders);
-    next.has(type) ? next.delete(type) : next.add(type);
+    if (next.has(type)) { next.delete(type); } else { next.add(type); }
     setSelectedReminders(next);
   };
 
