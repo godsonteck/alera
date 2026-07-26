@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import 'leaflet/dist/leaflet.css';
+@import './styles/alera-tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+    background-color: var(--surface-base);
+    color: var(--text-high);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  :root {
+    --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-data: 'JetBrains Mono', monospace;
+    --radius: var(--radius-md);
+  }
+
+  * {
+    @apply border-slate-800/60;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply antialiased overflow-x-hidden;
+    background: var(--surface-base);
+    color: var(--text-high);
+    font-family: var(--font-body);
+    selection-background-color: var(--brand-secondary);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight font-semibold;
+  }
+}
+
+@layer utilities {
+  /* Shared photographic canvas: keeps long-form and workspace pages visually grounded
+     while the translucent overlays preserve text and form contrast. */
+  .alera-care-backdrop {
+    background-color: #f5f7f8;
+    background-image:
+      linear-gradient(135deg, rgba(245, 247, 248, 0.86), rgba(245, 247, 248, 0.72) 54%, rgba(245, 247, 248, 0.88)),
+      url('/images/hero_medical_team.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .alera-focus-ring:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--brand-secondary) 45%, transparent);
+    outline-offset: 3px;
+  }
+
+  .alera-dark-backdrop {
+    background-color: #06080c;
+    background-image:
+      linear-gradient(135deg, rgba(6, 8, 12, 0.9), rgba(6, 8, 12, 0.76) 54%, rgba(6, 8, 12, 0.94)),
+      url('/images/hero_command_center.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .alera-navy-backdrop {
+    background-color: #102238;
+    background-image:
+      linear-gradient(135deg, rgba(16, 34, 56, 0.82), rgba(16, 34, 56, 0.62) 54%, rgba(16, 34, 56, 0.84)),
+      url('/images/hero_medical_team.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* ALERA DESIGN SYSTEM — UTILITY CLASSES */
+  .alera-surface-ground {
+    background-color: var(--surface-base);
+  }
+
+  .alera-surface-1 {
+    background-color: var(--surface-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .alera-surface-2 {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .alera-surface-3 {
+    background-color: var(--surface-modal);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .alera-panel {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--elev-1);
+    transition: border-color var(--motion-fast) var(--easing-standard), box-shadow var(--motion-fast) var(--easing-standard);
+  }
+
+  .alera-panel:hover {
+    border-color: var(--text-low);
+  }
+
+  .alera-instrument-bezel {
+    background: linear-gradient(180deg, var(--surface-secondary) 0%, var(--surface-elevated) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--elev-1);
+  }
+
+  .alera-font-display {
+    font-family: var(--font-display);
+  }
+
+  .alera-font-body {
+    font-family: var(--font-body);
+  }
+
+  .alera-font-data {
+    font-family: var(--font-data);
+    letter-spacing: 0.04em;
+  }
+
+  /* Signal glow effects — semantic signals only */
+  .signal-glow-critical {
+    box-shadow: 0 0 16px color-mix(in srgb, var(--state-critical) 24%, transparent);
+  }
+
+  .signal-glow-urgent {
+    box-shadow: 0 0 16px color-mix(in srgb, var(--state-warning) 24%, transparent);
+  }
+
+  .signal-glow-stable {
+    box-shadow: 0 0 16px color-mix(in srgb, var(--state-success) 24%, transparent);
+  }
+
+  .signal-glow-accent {
+    box-shadow: 0 0 16px color-mix(in srgb, var(--brand-secondary) 24%, transparent);
+  }
+
+  /* Technical Grid Substrate */
+  .alera-grid-substrate {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Custom Scrollbar — Engineered */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface-base);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-secondary);
+    border-radius: var(--radius-sm);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-secondary);
+  }
+}

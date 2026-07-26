@@ -1,0 +1,27 @@
+# Vercel - ship only runtime/build inputs
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.env*
+.DS_Store
+.cursor/
+.github/
+.vscode/
+dist/
+docs/
+tests/
+backend/tests/
+src/test/
+ALERA.desktop
+DEPLOY.sh
+PRODUCTION_RUNBOOK.md
+VERCEL_SETUP.md
+playwright.config.ts
+playwright-fixture.ts
+test-health.sh
+vitest.config.ts

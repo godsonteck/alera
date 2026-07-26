@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --brand-primary: #0B3D62;
+  --brand-primary-hover: #0E4A76;
+  --brand-primary-active: #082C48;
+  --brand-secondary: #1E7F72;
+  --brand-secondary-hover: #26988A;
+
+  /* Semantic */
+  --state-success: #1B8A5A;
+  --state-warning: #B8752E;
+  --state-danger: #C0392B;
+  --state-critical: #8E1E1E;
+  --state-info: #2E6E9E;
+  --state-ai: #5B4B8A;
+
+  /* Domain accents */
+  --domain-lab: #3B6E7A;
+  --domain-radiology: #5A6B8A;
+  --domain-emergency: #8E1E1E;
+  --domain-medication: #2E7D5B;
+  --domain-appointments: #4A6FA5;
+  --domain-messaging: #3D7A8C;
+  --domain-tasks: #5A6472;
+
+  /* Workflow states */
+  --workflow-completed: #1B8A5A;
+  --workflow-pending: #8A7A4A;
+  --workflow-blocked: #8E1E1E;
+  --workflow-archived: #6B6F76;
+  --workflow-offline: #6B6F76;
+  --workflow-online: #1B8A5A;
+  --workflow-review-required: #B8752E;
+  --workflow-verified: #1E7F72;
+  --workflow-draft: #8A8F98;
+  --workflow-cancelled: #6B6F76;
+
+  /* Surfaces — light */
+  --surface-base: #F6F7F8;
+  --surface-secondary: #EEF0F2;
+  --surface-elevated: #FFFFFF;
+  --surface-floating: #FFFFFF;
+  --surface-modal: #FFFFFF;
+  --surface-nav: #0B3D62;
+  --surface-workspace: #F6F7F8;
+
+  /* Text — light */
+  --text-high: #12181E;
+  --text-medium: #4A535C;
+  --text-low: #7A8390;
+  --text-disabled: #A8AFB6;
+  --text-interactive: var(--brand-secondary);
+  --text-critical: var(--state-critical);
+  --text-ai: var(--state-ai);
+  --text-metadata: var(--text-low);
+
+  /* Tailwind-compatible aliases */
+  --background: 210 22% 96%;
+  --foreground: 213 20% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 213 20% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 213 20% 14%;
+  --primary: 206 70% 20%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 180 38% 24%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 210 18% 94%;
+  --muted-foreground: 213 18% 45%;
+  --accent: 210 18% 94%;
+  --accent-foreground: 213 20% 14%;
+  --destructive: 7 60% 46%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 18% 86%;
+  --input: 210 18% 86%;
+  --ring: 180 38% 24%;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --radius-control: 4px;
+  --radius-surface: 8px;
+  --radius-media: 12px;
+
+  /* Elevation */
+  --elev-1: 0 1px 2px rgba(16, 24, 32, 0.06);
+  --elev-2: 0 2px 8px rgba(16, 24, 32, 0.10);
+  --elev-3: 0 8px 24px rgba(16, 24, 32, 0.16);
+
+  /* Motion */
+  --motion-instant: 80ms;
+  --motion-fast: 120ms;
+  --motion-normal: 200ms;
+  --motion-deliberate: 280ms;
+  --motion-critical: 150ms;
+  --motion-background: 400ms;
+  --easing-linear: cubic-bezier(0, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-deliberate: cubic-bezier(0.25, 0, 0.1, 1);
+  --easing-critical: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces — dark */
+  --surface-base: #10161C;
+  --surface-secondary: #161D24;
+  --surface-elevated: #1B232B;
+  --surface-floating: #212A33;
+  --surface-modal: #1B232B;
+  --surface-nav: #081824;
+  --surface-workspace: #10161C;
+
+  /* Text — dark */
+  --text-high: #EAEDEF;
+  --text-medium: #AEB6BD;
+  --text-low: #7E868F;
+  --text-disabled: #565E66;
+
+  /* Tailwind-compatible aliases */
+  --background: 220 20% 8%;
+  --foreground: 210 20% 92%;
+  --card: 220 18% 11%;
+  --card-foreground: 210 20% 92%;
+  --popover: 220 18% 11%;
+  --popover-foreground: 210 20% 92%;
+  --primary: 206 70% 24%;
+  --primary-foreground: 210 20% 92%;
+  --secondary: 180 38% 24%;
+  --secondary-foreground: 210 20% 92%;
+  --muted: 220 18% 13%;
+  --muted-foreground: 213 14% 62%;
+  --accent: 220 18% 13%;
+  --accent-foreground: 210 20% 92%;
+  --destructive: 7 60% 54%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 16% 20%;
+  --input: 220 16% 20%;
+  --ring: 180 38% 36%;
+}

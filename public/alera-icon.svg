@@ -1,0 +1,38 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with rounded corners -->
+  <defs>
+    <linearGradient id="aleraGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadowFilter">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Main circular background -->
+  <circle cx="100" cy="100" r="95" fill="url(#aleraGradient)" filter="url(#shadowFilter)"/>
+  
+  <!-- White container for icon -->
+  <circle cx="100" cy="100" r="85" fill="white" opacity="0.95"/>
+  
+  <!-- Healthcare Symbol - Stylized Heartbeat with Medical Cross -->
+  <g transform="translate(100, 100)">
+    <!-- Heartbeat line (ECG wave) -->
+    <path d="M -35 0 L -20 0 L -12 -12 L -4 12 L 4 0 L 20 0" 
+          stroke="#0ea5e9" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Medical Plus Cross in the middle -->
+    <!-- Vertical line of cross -->
+    <line x1="0" y1="-18" x2="0" y2="18" stroke="#06b6d4" stroke-width="3" stroke-linecap="round"/>
+    <!-- Horizontal line of cross -->
+    <line x1="-18" y1="0" x2="18" y2="0" stroke="#06b6d4" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Decorative circles around -->
+    <circle cx="-35" cy="-15" r="2.5" fill="#0ea5e9" opacity="0.6"/>
+    <circle cx="35" cy="15" r="2.5" fill="#06b6d4" opacity="0.6"/>
+  </g>
+  
+  <!-- Border ring -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#0ea5e9" stroke-width="2" opacity="0.3"/>
+</svg>

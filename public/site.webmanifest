@@ -1,0 +1,22 @@
+{
+  "name": "ALERA Healthcare",
+  "short_name": "ALERA",
+  "description": "Connected healthcare workflows for patients, providers, diagnostics, pharmacies, hospitals, and emergency teams.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f9fc",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/alera-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/alera-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
