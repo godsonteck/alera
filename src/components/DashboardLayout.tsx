@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/useAuth';
 import { useNotifications } from '@/contexts/useNotifications';
 import NotificationCenter from '@/components/NotificationCenter';
 import ChatWidget from '@/components/ChatWidget';
+import { ThemeSelector } from '@/components/ThemeSelector';
 import { normalizeUserRole } from '@/lib/roleUtils';
 import {
   getProfessionalVerificationStatus,
@@ -291,6 +292,7 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
 
           {/* Header Controls */}
           <div className="flex items-center gap-2">
+            <ThemeSelector variant="dropdown" />
             <Link
               to="/dashboard/profile"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e7efe9] bg-[#f8fcf8] text-[#4f6154] transition-colors hover:bg-[#f3f7f2] hover:text-[#223127]"

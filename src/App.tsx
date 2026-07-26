@@ -92,11 +92,14 @@ const MaintenanceGuard = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+import { ThemeProvider } from "@/contexts/ThemeContext";
+
 const App = () => {
   try {
     return (
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
           <AuthProvider>
           <AppDataProvider>
             <NotificationProvider>
@@ -141,8 +144,9 @@ const App = () => {
               </ChatProvider>
             </NotificationProvider>
           </AppDataProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+          </AuthProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </ErrorBoundary>
     );
   } catch (error) {

@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { HeartPulse, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeSelector } from '@/components/ThemeSelector';
 import { useState } from 'react';
 
 type LinkItem = {
@@ -52,6 +53,7 @@ const MainLayout = () => {
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeSelector variant="dropdown" />
             <Button asChild variant="ghost" className="hidden rounded-md px-3 text-sm text-[#4f6154] hover:bg-slate-100 hover:text-[#223127] sm:inline-flex">
               <Link to="/login">Log in</Link>
             </Button>
