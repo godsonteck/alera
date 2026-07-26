@@ -119,7 +119,7 @@ const VehiclesPage = () => {
             </div>
             <div>
               <label className="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Classification</label>
-              <select value={newVehicle.type} onChange={(e) => setNewVehicle(cur => ({...cur, type: e.target.value as any}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
+              <select value={newVehicle.type} onChange={(e) => setNewVehicle(cur => ({...cur, type: e.target.value as AmbulanceVehicle['type']}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
                 <option value="Type-A">TYPE-A</option><option value="Type-B">TYPE-B</option><option value="Type-C">TYPE-C</option>
               </select>
             </div>
@@ -192,7 +192,7 @@ const VehiclesPage = () => {
             className="w-full h-8 pl-8 pr-3 rounded-[2px] border border-[#252A35] bg-[#090D14] text-[#ECEEF2] text-xs placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50"
           />
         </div>
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="h-8 px-2 rounded-[2px] border border-[#252A35] bg-[#090D14] text-xs text-[#ECEEF2] uppercase font-bold tracking-wider">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'callSign' | 'fuel' | 'maintenance')} className="h-8 px-2 rounded-[2px] border border-[#252A35] bg-[#090D14] text-xs text-[#ECEEF2] uppercase font-bold tracking-wider">
           <option value="callSign">SORT: ID</option><option value="fuel">SORT: FUEL</option><option value="maintenance">SORT: MAINTENANCE</option>
         </select>
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="h-8 px-2 rounded-[2px] border border-[#252A35] bg-[#090D14] text-xs text-[#ECEEF2] uppercase font-bold tracking-wider">

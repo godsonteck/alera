@@ -165,7 +165,7 @@ const UsersPage = () => {
             </div>
             <div>
               <label className="text-[10px] text-slate-400 uppercase block mb-1">Clearance Level (Role)</label>
-              <select value={formData.role} onChange={(e) => setFormData(cur => ({...cur, role: e.target.value as any}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
+              <select value={formData.role} onChange={(e) => setFormData(cur => ({...cur, role: e.target.value as UserRole}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
                 {nonElevatedRoles.map(r => <option key={r} value={r}>{roleLabels[r]}</option>)}
                 {isSuperAdmin && elevatedRoles.map(r => <option key={r} value={r}>{roleLabels[r]}</option>)}
               </select>
