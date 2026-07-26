@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
+  "framework": "vite",
   "env": {
     "VITE_APP_ENV": "production"
   },
@@ -10,23 +11,6 @@
       "excludeFiles": "{backend/tests/**,tests/**,docs/**,src/test/**,.github/**,.vscode/**,.cursor/**}"
     }
   },
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python@latest",
-      "config": {
-        "maxLambdaSize": "50mb",
-        "pythonVersion": "3.12"
-      }
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -84,7 +68,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.(js|css|png|jpg|jpeg|svg|ico|webp|woff|woff2)$",
+      "source": "/(.*)\\.js|css|png|jpg|jpeg|svg|ico|webp|woff|woff2)$",
       "headers": [
         {
           "key": "Cache-Control",
