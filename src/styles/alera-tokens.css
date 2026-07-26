@@ -131,37 +131,37 @@
   --input: 210 18% 86%;
 }
 
-/* Dark Theme */
+/* Dark Theme — Deep Rich Navy */
 .dark,
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --surface-base: #0B0F14;
-  --surface-secondary: #121820;
-  --surface-elevated: #18202A;
-  --surface-floating: #1E2835;
-  --surface-modal: #18202A;
-  --surface-nav: #08121C;
-  --surface-workspace: #0B0F14;
+  --surface-base: #06121E;
+  --surface-secondary: #0A1B2E;
+  --surface-elevated: #0F233B;
+  --surface-floating: #152E4C;
+  --surface-modal: #0F233B;
+  --surface-nav: #040B14;
+  --surface-workspace: #06121E;
 
-  --text-high: #F0F4F8;
-  --text-medium: #B0BAC5;
-  --text-low: #788594;
-  --text-disabled: #4A5664;
+  --text-high: #F0F6FC;
+  --text-medium: #8B9EB3;
+  --text-low: #5C7085;
+  --text-disabled: #3C4A5A;
 
-  --background: 220 20% 7%;
-  --foreground: 210 20% 95%;
-  --card: 220 18% 11%;
-  --card-foreground: 210 20% 95%;
-  --popover: 220 18% 11%;
-  --popover-foreground: 210 20% 95%;
-  --primary: 206 70% 30%;
+  --background: 212 66% 7%;
+  --foreground: 210 40% 96%;
+  --card: 212 55% 12%;
+  --card-foreground: 210 40% 96%;
+  --popover: 212 55% 12%;
+  --popover-foreground: 210 40% 96%;
+  --primary: 206 75% 40%;
   --primary-foreground: 0 0% 100%;
-  --muted: 220 18% 14%;
-  --muted-foreground: 213 14% 65%;
-  --border: 220 16% 22%;
-  --input: 220 16% 22%;
-  --ring: 180 38% 36%;
+  --muted: 212 45% 16%;
+  --muted-foreground: 212 25% 65%;
+  --border: 212 40% 22%;
+  --input: 212 40% 22%;
+  --ring: 206 75% 50%;
 }
 
 /* High Contrast Clinical Theme */
@@ -170,17 +170,17 @@
   color-scheme: dark;
 
   --surface-base: #000000;
-  --surface-secondary: #0A0A0A;
-  --surface-elevated: #121212;
-  --surface-floating: #1A1A1A;
-  --surface-modal: #121212;
+  --surface-secondary: #080C10;
+  --surface-elevated: #101620;
+  --surface-floating: #182030;
+  --surface-modal: #101620;
   --surface-nav: #000000;
   --surface-workspace: #000000;
 
   --text-high: #FFFFFF;
-  --text-medium: #E0E0E0;
-  --text-low: #B0B0B0;
-  --text-disabled: #707070;
+  --text-medium: #E0E8F0;
+  --text-low: #B0C0D0;
+  --text-disabled: #708090;
 
   --brand-primary: #00E5FF;
   --brand-secondary: #00FF88;
@@ -189,9 +189,9 @@
 
   --background: 0 0% 0%;
   --foreground: 0 0% 100%;
-  --card: 0 0% 7%;
+  --card: 210 50% 6%;
   --card-foreground: 0 0% 100%;
-  --popover: 0 0% 7%;
+  --popover: 210 50% 6%;
   --popover-foreground: 0 0% 100%;
   --primary: 180 100% 50%;
   --primary-foreground: 0 0% 0%;
