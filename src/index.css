@@ -40,16 +40,11 @@
   }
 }
 
-/* Dynamic Theme Overrides for Components using Utility Classes */
+/* Dynamic Theme Overrides for Standard Classes */
 .dark,
 [data-theme="dark"],
 [data-theme="high-contrast"] {
-  /* Dynamic Surface Overrides */
-  .bg-white,
-  .bg-white\/95,
-  .bg-white\/90,
-  .bg-white\/85,
-  .bg-white\/80 {
+  .bg-white {
     background-color: var(--surface-elevated) !important;
     color: var(--text-high) !important;
   }
@@ -64,26 +59,18 @@
     background-color: var(--surface-base) !important;
   }
 
-  /* Dynamic Text Color Overrides */
   .text-slate-900,
-  .text-slate-800,
-  .text-\[\#223127\] {
+  .text-slate-800 {
     color: var(--text-high) !important;
   }
 
   .text-slate-600,
-  .text-slate-700,
-  .text-[#4f6154],
-  .text-[#6e7d71] {
+  .text-slate-700 {
     color: var(--text-medium) !important;
   }
 
-  /* Dynamic Border Overrides */
   .border-slate-200,
-  .border-slate-300,
-  .border-\[\#dfe8e0\],
-  .border-\[\#dce5dd\],
-  .border-\[\#e7efe9\] {
+  .border-slate-300 {
     border-color: var(--border) !important;
   }
 }
