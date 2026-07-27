@@ -26,7 +26,7 @@ const RouteLoader = ({ label = 'Loading ALERA...', compact = false }: RouteLoade
           <div className="absolute inset-0 h-16 w-16 animate-spin rounded-full border-4 border-transparent border-t-acuity-3" />
         </div>
         <div className="space-y-2">
-          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-sidebar-foreground/60">Alera Care OS</p>
+          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-sidebar-foreground/60">Alera</p>
           <h2 className="font-display text-2xl font-bold text-sidebar-foreground">{label}</h2>
           <p className="text-xs text-sidebar-foreground/70 font-light">
             Preparing secure healthcare workflows and syncing your workspace.

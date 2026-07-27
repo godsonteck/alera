@@ -6,7 +6,7 @@ interface MaintenancePageProps {
 }
 
 const MaintenancePage: React.FC<MaintenancePageProps> = ({ 
-  message = "ALERA Care OS is currently undergoing scheduled node updates to optimize clinical telemetry. System access will resume shortly." 
+  message = "Alera is currently undergoing scheduled node updates to optimize clinical telemetry. System access will resume shortly." 
 }) => {
   return (
     <div className="alera-dark-backdrop min-h-screen text-foreground flex items-center justify-center p-6 font-body">
@@ -55,7 +55,7 @@ const MaintenancePage: React.FC<MaintenancePageProps> = ({
         
         <div className="mt-8 pt-6 border-t border-border">
           <p className="text-[10px] font-mono text-ink-soft uppercase tracking-wider">
-            &copy; {new Date().getFullYear()} ALERA Care OS Infrastructure
+            &copy; {new Date().getFullYear()} Alera Healthcare Infrastructure
           </p>
         </div>
       </div>
