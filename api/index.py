@@ -53,7 +53,10 @@ class LazyBackendApp:
                 return self._app
 
             try:
+                from database import init_db
                 from main import app as imported_app
+
+                init_db()
 
                 if imported_app is None:
                     raise RuntimeError("FastAPI app is None")
