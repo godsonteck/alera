@@ -48,32 +48,36 @@ AUDIT_STATUS_SEVERITY_MAP = {
 # Database engine configuration
 engine_kwargs = {
     "echo": settings.DATABASE_ECHO,
-    "pool_pre_ping": True,
+    # pool_pre_ping is incompatible with StaticPool (SQLite), added per-dialect below
 }
 
 # Use appropriate pool settings based on database type
 if database_url.startswith("sqlite"):
     # SQLite: StaticPool is required for in-memory or shared SQLite connections in threads
+    # NOTE: pool_pre_ping is NOT compatible with StaticPool
     engine_kwargs["poolclass"] = StaticPool
     engine_kwargs["connect_args"] = {"check_same_thread": False}
 elif database_url.startswith("postgresql"):
     # PostgreSQL: For 100k users, we need robust pooling unless we use an external proxy (PgBouncer).
-    # We default to QueuePool with reasonable defaults for high-concurrency.
+    # pool_pre_ping keeps connections alive and detects stale connections.
+    engine_kwargs["pool_pre_ping"] = True
     if os.environ.get("DB_POOL_DISABLED") == "true" or os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV"):
         from sqlalchemy.pool import NullPool
         engine_kwargs["poolclass"] = NullPool
+        engine_kwargs.pop("pool_pre_ping", None)  # NullPool doesn't need pre-ping
     else:
         # Default to QueuePool (implicit when poolclass is not set)
         engine_kwargs["pool_size"] = int(os.environ.get("DB_POOL_SIZE", "20"))
         engine_kwargs["max_overflow"] = int(os.environ.get("DB_MAX_OVERFLOW", "10"))
         engine_kwargs["pool_timeout"] = 30
-        engine_kwargs["pool_recycle"] = 1800 # 30 mins
-        
+        engine_kwargs["pool_recycle"] = 1800  # 30 mins
+
     engine_kwargs["connect_args"] = {
         "connect_timeout": max(1, int(os.environ.get("DATABASE_CONNECT_TIMEOUT_SECONDS", "10"))),
     }
 else:
     # Default: Use NullPool for safety if unknown, but allow pooling in production
+    engine_kwargs["pool_pre_ping"] = True
     if settings.ENVIRONMENT == "production":
         engine_kwargs["pool_size"] = 10
 
@@ -548,13 +552,24 @@ def _patch_postgres_enum_values():
     if not str(database_url).startswith("postgresql"):
         return
 
+    # Use raw SQL instead of inspect(engine).get_enums() which was removed in SQLAlchemy 2.x
     try:
-        enum_specs = inspect(engine).get_enums(schema="public")
+        with engine.connect() as conn:
+            result = conn.execute(text("""
+                SELECT t.typname AS name,
+                       array_agg(e.enumlabel ORDER BY e.enumsortorder) AS labels
+                FROM pg_type t
+                JOIN pg_enum e ON t.oid = e.enumtypid
+                JOIN pg_namespace n ON t.typnamespace = n.oid
+                WHERE n.nspname = 'public'
+                GROUP BY t.typname
+            """))
+            enum_specs = result.fetchall()
     except Exception as e:
         print(f"WARNING: Could not inspect PostgreSQL enums: {e}")
         return
 
-    existing_enums = {enum["name"]: list(enum.get("labels") or []) for enum in enum_specs}
+    existing_enums = {row[0]: list(row[1]) for row in enum_specs if row[1]}
     desired_enums = _collect_sqlalchemy_enum_specs()
 
     rename_count = 0
@@ -567,16 +582,16 @@ def _patch_postgres_enum_values():
                     continue
 
                 for old_label, new_label in enum_value_renames(current_labels, desired_labels):
-                    conn.exec_driver_sql(
-                        f'ALTER TYPE "{type_name}" RENAME VALUE {old_label!r} TO {new_label!r}'
+                    conn.execute(
+                        text(f'ALTER TYPE "{type_name}" RENAME VALUE :{"old"} TO :{"new"}'.replace(':old', f"'{old_label}'").replace(':new', f"'{new_label}'"))
                     )
                     rename_count += 1
 
                 rename_map = dict(enum_value_renames(current_labels, desired_labels))
                 normalized_labels = [rename_map.get(label, label) for label in current_labels]
                 for missing_label in _missing_postgres_enum_labels(normalized_labels, desired_labels):
-                    conn.exec_driver_sql(
-                        f'ALTER TYPE "{type_name}" ADD VALUE IF NOT EXISTS {missing_label!r}'
+                    conn.execute(
+                        text(f"ALTER TYPE \"{type_name}\" ADD VALUE IF NOT EXISTS '{missing_label}'")
                     )
                     add_count += 1
     except Exception as e:
