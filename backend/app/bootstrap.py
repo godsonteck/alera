@@ -49,6 +49,74 @@ from app.models.system import SystemSettings
 
 logger = logging.getLogger(__name__)
 
+REQUIRED_PRODUCTION_SECRETS = [
+    "SECRET_KEY",
+    "ENCRYPTION_KEY",
+    "DATABASE_URL",
+    "REDIS_URL",
+    "ADMIN_EMAIL",
+    "ADMIN_PASSWORD",
+    "SUPER_ADMIN_EMAIL",
+    "SUPER_ADMIN_PASSWORD",
+]
+
+REQUIRED_OAUTH_SECRETS = [
+    "GOOGLE_CLIENT_ID",
+]
+
+OPTIONAL_PRODUCTION_SECRETS = [
+    "APPLE_CLIENT_ID",
+    "RESEND_API_KEY",
+    "SENDGRID_API_KEY",
+    "TWILIO_ACCOUNT_SID",
+    "TWILIO_AUTH_TOKEN",
+    "TWILIO_PHONE_NUMBER",
+    "AGORA_APP_ID",
+    "AGORA_APP_CERTIFICATE",
+]
+
+
+def validate_environment() -> None:
+    """Validate required environment variables for production deployment."""
+    if settings.ENVIRONMENT != "production":
+        logger.info("Skipping production environment validation (ENVIRONMENT=%s)", settings.ENVIRONMENT)
+        return
+
+    missing_required = []
+    missing_oauth = []
+    placeholder_secrets = []
+
+    for secret in REQUIRED_PRODUCTION_SECRETS:
+        value = getattr(settings, secret, "")
+        if not value or not value.strip():
+            missing_required.append(secret)
+        elif value in {"dev-secret-key-change-me", "dev-encryption-key-change-me"}:
+            placeholder_secrets.append(secret)
+
+    for secret in REQUIRED_OAUTH_SECRETS:
+        value = getattr(settings, secret, "")
+        if not value or not value.strip():
+            missing_oauth.append(secret)
+
+    if settings.DATABASE_URL.startswith("sqlite"):
+        missing_required.append("DATABASE_URL (must not be SQLite in production)")
+
+    errors = []
+    if missing_required:
+        errors.append(f"Missing required production secrets: {', '.join(missing_required)}")
+    if missing_oauth:
+        errors.append(f"Missing required OAuth configuration: {', '.join(missing_oauth)}")
+    if placeholder_secrets:
+        errors.append(f"Placeholder secrets detected (must be changed): {', '.join(placeholder_secrets)}")
+
+    if errors:
+        error_msg = "Production environment validation failed:\n" + "\n".join(f"  - {e}" for e in errors)
+        logger.error(error_msg)
+        raise RuntimeError(error_msg)
+
+    logger.info("✓ Production environment validation passed")
+
+
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 CSRF_EXEMPT_PATHS = {
     "/api",
@@ -127,6 +195,9 @@ def request_origin_is_trusted(request: Request) -> bool:
 
 async def initialize_application_state(app: FastAPI) -> None:
     try:
+        # Validate production environment configuration first
+        validate_environment()
+
         # In production environments with horizontal scaling, we often want to 
         # run migrations as a separate deployment step rather than on every 
         # application startup to avoid race conditions and slow startup times.
@@ -142,7 +213,7 @@ async def initialize_application_state(app: FastAPI) -> None:
     except Exception as exc:
         app.state.startup_complete = False
         app.state.startup_error = str(exc)
-        logger.error(f"Error during startup database initialization: {exc}", exc_info=True)
+        logger.error(f"Error during startup: {exc}", exc_info=True)
 
 
 def database_ready() -> tuple[bool, str]:
