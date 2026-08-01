@@ -88,7 +88,7 @@ apiClient.interceptors.response.use(
     }
 
     const requestUrl = originalRequest.url || '';
-    const isLoginOrRegisterRequest = requestUrl.includes('/auth/login') || requestUrl.includes('/auth/register');
+    const isLoginOrRegisterRequest = requestUrl.includes('/auth/login') || requestUrl.includes('/auth/register') || requestUrl.includes('/auth/oauth');
     const isRefreshRequest = requestUrl.includes('/auth/refresh');
     const isLogoutRequest = requestUrl.includes('/auth/logout');
 
