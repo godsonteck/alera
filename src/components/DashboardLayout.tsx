@@ -267,27 +267,21 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
 
       {/* Main Console Deck */}
       <div className="flex-1 lg:ml-64 flex flex-col min-h-screen bg-[var(--surface-base)] text-[var(--text-high)] transition-colors">
-        {/* Top Control Header with FIXED PATIENT ANCHOR BAR */}
+        {/* Top navigation header */}
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-700/30 bg-[var(--surface-elevated)]/90 px-4 backdrop-blur-md transition-colors sm:px-6">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[var(--text-medium)] hover:text-[var(--text-high)]">
             <Menu className="w-5 h-5" />
           </button>
 
-          {/* FIXED PATIENT ANCHOR BAR */}
+          {/* Care workspace status */}
           <div className="flex items-center gap-3 border-l-2 border-sky-500 bg-[var(--surface-secondary)] px-3 py-1.5 text-xs rounded-r-md">
             <div className="h-2 w-2 animate-pulse rounded-full bg-[#4a785c]" />
             <div>
-              <span className="text-[#6e7d71]">Today: </span>
-              <span className="font-semibold text-[#223127]">Eleanor Vance</span>
+              <span className="font-semibold text-[#223127]">Care workspace</span>
             </div>
             <span className="border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#0b3d62]">
-              Care update
+              Ready
             </span>
-            <div className="hidden md:flex items-center gap-2 border-l border-[#e7efe9] pl-3 text-[11px] text-[#6e7d71]">
-              <span>HR <strong className="text-[#223127]">118</strong></span>
-              <span>SpO2 <strong className="text-[#223127]">91%</strong></span>
-              <span>eGFR <strong className="text-[#223127]">28</strong></span>
-            </div>
           </div>
 
           {/* Header Controls */}

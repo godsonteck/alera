@@ -287,7 +287,7 @@ const Signup = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Dr. Eleanor Vance"
+                  placeholder="Jane Doe"
                   disabled={isGoogleSignup}
                   className="w-full rounded-2xl border border-[#dfe8e0] bg-[#f8fcf8] px-3 py-2.5 text-[#223127] outline-none transition focus:border-[#4a785c]"
                   required

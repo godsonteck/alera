@@ -21,7 +21,7 @@ export const EmergencyLockdownOverlay: React.FC<EmergencyLockdownProps> = ({
   isOpen,
   onClose,
   bedNumber = "ICU-14",
-  patientName = "Eleanor Vance (#89201)"
+  patientName = "Patient not specified"
 }) => {
   const [cprSeconds, setCprSeconds] = useState(142); // 2 min 22 sec CPR cycle
   const [activeInterventions, setActiveInterventions] = useState<string[]>([

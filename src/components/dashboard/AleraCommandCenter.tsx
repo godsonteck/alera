@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
   Activity,
   AlertTriangle,
@@ -21,23 +20,15 @@ import {
   Radio,
   ScanLine,
   ShieldCheck,
-  Sparkles,
   Stethoscope,
   TestTube2,
   Users,
   Video,
   Database,
-  Terminal,
-  ActivitySquare
+  Terminal
 } from 'lucide-react';
 import { useAuth } from '@/contexts/useAuth';
 import { useAppData } from '@/contexts/useAppData';
-import { DiagnosticStream } from '@/components/DiagnosticStream';
-import { PatientGenomeTimeline } from '@/components/PatientGenomeTimeline';
-import { ClinicalRadar } from '@/components/ClinicalRadar';
-import { PredictiveInsightLayer } from '@/components/PredictiveInsightLayer';
-import { CareNetworkOrbit } from '@/components/CareNetworkOrbit';
-import { SynchronousCareContinuum } from '@/components/canvas/SynchronousCareContinuum';
 import { normalizeUserRole } from '@/lib/roleUtils';
 import { getVisibleReferrals } from '@/lib/referralUtils';
 import type { Appointment, Referral } from '@/data/mockData';
@@ -206,8 +197,6 @@ const DashboardShell = ({
 
   return (
     <div className="space-y-6 text-[#ECEEF2] font-mono">
-      <SynchronousCareContinuum />
-
       {/* Workspace header */}
       <div className="relative overflow-hidden rounded-[4px] border border-[#252A35] bg-[#090D14] p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -259,29 +248,6 @@ const DashboardShell = ({
           </Link>
         ))}
       </section>
-
-      {/* Interactive Clinical Stream Modules */}
-      <div className="space-y-6">
-        {role === 'patient' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            <div className="lg:col-span-8">
-              <PatientGenomeTimeline />
-            </div>
-            <div className="lg:col-span-4">
-              <PredictiveInsightLayer />
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            <div className="lg:col-span-6">
-              <ClinicalRadar />
-            </div>
-            <div className="lg:col-span-6">
-              <PredictiveInsightLayer />
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* Task Queue and Actions */}
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
