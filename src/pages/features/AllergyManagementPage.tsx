@@ -225,7 +225,7 @@ const AllergyManagementPage = () => {
             disabled={!formData.allergen || !formData.reaction || (effectiveRole === 'doctor' && !formData.patientId)}
             className="w-full bg-[#151922] hover:bg-slate-800 border border-red-500/60 text-red-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs disabled:opacity-30"
           >
-            COMMIT ALLERGEN TO REGISTRY
+            Save allergy
           </button>
         </div>
       )}

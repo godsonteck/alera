@@ -65,7 +65,7 @@ const ClinicalNotesPage = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">SOAP Clinical Documentation Node</span>
+            <span className="text-lg font-bold text-[#0b3d62]">Clinical notes</span>
             <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
               {sortedNotes.length} NOTES
             </span>
@@ -128,7 +128,7 @@ const ClinicalNotesPage = () => {
             disabled={!formData.subjective || !formData.objective || !formData.assessment || !formData.plan}
             className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs disabled:opacity-30"
           >
-            COMMIT SOAP NOTE AS DRAFT
+            Save draft
           </button>
         </div>
       )}

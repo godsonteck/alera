@@ -179,7 +179,7 @@ const PrescriptionsPage = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Pharmacological Regimes Node</span>
+            <span className="text-lg font-bold text-[#0b3d62]">Prescriptions</span>
             <span className="text-[10px] bg-purple-950 text-purple-300 border border-purple-800 px-1.5 py-0.2 rounded font-mono">
               {filteredPrescriptions.length} REGIMES ACTIVE
             </span>
@@ -332,7 +332,7 @@ const PrescriptionsPage = () => {
             disabled={submitting}
             className="w-full bg-[#151922] hover:bg-slate-800 border border-purple-500/60 text-purple-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs"
           >
-            {submitting ? 'COMMITTING PRESCRIPTION...' : 'COMMIT E-PRESCRIPTION'}
+            {submitting ? 'Saving prescription...' : 'Save prescription'}
           </button>
         </div>
       )}

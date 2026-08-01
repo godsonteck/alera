@@ -89,12 +89,12 @@ const InventoryPage = () => {
     });
     setNewItem({ name: '', category: 'medication', stock: 0, reorderLevel: 10, price: 0, unit: 'packs', expiryDate: '', supplier: '' });
     setShowCreate(false);
-    toast({ title: 'Item logged', description: `${newItem.name.trim()} committed to active inventory.` });
+    toast({ title: 'Item saved', description: `${newItem.name.trim()} was added to inventory.` });
   };
 
   const handleExportCsv = () => {
     if (filtered.length === 0) {
-      toast({ title: 'Export fault', description: 'No telemetry to export.', variant: 'destructive' });
+      toast({ title: 'Nothing to export', description: 'No inventory data is available.', variant: 'destructive' });
       return;
     }
     const rows = filtered.map(item => [item.name, item.category, item.stock, item.unit, item.reorderLevel, item.price.toFixed(2), (item.stock * item.price).toFixed(2), item.status, item.expiryDate ?? '', item.supplier ?? '']);
@@ -106,7 +106,7 @@ const InventoryPage = () => {
     link.download = `inventory-${new Date().toISOString().slice(0, 10)}.csv`;
     link.click();
     URL.revokeObjectURL(url);
-    toast({ title: 'Export secure', description: 'Inventory telemetry saved as CSV.' });
+    toast({ title: 'Export ready', description: 'Inventory saved as CSV.' });
   };
 
   const categoryIcons = { medication: <Pill className="w-3 h-3" />, supply: <Package className="w-3 h-3" />, equipment: <Zap className="w-3 h-3" /> };
@@ -116,7 +116,7 @@ const InventoryPage = () => {
       <div className="p-8 bg-[#090D14] border border-red-600/60 rounded-[4px] text-center font-mono text-xs text-red-400 space-y-2">
         <AlertTriangle className="w-8 h-8 mx-auto text-red-500" />
         <div className="font-bold uppercase">ACCESS DENIED</div>
-        <p className="text-slate-500">Only authorized Pharmacy nodes may access inventory telemetry.</p>
+        <p className="text-slate-500">Only authorized pharmacy accounts can access inventory.</p>
       </div>
     );
   }
@@ -177,7 +177,7 @@ const InventoryPage = () => {
               <input type="number" step="0.01" value={newItem.price} onChange={(e) => setNewItem({ ...newItem, price: Number(e.target.value) })} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] font-mono" />
             </div>
             <div>
-              <label className="text-[10px] text-slate-400 uppercase block mb-1">Expiration Vector</label>
+              <label className="text-[10px] text-slate-400 uppercase block mb-1">Expiry date</label>
               <input type="date" value={newItem.expiryDate} onChange={(e) => setNewItem({ ...newItem, expiryDate: e.target.value })} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] font-mono" />
             </div>
             <div className="md:col-span-2">
@@ -186,7 +186,7 @@ const InventoryPage = () => {
             </div>
           </div>
           <button onClick={handleCreateItem} className="w-full bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-600/60 text-emerald-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs">
-            COMMIT LOG ENTRY
+            Save item
           </button>
         </div>
       )}

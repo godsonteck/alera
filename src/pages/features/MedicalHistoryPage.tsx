@@ -28,7 +28,7 @@ const getErrorMessage = (error: unknown) => {
     if (typeof response?.data?.detail === 'string') return response.data.detail;
   }
   if (error instanceof Error) return error.message;
-  return 'Telemetry failure: Unable to synchronize matrix.';
+  return 'Unable to load medical history.';
 };
 
 const timelineMeta = (source: string) => {
@@ -53,7 +53,7 @@ const SummaryCard = ({ label, value, helper, icon: Icon }: { label: string; valu
 );
 
 const UnifiedTimeline = ({ entries }: { entries: SynchronizedHistoryTimelineEntry[] }) => {
-  if (entries.length === 0) return <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[2px] text-xs text-slate-500 font-mono uppercase">NO TELEMETRY RECORDED.</div>;
+  if (entries.length === 0) return <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[2px] text-xs text-slate-500">No history recorded yet.</div>;
 
   return (
     <div className="space-y-0 border-l border-[#252A35] ml-4 pl-4 py-2 relative">
@@ -225,9 +225,9 @@ const MedicalHistoryPage = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Unified Medical Matrix</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Medical history</span>
           <p className="text-[11px] text-slate-400 mt-0.5">
-            {isPatientView ? 'Synchronized telemetry across clinical providers.' : 'Global patient ledger access.'}
+            {isPatientView ? 'Your shared medical record.' : 'Review the patient medical record.'}
           </p>
         </div>
         {isPatientView && (
@@ -239,10 +239,10 @@ const MedicalHistoryPage = () => {
 
       {showForm && isPatientView && (
         <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-4">
-          <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">LOCAL TELEMETRY INJECTION</span>
+          <span className="text-base font-semibold text-[#0b3d62] block border-b border-[#252A35] pb-2">Add history item</span>
           <div className="grid md:grid-cols-2 gap-3 text-xs">
             <div>
-              <label className="text-[10px] text-slate-400 uppercase block mb-1">DATA VECTOR</label>
+              <label className="text-[10px] text-slate-500 block mb-1">Record type</label>
               <select value={formType} onChange={(e) => setFormType(e.target.value as RecordFormType)} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
                 <option value="condition">CLINICAL CONDITION</option><option value="surgery">SURGICAL INTERVENTION</option><option value="family">GENETIC HISTORY</option><option value="vaccination">IMMUNIZATION</option>
               </select>
@@ -289,7 +289,7 @@ const MedicalHistoryPage = () => {
             {formType === 'family' && (
               <>
                 <div>
-                  <label className="text-[10px] text-slate-400 uppercase block mb-1">VECTOR RELATION *</label>
+                  <label className="text-[10px] text-slate-500 block mb-1">Related provider *</label>
                   <select value={formData.relation} onChange={e => setFormData({ ...formData, relation: e.target.value })} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] uppercase">
                     <option value="">SELECT...</option><option value="mother">MOTHER</option><option value="father">FATHER</option><option value="sibling">SIBLING</option><option value="grandparent">GRANDPARENT</option>
                   </select>
@@ -316,7 +316,7 @@ const MedicalHistoryPage = () => {
           </div>
           <div className="flex gap-2">
             <button onClick={() => setShowForm(false)} className="flex-1 bg-[#151922] border border-[#2F3542] text-slate-300 font-bold py-2 rounded-[2px] uppercase text-xs">CANCEL</button>
-            <button onClick={handleAddHistoryItem} disabled={!formData.name} className="flex-1 bg-cyan-950/40 border border-cyan-600/60 text-cyan-400 font-bold py-2 rounded-[2px] uppercase text-xs disabled:opacity-50">COMMIT TO LEDGER</button>
+            <button onClick={handleAddHistoryItem} disabled={!formData.name} className="flex-1 bg-cyan-950/40 border border-cyan-600/60 text-cyan-400 font-bold py-2 rounded-[2px] uppercase text-xs disabled:opacity-50">Save history item</button>
           </div>
         </div>
       )}
@@ -346,13 +346,13 @@ const MedicalHistoryPage = () => {
 
       {isLoadingSyncedHistory ? (
         <div className="p-12 text-center text-xs text-slate-500 font-mono uppercase border border-[#252A35] rounded-[2px] bg-[#090D14] animate-pulse">
-          ESTABLISHING SECURE LINK... SYNCHRONIZING MATRIX DATA...
+          Loading medical history...
         </div>
       ) : syncedHistory ? (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <SummaryCard label="EVENTS" value={syncedHistory.counts.appointments} helper="CLINICAL ENCOUNTERS" icon={Calendar} />
-            <SummaryCard label="RX" value={syncedHistory.counts.prescriptions} helper="MEDICATION VECTORS" icon={Pill} />
+            <SummaryCard label="Prescriptions" value={syncedHistory.counts.prescriptions} helper="Active medications" icon={Pill} />
             <SummaryCard label="DIAGNOSTICS" value={syncedHistory.counts.lab_tests + syncedHistory.counts.imaging_scans} helper="LAB/IMAGING RESULTS" icon={FlaskConical} />
             <SummaryCard label="DOCS" value={unifiedRecord?.document_count ?? unifiedDocuments.length} helper="ATTACHED FILES" icon={FileText} />
           </div>
@@ -363,10 +363,10 @@ const MedicalHistoryPage = () => {
               <div className="flex flex-wrap gap-2">
                 <span className="px-1.5 py-0.5 bg-[#151922] border border-[#2F3542] text-slate-300 text-[9px] font-bold uppercase rounded-[2px]">CLEARANCE: {syncedHistory.access_scope}</span>
                 <span className={`px-1.5 py-0.5 border text-[9px] font-bold uppercase rounded-[2px] ${syncedHistory.has_shared_history_consent ? 'bg-emerald-950/40 border-emerald-600/60 text-emerald-400' : 'bg-red-950/40 border-red-600/60 text-red-400'}`}>CONSENT: {syncedHistory.has_shared_history_consent ? 'ACTIVE' : 'REVOKED'}</span>
-                <span className="px-1.5 py-0.5 bg-[#151922] border border-[#2F3542] text-slate-300 text-[9px] font-bold uppercase rounded-[2px]">NODES: {activeGrantedPermissions.length}</span>
+                <span className="px-1.5 py-0.5 bg-[#151922] border border-[#2F3542] text-slate-300 text-[9px] font-bold uppercase rounded-[2px]">Providers: {activeGrantedPermissions.length}</span>
               </div>
               <div className="text-[10px] text-slate-500 leading-relaxed uppercase">
-                TELEMETRY IS RESTRICTED BY CRYPTOGRAPHIC CONSENT PROTOCOLS.
+                Your record is shared only with providers you have approved.
               </div>
               {!isPatientView && currentOrganization && (
                 currentOrgPermission ? (
@@ -375,14 +375,14 @@ const MedicalHistoryPage = () => {
                   </div>
                 ) : (
                   <button onClick={handleRequestAccess} disabled={permissionActionLoading === 'request'} className="w-full bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-600/60 text-cyan-400 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-[10px] disabled:opacity-50">
-                    {permissionActionLoading === 'request' ? 'TRANSMITTING REQUEST...' : 'REQUEST NODE ACCESS'}
+                    {permissionActionLoading === 'request' ? 'Sending request...' : 'Request access'}
                   </button>
                 )
               )}
             </div>
 
             <div className="bg-[#090D14] border border-[#252A35] rounded-[4px] p-4 flex flex-col gap-4">
-              <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2 flex items-center gap-2"><Building2 className="w-4 h-4" /> LINKED NODES</span>
+              <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2 flex items-center gap-2"><Building2 className="w-4 h-4" /> Connected providers</span>
               <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
                 {syncedHistory.interacting_organizations.length > 0 ? (
                   syncedHistory.interacting_organizations.map((participant) => (
@@ -392,7 +392,7 @@ const MedicalHistoryPage = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="text-[10px] text-slate-500 uppercase">NO LINKED NODES DETECTED.</div>
+                  <div className="text-[10px] text-slate-500">No connected providers yet.</div>
                 )}
               </div>
             </div>
@@ -435,7 +435,7 @@ const MedicalHistoryPage = () => {
                       unifiedConditions.map((condition) => (
                         <div key={String(condition.id ?? condition.condition_name)} className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px]">
                           <div className="flex items-start justify-between mb-2">
-                            <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{String(condition.condition_name ?? 'UNKNOWN VECTOR')}</div>
+                            <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{String(condition.condition_name ?? 'Unknown condition')}</div>
                             {condition.status && <span className="px-1.5 py-0.5 bg-[#151922] border border-[#2F3542] text-slate-300 text-[9px] font-bold uppercase rounded-[2px]">{String(condition.status)}</span>}
                           </div>
                           <div className="text-[9px] text-slate-500 font-mono uppercase mb-2">ONSET: {formatDate(typeof condition.onset_date === 'string' ? condition.onset_date : null)}</div>
@@ -443,7 +443,7 @@ const MedicalHistoryPage = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="col-span-full p-8 text-center text-xs text-slate-500 font-mono uppercase border border-[#252A35] rounded-[2px]">NO CONDITIONS LOGGED IN MATRIX.</div>
+                      <div className="col-span-full p-8 text-center text-xs text-slate-500 border border-[#252A35] rounded-[2px]">No conditions recorded.</div>
                     )}
                   </div>
                 </div>
@@ -468,7 +468,7 @@ const MedicalHistoryPage = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="col-span-full p-8 text-center text-xs text-slate-500 font-mono uppercase border border-[#252A35] rounded-[2px]">NO RX VECTORS LOGGED.</div>
+                      <div className="col-span-full p-8 text-center text-xs text-slate-500 border border-[#252A35] rounded-[2px]">No prescriptions recorded.</div>
                     )}
                   </div>
                 </div>
@@ -558,7 +558,7 @@ const MedicalHistoryPage = () => {
                             <div key={permission.id} className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px]">
                               <div className="flex items-start justify-between">
                                 <div>
-                                  <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{org?.name ?? `NODE ${permission.organization_id}`}</div>
+                                  <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{org?.name ?? `Provider ${permission.organization_id}`}</div>
                                   <div className="text-[9px] text-slate-500 uppercase mt-1 font-mono">SCOPE: {permission.scope.join(', ') || 'FULL'} | GRANTED: {formatDate(permission.granted_at)}</div>
                                 </div>
                                 <div className="flex flex-col gap-2 items-end">
@@ -587,7 +587,7 @@ const MedicalHistoryPage = () => {
                           const org = unifiedRecord?.organization_access.find((item) => item.id === permission.organization_id);
                           return (
                             <div key={permission.id} className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px]">
-                              <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{org?.name ?? `NODE ${permission.organization_id}`}</div>
+                              <div className="text-[11px] font-bold text-[#ECEEF2] uppercase">{org?.name ?? `Provider ${permission.organization_id}`}</div>
                               <div className="text-[9px] text-slate-500 uppercase mt-1 font-mono mb-3">REQ: {formatDate(permission.requested_at)}</div>
                               <div className="flex gap-2">
                                 {isPatientView ? (
@@ -612,7 +612,7 @@ const MedicalHistoryPage = () => {
 
               {activeTab === 'personal' && isPatientView && (
                 <div className="space-y-4">
-                  <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2 mb-4">LOCAL TELEMETRY</span>
+                  <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2 mb-4">Personal records</span>
                   {!userMedicalHistory ? (
                     <div className="p-8 text-center text-xs text-slate-500 font-mono uppercase border border-[#252A35] rounded-[2px]">NO LOCAL DATA INJECTED YET.</div>
                   ) : (

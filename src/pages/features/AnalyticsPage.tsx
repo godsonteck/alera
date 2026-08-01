@@ -97,7 +97,7 @@ const AnalyticsPage = () => {
 
   if (!isAdmin && !isDoctor) {
     return (
-      <div className="space-y-4 font-mono text-[#ECEEF2]">
+      <div className="alera-feature space-y-4 text-slate-700">
         <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
           <span className="text-xs font-bold tracking-wider text-[#ECEEF2]">Your care summary</span>
           <p className="text-[11px] text-slate-400 mt-0.5">A clear overview of appointments, prescriptions, and results.</p>
@@ -213,7 +213,7 @@ const AnalyticsPage = () => {
       ];
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <span className="text-xs font-bold tracking-wider text-[#ECEEF2]">Analytics</span>
@@ -281,7 +281,7 @@ const AnalyticsPage = () => {
             <div className="space-y-1">
               {[
                 { label: 'LABS RESOLVED', value: stats.labTestsCompleted, max: stats.totalLabTests, color: 'bg-emerald-500/60' },
-                { label: 'DICOM RESOLVED', value: stats.imagingScansCompleted, max: stats.totalImagingScans, color: 'bg-amber-500/60' },
+                { label: 'Scan reports ready', value: stats.imagingScansCompleted, max: stats.totalImagingScans, color: 'bg-amber-500/60' },
                 { label: 'RX DISPENSED', value: stats.prescriptionsDispensed, max: stats.totalPrescriptions, color: 'bg-purple-500/60' },
               ].map((item, i) => (
                 <div key={i} className="p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]">
@@ -336,7 +336,7 @@ const AnalyticsPage = () => {
                   <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]"><span className="text-slate-400 uppercase">APPOINTMENTS</span><span className="font-bold font-mono text-cyan-400">{stats.totalAppointments}</span></div>
                   <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]"><span className="text-slate-400 uppercase">ACTIVE RX</span><span className="font-bold font-mono text-purple-400">{stats.prescriptionsActive}</span></div>
                   <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]"><span className="text-slate-400 uppercase">PENDING LABS</span><span className="font-bold font-mono text-emerald-400">{stats.labTestsPending}</span></div>
-                  <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]"><span className="text-slate-400 uppercase">PENDING DICOM</span><span className="font-bold font-mono text-amber-400">{stats.imagingScansPending}</span></div>
+                  <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px]"><span className="text-slate-400 uppercase">Pending scans</span><span className="font-bold font-mono text-amber-400">{stats.imagingScansPending}</span></div>
                 </>
               )}
             </div>

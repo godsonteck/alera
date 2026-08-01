@@ -82,7 +82,7 @@ const PatientProblemListPage = () => {
           </div>
           
           <button onClick={handleAddProblem} disabled={!formData.problem} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs disabled:opacity-30">
-            COMMIT CONDITION TO LEDGER
+            Save condition
           </button>
         </div>
       )}

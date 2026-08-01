@@ -55,12 +55,12 @@ const CreateAdminPage = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature max-w-2xl mx-auto space-y-4 text-slate-700">
       {/* Header */}
       <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-red-400" />
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Admin Credential Provisioning</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Create admin</span>
         </div>
         <p className="text-[11px] text-slate-400 mt-0.5">Create new admin or super admin accounts with elevated system access.</p>
       </div>
@@ -102,7 +102,7 @@ const CreateAdminPage = () => {
             className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] text-xs"
           >
             <option value="admin">Admin (Limited Management)</option>
-            <option value="super_admin">Super Admin (Full System Control)</option>
+            <option value="super_admin">Super admin (full access)</option>
           </select>
         </div>
 

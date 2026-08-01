@@ -117,18 +117,18 @@ const TimelinePage = () => {
   }
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header Bar */}
       <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Temporal Clinical Continuum</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Care timeline</span>
           <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
             {filteredEvents.length} EVENTS RECORDED
           </span>
         </div>
         <p className="text-[11px] text-slate-400 mt-0.5">
           {focusedPatientId && user?.role === 'doctor'
-            ? 'Focused longitudinal history for selected patient node.'
+            ? 'Care history for the selected patient.'
             : 'A complete chronological view of medical events.'}
         </p>
       </div>
@@ -153,7 +153,7 @@ const TimelinePage = () => {
       {/* Timeline Events */}
       {filteredEvents.length === 0 ? (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
-          No clinical events recorded in this temporal vector.
+          No care events have been recorded yet.
         </div>
       ) : (
         <div className="relative">

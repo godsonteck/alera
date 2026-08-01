@@ -20,12 +20,12 @@ const roleIcons: Record<string, React.ReactNode> = {
 };
 
 const roleLabels: Record<string, string> = {
-  patient: 'Patient Node',
-  doctor: 'Clinician Node',
-  hospital: 'Hospital Node',
-  laboratory: 'Laboratory Node',
+  patient: 'Patient',
+  doctor: 'Clinician',
+  hospital: 'Hospital',
+  laboratory: 'Laboratory',
   imaging: 'Imaging Center',
-  pharmacy: 'Pharmacy Node',
+  pharmacy: 'Pharmacy',
   ambulance: 'Emergency Unit',
   physiotherapist: 'Physiotherapist',
   admin: 'Security Admin',

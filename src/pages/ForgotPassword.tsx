@@ -32,7 +32,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="alera-dark-backdrop min-h-screen text-[#ECEEF2] flex flex-col font-mono">
+    <div className="alera-public alera-dark-backdrop min-h-screen text-[#ECEEF2] flex flex-col font-mono">
       <div className="mx-auto grid min-h-screen max-w-5xl gap-8 px-4 py-8 lg:grid-cols-[1fr_1fr] lg:px-8 lg:items-center">
         {/* Left Side Signpost */}
         <section className="flex flex-col justify-between h-full py-6 space-y-6">

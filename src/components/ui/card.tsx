@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
-  state?: 'default' | 'ai' | 'warning' | 'critical';
+  state?: 'default' | 'warning' | 'critical';
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, interactive = false, state = 'default', ...props }, ref) => (
@@ -13,7 +13,6 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className, interacti
     className={cn(
       "rounded-[var(--radius-md)] border border-[color:var(--border)] bg-[var(--surface-elevated)] text-[var(--text-high)] shadow-[var(--elev-1)]",
       interactive && "cursor-pointer transition-all duration-[var(--motion-fast)] ease-[var(--easing-standard)] hover:-translate-y-[1px] hover:shadow-[var(--elev-2)]",
-      state === 'ai' && "border-dashed border-[color:var(--state-ai)]",
       state === 'warning' && "border-[color:var(--state-warning)]",
       state === 'critical' && "border-[color:var(--state-critical)]",
       className,

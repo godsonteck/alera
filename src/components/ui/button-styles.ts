@@ -21,7 +21,6 @@ export const buttonVariants = cva(
       state: {
         default: '',
         error: 'border-[color:var(--state-danger)] bg-[var(--surface-elevated)] text-[var(--state-danger)]',
-        ai: 'border-dashed border-[color:var(--state-ai)] bg-[var(--surface-elevated)] text-[var(--state-ai)]',
       },
     },
     defaultVariants: {

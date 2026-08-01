@@ -106,7 +106,7 @@ const roleNavItems: Record<string, { label: string; icon: React.ReactNode; path:
     { label: 'Notifications', icon: <Bell className="w-4 h-4" />, path: '/dashboard/notifications' },
     { label: 'Billing', icon: <FileText className="w-4 h-4" />, path: '/dashboard/admin-billing' },
     { label: 'Activity Log', icon: <AlertCircle className="w-4 h-4" />, path: '/dashboard/audit' },
-    { label: 'System Controls', icon: <Settings className="w-4 h-4" />, path: '/dashboard/system-management' },
+    { label: 'System settings', icon: <Settings className="w-4 h-4" />, path: '/dashboard/system-management' },
   ],
 };
 
@@ -265,8 +265,8 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
       {/* Overlay backdrop */}
       {sidebarOpen && <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
-      {/* Main Console Deck */}
-      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen bg-[var(--surface-base)] text-[var(--text-high)] transition-colors">
+      {/* Main dashboard area */}
+      <div className="alera-dashboard flex-1 lg:ml-64 flex flex-col min-h-screen bg-[var(--surface-base)] text-[var(--text-high)] transition-colors">
         {/* Top navigation header */}
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-700/30 bg-[var(--surface-elevated)]/90 px-4 backdrop-blur-md transition-colors sm:px-6">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[var(--text-medium)] hover:text-[var(--text-high)]">

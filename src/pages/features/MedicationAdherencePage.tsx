@@ -37,8 +37,8 @@ const MedicationAdherencePage: React.FC = () => {
   }, [selectedPrescriptionRecord]);
 
   const handleRecordAdherence = () => {
-    if (!patientId) { toast({ title: 'Auth fault', description: 'Patient session missing.', variant: 'destructive' }); return; }
-    if (!formData.prescriptionId || !formData.medicationName) { toast({ title: 'Validation fault', description: 'Prescription missing.', variant: 'destructive' }); return; }
+    if (!patientId) { toast({ title: 'Session unavailable', description: 'Patient session is missing.', variant: 'destructive' }); return; }
+    if (!formData.prescriptionId || !formData.medicationName) { toast({ title: 'Check your entries', description: 'Select a prescription and medication.', variant: 'destructive' }); return; }
 
     const newAdherence: MedicationAdherence = {
       id: `adh-${Date.now()}`, patientId, prescriptionId: formData.prescriptionId, medicationName: formData.medicationName,
@@ -47,7 +47,7 @@ const MedicationAdherencePage: React.FC = () => {
       notes: formData.notes || undefined,
     };
     recordMedicationAdherence(newAdherence);
-    toast({ title: 'Telemetry recorded', description: 'Compliance matrix updated.' });
+    toast({ title: 'Adherence recorded', description: 'Medication record updated.' });
     setFormData({ prescriptionId: selectedPrescription || '', medicationName: '', tookDose: true, notes: '' });
     setShowForm(false);
   };
@@ -62,12 +62,12 @@ const MedicationAdherencePage: React.FC = () => {
   }, [focusFilter, patientAdherence, searchQuery, selectedPrescription]);
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Pharmacology Compliance</span>
-          <p className="text-[11px] text-slate-400 mt-0.5">Track medication adherence telemetry and compliance indices.</p>
+          <span className="text-lg font-bold text-[#0b3d62]">Medication adherence</span>
+          <p className="text-[11px] text-slate-500 mt-0.5">Track medication doses and adherence over time.</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -114,7 +114,7 @@ const MedicationAdherencePage: React.FC = () => {
           </div>
           
           <button onClick={handleRecordAdherence} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs">
-            COMMIT COMPLIANCE LOG
+            Save adherence record
           </button>
         </div>
       )}
@@ -143,7 +143,7 @@ const MedicationAdherencePage: React.FC = () => {
         <div className="p-3 bg-red-950/20 border border-red-900/40 rounded-[2px] text-[10px] text-red-500/80 uppercase leading-relaxed flex gap-2">
           <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold block mb-1">COMPLIANCE FAULT DETECTED</span>
+            <span className="font-bold block mb-1">Medication doses need attention</span>
             {stats.poorAdherence} compound(s) with adherence below 80%. Risk of treatment failure elevated.
           </div>
         </div>

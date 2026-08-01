@@ -37,7 +37,7 @@ const reverseGeocode = async (latitude: number, longitude: number) => {
 const describeStatus = (request: AmbulanceRequest, isPatientView: boolean) => {
   switch (request.status) {
     case 'requested': return isPatientView ? 'Request pending acceptance' : 'Awaiting dispatch confirmation';
-    case 'accepted': return isPatientView ? 'Request accepted, preparing dispatch' : 'Dispatch protocol initiated';
+    case 'accepted': return isPatientView ? 'Request accepted, preparing dispatch' : 'Dispatch started';
     case 'dispatched': return isPatientView ? 'Ambulance dispatched' : 'Unit deployed';
     case 'en-route': return isPatientView ? 'Responder navigating to location' : 'En route to coordinates';
     case 'arrived': return 'Unit on site';
@@ -101,7 +101,7 @@ const AmbulancePage = () => {
   });
 
   const captureLocation = async () => {
-    if (!navigator.geolocation) { setRequestError('GPS telemetry unavailable in this environment.'); return; }
+    if (!navigator.geolocation) { setRequestError('Location services are unavailable in this environment.'); return; }
     setIsCapturingLocation(true);
     setRequestError(null);
     try {
@@ -130,7 +130,7 @@ const AmbulancePage = () => {
       setShowForm(false);
       setDraft({ priority: 'critical', location: '' });
       addNotification({
-        title: `Dispatch Protocol Initiated [${draft.priority.toUpperCase()}]`,
+        title: `Emergency request sent (${draft.priority})`,
         message: `Coordinates secured for ${created.location_name}.`,
         type: 'emergency', priority: draft.priority, audience: 'personal', targetRoles: ['ambulance', 'hospital', 'doctor'],
         actionUrlByRole: {
@@ -223,14 +223,14 @@ const AmbulancePage = () => {
       {showForm && (
         <div className="p-4 bg-[#090D14] border border-red-500/40 rounded-[4px] space-y-4">
           <div className="flex items-center justify-between border-b border-red-900/40 pb-2">
-            <span className="text-xs font-bold uppercase text-red-400 flex items-center gap-2"><AlertTriangle className="w-4 h-4" /> DISPATCH PROTOCOL CONFIGURATION</span>
+            <span className="text-xs font-bold uppercase text-red-400 flex items-center gap-2"><AlertTriangle className="w-4 h-4" /> Emergency request</span>
             <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-white"><X className="w-4 h-4" /></button>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px] space-y-3">
               <span className="text-[10px] font-bold uppercase text-slate-400 block">GPS COORDINATES</span>
-              <div className="text-[11px] text-slate-300 font-mono break-all">{draft.location || '[AWAITING TELEMETRY]'}</div>
+              <div className="text-[11px] text-slate-300 font-mono break-all">{draft.location || 'Waiting for location'}</div>
               {draft.latitude && draft.longitude && (
                 <div className="text-[10px] text-cyan-400 font-mono">LAT: {draft.latitude.toFixed(5)} | LON: {draft.longitude.toFixed(5)}</div>
               )}
@@ -247,7 +247,7 @@ const AmbulancePage = () => {
                 <option value="high">HIGH PRIORITY</option>
                 <option value="critical">CRITICAL PRIORITY</option>
               </select>
-              <div className="text-[9px] text-slate-500 uppercase leading-relaxed">Incident priority dictates dispatch urgency and unit allocation. Live telemetry begins upon confirmation.</div>
+              <div className="text-[9px] text-slate-500 uppercase leading-relaxed">Priority helps the team send the right response. Location updates begin once the request is confirmed.</div>
             </div>
           </div>
 
@@ -264,7 +264,7 @@ const AmbulancePage = () => {
           <div className="p-4 bg-[#090D14] border border-cyan-500/40 rounded-[4px] space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cyan-900/40 pb-2">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold uppercase text-cyan-400 flex items-center gap-2"><Navigation className="w-4 h-4" /> ACTIVE TELEMETRY</span>
+                <span className="text-xs font-bold uppercase text-cyan-400 flex items-center gap-2"><Navigation className="w-4 h-4" /> Live location</span>
                 <div className="flex gap-1.5">
                   <span className={`px-1.5 py-0.5 text-[9px] font-bold uppercase border rounded-[2px] ${
                     trackingRequest.priority === 'critical' ? 'bg-red-950/50 border-red-600/60 text-red-400' : 'bg-amber-950/50 border-amber-600/60 text-amber-300'

@@ -56,7 +56,7 @@ const HealthMetricsPage = () => {
 
   const handleAddVitals = () => {
     if (!formData.heartRate || !formData.systolicBP || !formData.diastolicBP || !formData.temperature || !formData.oxygenLevel || !formData.weight) {
-      toast({ title: 'Validation fault', description: 'All telemetry metrics required.', variant: 'destructive' }); return;
+      toast({ title: 'Check your entries', description: 'All health metrics are required.', variant: 'destructive' }); return;
     }
 
     const hr = Number(formData.heartRate);
@@ -67,10 +67,10 @@ const HealthMetricsPage = () => {
     const w = Number(formData.weight);
 
     if ([hr, sbp, dbp, temp, oxy, w].some((v) => Number.isNaN(v) || v <= 0)) {
-      toast({ title: 'Validation fault', description: 'Numeric values must exceed zero.', variant: 'destructive' }); return;
+      toast({ title: 'Check your entries', description: 'Numeric values must be greater than zero.', variant: 'destructive' }); return;
     }
     if (dbp >= sbp) {
-      toast({ title: 'Validation fault', description: 'Diastolic BP cannot exceed Systolic BP.', variant: 'destructive' }); return;
+      toast({ title: 'Check your entries', description: 'Diastolic blood pressure cannot exceed systolic blood pressure.', variant: 'destructive' }); return;
     }
 
     const alerts = [];
@@ -82,7 +82,7 @@ const HealthMetricsPage = () => {
     if (alerts.length > 0) {
       setCriticalAlerts(alerts);
       addNotification({
-        title: 'CRITICAL TELEMETRY DETECTED',
+        title: 'Important health readings',
         message: `Anomalies found in: ${alerts.map(a => a.label).join(', ')}.`,
         type: 'alert', priority: 'critical', audience: 'personal',
       });
@@ -93,28 +93,28 @@ const HealthMetricsPage = () => {
     addVitalSigns({ id: `vital-${Date.now()}`, patientId: user?.id || '', timestamp: new Date().toISOString(), heartRate: hr, systolicBP: sbp, diastolicBP: dbp, temperature: temp, oxygenLevel: oxy, weight: w, notes: formData.notes.trim() || undefined });
     setFormData({ heartRate: '', systolicBP: '', diastolicBP: '', temperature: '', oxygenLevel: '', weight: '', notes: '' });
     setShowForm(false);
-    toast({ title: 'Telemetry logged', description: 'Health metrics stored in matrix.' });
+    toast({ title: 'Vitals logged', description: 'Health metrics saved.' });
   };
 
   const handleExportVitals = () => {
-    if (sortedVitals.length === 0) { toast({ title: 'Export fault', description: 'No telemetry to export.', variant: 'destructive' }); return; }
+    if (sortedVitals.length === 0) { toast({ title: 'Nothing to export', description: 'No health metrics are available.', variant: 'destructive' }); return; }
     const csv = [['Timestamp', 'Heart Rate', 'Systolic BP', 'Diastolic BP', 'Temperature', 'Oxygen Level', 'Weight', 'Notes'].join(','), ...sortedVitals.map(v => [v.timestamp, String(v.heartRate), String(v.systolicBP), String(v.diastolicBP), String(v.temperature), String(v.oxygenLevel), String(v.weight), v.notes ?? ''].map(val => `"${val.replace(/"/g, '""')}"`).join(','))].join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href = url; link.download = `vitals-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(url);
-    toast({ title: 'Export secure', description: 'Telemetry matrix saved as CSV.' });
+    toast({ title: 'Export ready', description: 'Health metrics saved as CSV.' });
   };
 
   if (!isPatient) {
     return (
       <div className="p-8 bg-[#090D14] border border-[#252A35] rounded-[4px] text-center font-mono text-xs text-slate-500">
-        PATIENT PROFILE REQUIRED FOR TELEMETRY ACCESS
+        A patient profile is required to view health metrics.
       </div>
     );
   }
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {criticalAlerts.length > 0 && (
         <div className="p-3 bg-red-950/40 border border-red-600/60 rounded-[2px] text-[10px] text-red-300 flex items-start gap-3">
           <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
@@ -131,7 +131,7 @@ const HealthMetricsPage = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Biometric Telemetry</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Health metrics</span>
           <p className="text-[11px] text-slate-400 mt-0.5">Continuous tracking of patient vital signs and health indices.</p>
         </div>
         <div className="flex gap-2">
@@ -147,7 +147,7 @@ const HealthMetricsPage = () => {
 
       {showForm && (
         <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-4">
-          <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">Log Telemetry Data</span>
+          <span className="text-base font-semibold text-[#0b3d62] block border-b border-[#252A35] pb-2">Log vitals</span>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
             <div>
@@ -181,7 +181,7 @@ const HealthMetricsPage = () => {
           </div>
           
           <button onClick={handleAddVitals} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs">
-            COMMIT TELEMETRY
+            Log vitals
           </button>
         </div>
       )}
@@ -236,7 +236,7 @@ const HealthMetricsPage = () => {
           <div className="bg-[#090D14] border border-[#252A35] rounded-[4px] overflow-hidden">
             <div className="p-3 border-b border-[#252A35] bg-[#0F1218] flex items-center gap-2">
               <LineChart className="w-4 h-4 text-cyan-400" />
-              <span className="text-xs font-bold uppercase text-[#ECEEF2]">Telemetry Matrix</span>
+              <span className="text-base font-bold text-[#0b3d62]">Vital history</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
@@ -285,7 +285,7 @@ const HealthMetricsPage = () => {
       ) : (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono flex flex-col items-center gap-2">
           <Inbox className="w-6 h-6" />
-          <span>NO TELEMETRY LOGS LOCATED</span>
+          <span>No health metrics recorded yet.</span>
         </div>
       )}
     </div>

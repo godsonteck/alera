@@ -40,7 +40,7 @@ const VerificationsPage = () => {
         notes: u.bio,
       }));
       setVerifications(mapped);
-    } catch (error) { toast({ title: 'Sync fault', description: handleApiError(error), variant: 'destructive' }); }
+    } catch (error) { toast({ title: 'Could not refresh', description: handleApiError(error), variant: 'destructive' }); }
     finally { setIsLoading(false); }
   }, [toast]);
 
@@ -60,12 +60,12 @@ const VerificationsPage = () => {
 
   const handleVerify = async (id: number) => {
     try { await api.admin.verifyProvider(id); toast({ title: 'Clearance granted', description: 'Provider identity verified.' }); fetchVerifications(); }
-    catch (error) { toast({ title: 'Verification fault', description: handleApiError(error), variant: 'destructive' }); }
+    catch (error) { toast({ title: 'Could not verify provider', description: handleApiError(error), variant: 'destructive' }); }
   };
 
   const handleReject = async (id: number) => {
     try { await api.admin.rejectProvider(id); toast({ title: 'Clearance denied', description: 'Provider identity flagged.' }); fetchVerifications(); }
-    catch (error) { toast({ title: 'Rejection fault', description: handleApiError(error), variant: 'destructive' }); }
+    catch (error) { toast({ title: 'Could not reject provider', description: handleApiError(error), variant: 'destructive' }); }
   };
 
   return (

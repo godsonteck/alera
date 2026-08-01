@@ -172,24 +172,24 @@ const ImagingPage = ({ page }: ImagingPageProps) => {
       completedAt: new Date().toISOString(),
     }));
 
-    toast({ title: 'DICOM Study Saved', description: `PACS imaging findings committed.` });
+    toast({ title: 'Scan report saved', description: 'Imaging findings have been saved.' });
     setShowUpload(null);
     setUploadForm({ results: '', impression: '', dicomUrl: '', postdicomStudyUrl: '', imageFiles: [], reportFile: null });
   };
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">PACS & Lossless DICOM Modality Node</span>
+            <span className="text-lg font-bold text-[#0b3d62]">Imaging</span>
             <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
               {filteredScans.length} STUDIES QUEUED
             </span>
           </div>
           <p className="text-[11px] text-slate-400 mt-0.5">
-            Diagnostic radiology acquisitions, volumetric segmentations, and DICOM study distribution.
+            Review scan requests, add findings, and share completed reports.
           </p>
         </div>
 
@@ -355,7 +355,7 @@ const ImagingPage = ({ page }: ImagingPageProps) => {
                       onClick={() => { setShowUpload(scan.id); setUploadForm((prev) => ({ ...prev, results: scan.results || '' })); }}
                       className="px-2.5 py-1 bg-cyan-950/60 border border-cyan-600/60 text-cyan-300 text-[10px] font-bold rounded-[2px] hover:bg-cyan-900"
                     >
-                      PUBLISH DICOM
+                      Save scan report
                     </button>
                   )}
                 </div>
@@ -379,7 +379,7 @@ const ImagingPage = ({ page }: ImagingPageProps) => {
                   />
                   <div className="flex gap-2 justify-end">
                     <button onClick={() => setShowUpload(null)} className="px-3 py-1 bg-[#151922] text-xs text-slate-400 rounded-[2px]">Cancel</button>
-                    <button onClick={() => handleSaveResults(scan.id)} className="px-3 py-1 bg-cyan-950 border border-cyan-600 text-cyan-300 text-xs font-bold rounded-[2px]">PUBLISH DICOM STUDY</button>
+                    <button onClick={() => handleSaveResults(scan.id)} className="px-3 py-1 bg-cyan-950 border border-cyan-600 text-cyan-300 text-xs font-bold rounded-[2px]">Save scan report</button>
                   </div>
                 </div>
               )}

@@ -36,7 +36,6 @@ export const featureAccessMap: Record<string, UserRole[]> = {
   'problem-list': ['patient'],
   'medication-adherence': ['patient'],
   'lab-results-management': ['laboratory', 'admin', 'super_admin'],
-  'smart-appointment-reminders': ['patient', 'doctor', 'physiotherapist'],
   'pricing-settings': ['doctor', 'physiotherapist'],
   billing: ['patient'],
   'admin-billing': ['admin', 'super_admin'],

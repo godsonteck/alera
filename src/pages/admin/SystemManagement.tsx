@@ -96,12 +96,12 @@ const SystemManagement: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-12">
+    <div className="alera-feature max-w-4xl mx-auto space-y-8 pb-12">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
             <ShieldAlert className="h-8 w-8 text-blue-600" />
-            System Control Center
+            System settings
           </h1>
           <p className="text-slate-500 mt-2">Manage maintenance mode and global communications.</p>
         </div>

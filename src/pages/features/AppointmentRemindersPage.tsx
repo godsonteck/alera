@@ -50,7 +50,7 @@ const AppointmentRemindersPage = () => {
     addNotification({
       type: 'reminder', title: `T-24H ALARM: ${appointment.type}`,
       message: user?.role === 'doctor' ? `Scheduled encounter with ${appointment.patientName} at ${appointment.time}. Ensure readiness.` : `Scheduled encounter with ${appointment.doctorName} at ${appointment.time}. Standby required.`,
-      audience: 'personal', priority: 'medium', targetEmails: user?.email ? [user.email] : [], actionUrl: '/dashboard/appointments', actionLabel: 'VIEW MATRIX',
+      audience: 'personal', priority: 'medium', targetEmails: user?.email ? [user.email] : [], actionUrl: '/dashboard/appointments', actionLabel: 'View appointments',
     });
     updateAppointment(appointment.id, prev => ({ ...prev, reminder24hSent: true }));
     toast({ title: '24H ALERT TRANSMITTED', description: `Notification injected into stream for ${appointment.type}.` });
@@ -60,31 +60,31 @@ const AppointmentRemindersPage = () => {
     if (appointment.reminder1hSent) return;
     addNotification({
       type: 'reminder', title: `T-01H ALARM: ${appointment.type}`,
-      message: user?.role === 'doctor' ? `T-minus 1 hour until encounter with ${appointment.patientName}. Initialize protocols.` : `T-minus 1 hour until encounter with ${appointment.doctorName}. Initialize protocols.`,
-      audience: 'personal', priority: 'high', targetEmails: user?.email ? [user.email] : [], actionUrl: '/dashboard/appointments', actionLabel: 'VIEW MATRIX',
+      message: user?.role === 'doctor' ? `Appointment with ${appointment.patientName} starts in 1 hour.` : `Appointment with ${appointment.doctorName} starts in 1 hour.`,
+      audience: 'personal', priority: 'high', targetEmails: user?.email ? [user.email] : [], actionUrl: '/dashboard/appointments', actionLabel: 'View appointments',
     });
     updateAppointment(appointment.id, prev => ({ ...prev, reminder1hSent: true }));
     toast({ title: '01H ALERT TRANSMITTED', description: `Notification injected into stream for ${appointment.type}.` });
   };
 
   const handleExportReminders = () => {
-    if (sorted.length === 0) { toast({ title: 'Export fault', description: 'No events matching query parameters.', variant: 'destructive' }); return; }
+    if (sorted.length === 0) { toast({ title: 'Nothing to export', description: 'No reminders match your filters.', variant: 'destructive' }); return; }
     const csv = [['EVENT', 'DOCTOR', 'PATIENT', 'DATE', 'TIME', 'MODE', '24H_TX', '01H_TX'].join(','), ...sorted.map(a => [a.type, a.doctorName, a.patientName, a.date, a.time, a.appointmentMode, a.reminder24hSent ? 'SENT' : 'PENDING', a.reminder1hSent ? 'SENT' : 'PENDING'].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))].join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href = url; link.download = `alerts-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(url);
-    toast({ title: 'Matrix exported', description: 'Alert telemetry saved locally.' });
+    toast({ title: 'Reminders exported', description: 'Reminder list saved locally.' });
   };
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Alert Transmission Control</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Reminders</span>
           <p className="text-[11px] text-slate-400 mt-0.5">Manage automated clinical event notifications.</p>
         </div>
         <button onClick={handleExportReminders} className="flex items-center gap-2 bg-[#151922] hover:bg-slate-800 border border-[#2F3542] text-slate-300 font-bold px-3 py-1.5 rounded-[2px] text-xs transition-colors uppercase tracking-wider">
-          <Download className="w-4 h-4" /> EXPORT TELEMETRY
+          <Download className="w-4 h-4" /> Export reminders
         </button>
       </div>
 
@@ -94,15 +94,15 @@ const AppointmentRemindersPage = () => {
           <div className="text-xl font-bold font-mono text-[#ECEEF2] mt-0.5">{stats.total}</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-amber-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-amber-500 uppercase font-bold flex items-center justify-center gap-1"><Clock className="w-3 h-3" /> T-24 HORIZON</div>
+          <div className="text-[9px] text-amber-500 uppercase font-bold flex items-center justify-center gap-1"><Clock className="w-3 h-3" /> Next 24 hours</div>
           <div className="text-xl font-bold font-mono text-amber-400 mt-0.5">{stats.upcoming24h}</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-emerald-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-emerald-500 uppercase font-bold flex items-center justify-center gap-1"><CheckCircle className="w-3 h-3" /> ALERTS TX</div>
+          <div className="text-[9px] text-emerald-500 uppercase font-bold flex items-center justify-center gap-1"><CheckCircle className="w-3 h-3" /> Sent</div>
           <div className="text-xl font-bold font-mono text-emerald-400 mt-0.5">{stats.remindersSent}</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-cyan-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-cyan-500 uppercase font-bold flex items-center justify-center gap-1"><Bell className="w-3 h-3" /> PENDING TX</div>
+          <div className="text-[9px] text-cyan-500 uppercase font-bold flex items-center justify-center gap-1"><Bell className="w-3 h-3" /> To send</div>
           <div className="text-xl font-bold font-mono text-cyan-400 mt-0.5">{stats.pendingReminders}</div>
         </div>
       </div>
@@ -113,7 +113,7 @@ const AppointmentRemindersPage = () => {
           <input
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="QUERY EVENT MATRIX..."
+            placeholder="Search reminders"
             className="w-full h-8 pl-8 pr-3 rounded-[2px] border border-[#252A35] bg-[#090D14] text-[#ECEEF2] text-xs placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50"
           />
         </div>
@@ -161,7 +161,7 @@ const AppointmentRemindersPage = () => {
                 <div className="flex flex-col md:items-end gap-2 shrink-0 border-t md:border-t-0 border-[#252A35] pt-3 md:pt-0">
                   <div className="flex items-center gap-2">
                     <span className="px-1.5 py-0.5 bg-[#151922] border border-[#2F3542] text-cyan-400 font-mono text-[9px] font-bold rounded-[2px] uppercase">
-                      T-MINUS: {timeUntil}
+                      In {timeUntil}
                     </span>
                     {(appointment.reminder24hSent || appointment.reminder1hSent) && (
                       <span className="px-1.5 py-0.5 bg-emerald-950/40 border border-emerald-600/60 text-emerald-400 font-mono text-[9px] font-bold rounded-[2px] uppercase flex items-center gap-1">

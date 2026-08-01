@@ -29,11 +29,11 @@ const BillingPage: React.FC = () => {
   }), [patientInvoices, totalBalance]);
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header */}
       <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Financial Ledger Node</span>
+          <span className="text-lg font-bold text-[#0b3d62]">Billing</span>
           <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.2 rounded font-mono">
             {patientInvoices.length} INVOICES
           </span>

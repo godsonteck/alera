@@ -85,7 +85,7 @@ const MessagesPage = () => {
   const newContacts = filteredContacts.filter((contact) => !contact.hasConversation);
 
   return (
-    <div className="h-[calc(100vh-7rem)] font-mono text-[#ECEEF2]">
+    <div className="alera-feature h-[calc(100vh-7rem)] text-slate-700">
       <AnimatePresence>
         {videoCallTarget && (
           <VideoCall
@@ -99,7 +99,7 @@ const MessagesPage = () => {
         {/* Sidebar — Contact Threads */}
         <div className="w-72 border-r border-[#252A35] flex flex-col shrink-0">
           <div className="p-3 border-b border-[#252A35] space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Secure Channel Directory</span>
+            <span className="text-base font-bold text-[#0b3d62]">Messages</span>
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
               <input
@@ -183,7 +183,7 @@ const MessagesPage = () => {
                 <div className="text-xs font-bold text-[#ECEEF2]">{currentParticipant.participantName}</div>
                 <div className="text-[9px] text-emerald-400 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>SECURE CHANNEL ACTIVE</span>
+                  <span>Secure messaging</span>
                 </div>
               </div>
               <button
@@ -201,7 +201,7 @@ const MessagesPage = () => {
                 <div className="h-full flex items-center justify-center text-center">
                   <div>
                     <Terminal className="w-8 h-8 mx-auto mb-2 text-slate-600" />
-                    <p className="text-xs text-slate-500">No messages in this secure channel.</p>
+                    <p className="text-xs text-slate-500">No messages in this conversation.</p>
                     <p className="text-[10px] text-slate-600 mt-1">Initiate communication with {currentParticipant.participantName}.</p>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ const MessagesPage = () => {
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
               <Terminal className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-              <p className="text-xs text-slate-500">Select a secure channel to begin transmission.</p>
+              <p className="text-xs text-slate-500">Select a conversation to start messaging.</p>
             </div>
           </div>
         )}

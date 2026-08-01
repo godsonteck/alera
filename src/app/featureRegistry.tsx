@@ -30,9 +30,6 @@ const ClinicalNotesPage = lazy(() => import('@/pages/features/ClinicalNotesPage'
 const PatientProblemListPage = lazy(() => import('@/pages/features/PatientProblemListPage'));
 const MedicationAdherencePage = lazy(() => import('@/pages/features/MedicationAdherencePage'));
 const LabResultsManagementPage = lazy(() => import('@/pages/features/LabResultsManagementPage'));
-const SmartAppointmentRemindersPage = lazy(() =>
-  import('@/pages/features/SmartAppointmentRemindersPage').then((module) => ({ default: module.SmartAppointmentRemindersPage }))
-);
 const PricingSettingsPage = lazy(() => import('@/pages/features/PricingSettingsPage'));
 const BillingPage = lazy(() => import('@/pages/features/BillingPage'));
 const AdminBillingDashboard = lazy(() => import('@/pages/features/AdminBillingDashboard'));
@@ -80,7 +77,6 @@ export const featurePageMap: Record<string, FeatureConfig> = {
   'problem-list': { component: PatientProblemListPage },
   'medication-adherence': { component: MedicationAdherencePage },
   'lab-results-management': { component: LabResultsManagementPage },
-  'smart-appointment-reminders': { component: SmartAppointmentRemindersPage },
   'pricing-settings': { component: PricingSettingsPage },
   continuity: { component: ContinuityPage },
   billing: { component: BillingPage },

@@ -29,7 +29,7 @@ const AdminBillingDashboard: React.FC = () => {
   const collectionRate = stats.totalIssued > 0 ? ((stats.totalCollected / stats.totalIssued) * 100).toFixed(1) : '0';
 
   return (
-    <div className="space-y-6 text-slate-800">
+    <div className="alera-feature space-y-6 text-slate-800">
       {/* Header */}
       <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
         <h1 className="text-2xl font-bold text-[#0b3d62]">Billing</h1>

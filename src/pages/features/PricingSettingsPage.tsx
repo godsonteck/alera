@@ -35,8 +35,8 @@ const PricingSettingsPage: React.FC = () => {
   const serviceTypes: Array<'consultation' | 'procedure' | 'test' | 'imaging' | 'follow-up' | 'other'> = ['consultation', 'procedure', 'test', 'imaging', 'follow-up', 'other'];
 
   const handleAddPrice = () => {
-    if (!doctorId) { toast({ title: 'Auth fault', description: 'Provider session missing.', variant: 'destructive' }); return; }
-    if (!formData.serviceDescription || formData.priceGHS <= 0) { toast({ title: 'Validation fault', description: 'Description and non-zero price required.', variant: 'destructive' }); return; }
+    if (!doctorId) { toast({ title: 'Session unavailable', description: 'Provider session is missing.', variant: 'destructive' }); return; }
+    if (!formData.serviceDescription || formData.priceGHS <= 0) { toast({ title: 'Check your entries', description: 'Enter a service description and price.', variant: 'destructive' }); return; }
 
     const normalizedDescription = formData.serviceDescription.trim().toLowerCase();
     const duplicatePricing = myPricing.find((pricing) => (pricing.id !== editingId && pricing.serviceType === formData.serviceType && pricing.serviceDescription.trim().toLowerCase() === normalizedDescription));
@@ -72,7 +72,7 @@ const PricingSettingsPage: React.FC = () => {
   const avgPrice = myPricing.length > 0 ? Math.round(myPricing.reduce((sum, p) => sum + p.priceGHS, 0) / myPricing.length) : 0;
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
@@ -91,15 +91,15 @@ const PricingSettingsPage: React.FC = () => {
       <AlertDialog open={Boolean(pendingDeleteId)} onOpenChange={(open) => { if (!open) setPendingDeleteId(null); }}>
         <AlertDialogContent className="bg-[#090D14] border-[#252A35] rounded-[4px]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-red-400 font-mono font-bold uppercase">PURGE SERVICE CONFIGURATION?</AlertDialogTitle>
+            <AlertDialogTitle className="text-red-700 font-bold">Delete service?</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400 font-mono text-xs">
-              This financial parameter will be permanently removed from the active catalog.
+              This service will be permanently removed from your price list.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="bg-[#151922] border-[#2F3542] text-slate-300 font-bold rounded-[2px] hover:bg-slate-800 hover:text-white uppercase text-xs">CANCEL</AlertDialogCancel>
             <AlertDialogAction className="bg-red-950/80 border border-red-600/60 text-red-300 font-bold rounded-[2px] hover:bg-red-900 uppercase text-xs" onClick={() => pendingDeleteId ? handleDelete(pendingDeleteId) : undefined}>
-              PURGE DATA
+              Delete service
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -151,7 +151,7 @@ const PricingSettingsPage: React.FC = () => {
           </div>
           
           <button onClick={handleAddPrice} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs flex items-center justify-center gap-2">
-            <Check className="w-4 h-4" /> COMMIT CONFIGURATION
+            <Check className="w-4 h-4" /> Save
           </button>
         </div>
       )}
@@ -221,7 +221,7 @@ const PricingSettingsPage: React.FC = () => {
         <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
         <div>
           <span className="font-bold block mb-1">SYSTEM OVERSIGHT</span>
-          All financial configurations are logged by the system matrix. Parameter changes deploy immediately.
+          Price changes are recorded in the audit log and take effect immediately.
         </div>
       </div>
     </div>

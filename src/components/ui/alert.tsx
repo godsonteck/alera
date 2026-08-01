@@ -13,7 +13,6 @@ const alertVariants = cva(
         success: "border-[color:var(--state-success)] bg-[var(--surface-elevated)] text-[var(--text-high)] [&>svg]:text-[var(--state-success)]",
         warning: "border-[color:var(--state-warning)] bg-[var(--surface-elevated)] text-[var(--text-high)] [&>svg]:text-[var(--state-warning)]",
         destructive: "border-[color:var(--state-danger)] bg-[var(--surface-elevated)] text-[var(--text-high)] [&>svg]:text-[var(--state-danger)]",
-        ai: "border-dashed border-[color:var(--state-ai)] bg-[var(--surface-elevated)] text-[var(--text-high)] [&>svg]:text-[var(--state-ai)]",
       },
     },
     defaultVariants: {

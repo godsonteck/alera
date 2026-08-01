@@ -150,12 +150,12 @@ const AppointmentsPage = () => {
   };
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#ECEEF2] uppercase tracking-wider">Clinical Consultations Directory</span>
+            <span className="text-lg font-bold text-[#0b3d62]">Appointments</span>
             <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
               {filtered.length} ACTIVE RECORDS
             </span>
@@ -185,7 +185,7 @@ const AppointmentsPage = () => {
 
           {!selectedDoctor ? (
             <div className="space-y-3">
-              <span className="text-[11px] text-slate-400">Select Attending Specialist Node:</span>
+              <span className="text-[11px] text-slate-500">Select a specialist:</span>
               {isLoadingDoctors ? (
                 <div className="py-6 text-center text-xs text-slate-500">Querying clinician registry...</div>
               ) : availableDoctors.length === 0 ? (
@@ -283,7 +283,7 @@ const AppointmentsPage = () => {
                 disabled={bookingLoading || !formData.type || !formData.date || !formData.time}
                 className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs"
               >
-                {bookingLoading ? 'COMMIT REQUISITION...' : 'CONFIRM CONSULT REQUISITION'}
+                {bookingLoading ? 'Saving appointment...' : 'Confirm appointment'}
               </button>
             </div>
           )}

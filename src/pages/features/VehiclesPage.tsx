@@ -54,7 +54,7 @@ const VehiclesPage = () => {
   };
 
   const handleCreateVehicle = () => {
-    if (!newVehicle.callSign.trim() || !newVehicle.plateNumber.trim()) { toast({ title: 'Validation fault', description: 'Call sign and plate number required.', variant: 'destructive' }); return; }
+    if (!newVehicle.callSign.trim() || !newVehicle.plateNumber.trim()) { toast({ title: 'Check your entries', description: 'Call sign and plate number are required.', variant: 'destructive' }); return; }
     addAmbulance({
       id: `amb-${crypto.randomUUID()}`, callSign: newVehicle.callSign.trim(), plateNumber: newVehicle.plateNumber.trim(),
       type: newVehicle.type, status: 'available', fuel: Math.max(0, Math.min(100, newVehicle.fuel)),
@@ -64,16 +64,16 @@ const VehiclesPage = () => {
     });
     setNewVehicle({ callSign: '', plateNumber: '', type: 'Type-B', fuel: 100, crew: '', equipment: '', nextMaintenanceDate: '' });
     setShowCreate(false);
-    toast({ title: 'Vehicle registered', description: 'Fleet matrix updated.' });
+    toast({ title: 'Vehicle registered', description: 'Fleet list updated.' });
   };
 
   const handleExportFleet = () => {
-    if (filtered.length === 0) { toast({ title: 'Export fault', description: 'No fleet data to export.', variant: 'destructive' }); return; }
+    if (filtered.length === 0) { toast({ title: 'Nothing to export', description: 'No fleet data is available.', variant: 'destructive' }); return; }
     const csv = [['Call Sign', 'Plate Number', 'Type', 'Status', 'Fuel', 'Crew', 'Equipment', 'Next Maintenance'].join(','), ...filtered.map(v => [v.callSign, v.plateNumber, v.type, v.status, String(v.fuel), v.crew.map(m => `${m.name} (${m.role})`).join('; '), v.equipment.join('; '), v.nextMaintenanceDate ?? ''].map(val => `"${val.replace(/"/g, '""')}"`).join(','))].join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href = url; link.download = `fleet-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(url);
-    toast({ title: 'Export secure', description: 'Fleet matrix saved as CSV.' });
+    toast({ title: 'Export ready', description: 'Fleet list saved as CSV.' });
   };
 
   if (!isAmbulance) {
@@ -90,8 +90,8 @@ const VehiclesPage = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Fleet Management Matrix</span>
-          <p className="text-[11px] text-slate-400 mt-0.5">Global oversight of ambulance fleet telemetry and dispatch readiness.</p>
+          <span className="text-lg font-bold text-[#0b3d62]">Vehicles</span>
+          <p className="text-[11px] text-slate-500 mt-0.5">Manage ambulance availability, fuel levels, and maintenance.</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => setShowCreate(!showCreate)} className="flex items-center gap-2 bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold px-3 py-1.5 rounded-[2px] text-xs transition-colors uppercase tracking-wider">
@@ -142,7 +142,7 @@ const VehiclesPage = () => {
           </div>
           
           <button onClick={handleCreateVehicle} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs">
-            COMMIT VEHICLE DATA
+            Save vehicle
           </button>
         </div>
       )}
@@ -176,7 +176,7 @@ const VehiclesPage = () => {
           <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold block mb-1">CRITICAL FUEL ALERT</span>
-            {ambulances.filter(v => v.fuel < 25).length} UNIT(S) REPORTING FUEL INDEX BELOW 25%. INITIATE REFUEL PROTOCOL.
+            {ambulances.filter(v => v.fuel < 25).length} vehicle(s) have fuel below 25%. Please arrange refuelling.
           </div>
         </div>
       )}

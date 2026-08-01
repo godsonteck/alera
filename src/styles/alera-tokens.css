@@ -14,7 +14,6 @@
   --state-danger: #C0392B;
   --state-critical: #8E1E1E;
   --state-info: #2E6E9E;
-  --state-ai: #5B4B8A;
 
   /* Domain accents */
   --domain-lab: #3B6E7A;
@@ -41,7 +40,6 @@
   --text-disabled: #A8AFB6;
   --text-interactive: var(--brand-secondary);
   --text-critical: var(--state-critical);
-  --text-ai: var(--state-ai);
   --text-metadata: var(--text-low);
 
   /* Tailwind-compatible aliases */

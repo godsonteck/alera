@@ -75,19 +75,19 @@ const UsersPage = () => {
 
   const changeUserRole = async (id: string, newRole: string) => {
     setActionId(id);
-    try { await api.admin.changeUserRole(id, backendRoleMap[newRole as UserRole] ?? newRole); await fetchUsers(); toast({ title: 'Role updated', description: 'User matrix synchronized.' }); }
+    try { await api.admin.changeUserRole(id, backendRoleMap[newRole as UserRole] ?? newRole); await fetchUsers(); toast({ title: 'Role updated', description: 'User details have been updated.' }); }
     catch (err) { setListError(handleApiError(err)); } finally { setActionId(null); }
   };
 
   const deleteUser = async (id: string) => {
     setActionId(id);
-    try { await api.admin.deleteUser(id); await fetchUsers(); setPendingDeleteUser(null); toast({ title: 'User purged', description: 'Account removed from global matrix.' }); }
+    try { await api.admin.deleteUser(id); await fetchUsers(); setPendingDeleteUser(null); toast({ title: 'User removed', description: 'The account has been removed.' }); }
     catch (err) { setListError(handleApiError(err)); } finally { setActionId(null); }
   };
 
   const handleAddUser = async () => {
-    if (!formData.name || !formData.email || !formData.password) { toast({ title: 'Validation fault', description: 'Core parameters required.', variant: 'destructive' }); return; }
-    if (formData.password.length < 8) { toast({ title: 'Validation fault', description: 'Security protocol: Password too short.', variant: 'destructive' }); return; }
+    if (!formData.name || !formData.email || !formData.password) { toast({ title: 'Check your entries', description: 'Name, email, and password are required.', variant: 'destructive' }); return; }
+    if (formData.password.length < 8) { toast({ title: 'Check your entries', description: 'Password must be at least 8 characters.', variant: 'destructive' }); return; }
     setIsLoading(true);
     try {
       const [firstName = '', ...lastNameParts] = formData.name.split(' ');
@@ -95,7 +95,7 @@ const UsersPage = () => {
       const username = formData.email.split('@')[0] || formData.name.toLowerCase().replace(/\s+/g, '.');
       
       if (isProfessionalRole(formData.role) && (!formData.licenseNumber.trim() || !formData.licenseState.trim())) {
-        toast({ title: 'Validation fault', description: 'Credential parameters missing for professional.', variant: 'destructive' }); setIsLoading(false); return;
+        toast({ title: 'Check your entries', description: 'Professional credentials are required for this role.', variant: 'destructive' }); setIsLoading(false); return;
       }
       if (elevatedRoles.includes(formData.role)) {
         await api.admin.createAdmin({ email: formData.email, username, password: formData.password, first_name: firstName, last_name: lastName, phone: undefined, role: formData.role as 'admin' | 'super_admin' });
@@ -104,8 +104,8 @@ const UsersPage = () => {
       }
       setFormData({ name: '', email: '', password: '', role: 'patient', licenseNumber: '', licenseState: '', specialty: '' });
       setShowCreate(false); await fetchUsers();
-      toast({ title: 'User provisioned', description: 'Global matrix updated.' });
-    } catch (err) { toast({ title: 'Provisioning fault', description: handleApiError(err), variant: 'destructive' }); } finally { setIsLoading(false); }
+      toast({ title: 'User created', description: 'The account is ready to use.' });
+    } catch (err) { toast({ title: 'Could not create user', description: handleApiError(err), variant: 'destructive' }); } finally { setIsLoading(false); }
   };
 
   const toggleStatus = async (userId: string) => {
@@ -128,12 +128,12 @@ const UsersPage = () => {
   }
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Identity & Access Control</span>
-          <p className="text-[11px] text-slate-400 mt-0.5">Manage global user matrix. Active identities: {users.length}</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">Manage user accounts. Active users: {users.length}</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => fetchUsers()} disabled={listLoading} className="flex items-center gap-2 bg-[#151922] hover:bg-slate-800 border border-[#2F3542] text-slate-300 font-bold px-3 py-1.5 rounded-[2px] text-xs transition-colors uppercase tracking-wider disabled:opacity-50">
@@ -183,14 +183,14 @@ const UsersPage = () => {
                 <input value={formData.licenseState} onChange={(e) => setFormData(cur => ({...cur, licenseState: e.target.value}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2] font-mono" />
               </div>
               <div>
-                <label className="text-[10px] text-slate-400 uppercase block mb-1">Vector / Dept</label>
+                <label className="text-[10px] text-slate-500 block mb-1">Department</label>
                 <input value={formData.specialty} onChange={(e) => setFormData(cur => ({...cur, specialty: e.target.value}))} className="w-full bg-[#0F1218] border border-[#252A35] rounded-[2px] p-2 text-[#ECEEF2]" />
               </div>
             </div>
           )}
           
           <button onClick={handleAddUser} disabled={isLoading} className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs">
-            {isLoading ? 'PROCESSING...' : 'COMMIT IDENTITY'}
+            {isLoading ? 'Creating user...' : 'Create user'}
           </button>
         </div>
       )}
@@ -204,15 +204,15 @@ const UsersPage = () => {
       <AlertDialog open={Boolean(pendingDeleteUser)} onOpenChange={(open) => { if (!open) setPendingDeleteUser(null); }}>
         <AlertDialogContent className="bg-[#090D14] border-[#252A35] rounded-[4px]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-red-400 font-mono font-bold uppercase">PURGE IDENTITY?</AlertDialogTitle>
+            <AlertDialogTitle className="text-red-700 font-bold">Remove user?</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400 font-mono text-xs">
-              Entity {pendingDeleteUser?.email} will be permanently removed from the global matrix. Irreversible action.
+              {pendingDeleteUser?.email} will be permanently removed. This cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="bg-[#151922] border-[#2F3542] text-slate-300 font-bold rounded-[2px] hover:bg-slate-800 hover:text-white uppercase text-xs">CANCEL</AlertDialogCancel>
             <AlertDialogAction className="bg-red-950/80 border border-red-600/60 text-red-300 font-bold rounded-[2px] hover:bg-red-900 uppercase text-xs" onClick={() => pendingDeleteUser ? void deleteUser(pendingDeleteUser.id) : undefined}>
-              PURGE DATA
+              Remove user
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -247,9 +247,9 @@ const UsersPage = () => {
 
       <div className="bg-[#090D14] border border-[#252A35] rounded-[4px] overflow-hidden">
         {listLoading ? (
-          <div className="p-8 text-center text-xs text-slate-500 font-mono">SYNCING IDENTITY MATRIX...</div>
+          <div className="p-8 text-center text-xs text-slate-500">Loading users...</div>
         ) : filtered.length === 0 ? (
-          <div className="p-8 text-center text-xs text-slate-500 font-mono">NO IDENTITIES MATCH QUERY PARAMETERS.</div>
+          <div className="p-8 text-center text-xs text-slate-500">No users match your filters.</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">

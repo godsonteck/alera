@@ -240,7 +240,7 @@ const DashboardShell = ({
               </span>
             </div>
             <div className="mt-3">
-              <span className="font-mono text-2xl font-bold tracking-tight text-[#0b3d62]">
+              <span className="text-2xl font-bold tracking-tight text-[#0b3d62]">
                 {metric.value}
               </span>
               <p className="mt-0.5 text-xs text-slate-500">{metric.helper}</p>
@@ -257,11 +257,11 @@ const DashboardShell = ({
             <div>
               <p className="text-xs font-medium text-slate-500">What needs attention</p>
               <h2 className="mt-0.5 text-base font-semibold text-[#0b3d62]">
-                {role === 'patient' ? 'Active Care Resources' : 'Task Queue'}
+                {role === 'patient' ? 'Your care' : 'Tasks'}
               </h2>
             </div>
             <Link to={actions[0]?.href ?? '/dashboard'} className="inline-flex items-center gap-1 text-xs font-semibold text-[#0b3d62] hover:text-[#2f6b4f]">
-              Open Workspace <ArrowRight className="h-3.5 w-3.5" />
+              View all <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
@@ -274,7 +274,7 @@ const DashboardShell = ({
                   className="group flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-[#8fd0af]"
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-xs text-slate-400">0{idx + 1}</span>
+                    <span className="text-xs text-slate-400">{idx + 1}</span>
                     <div>
                       <strong className="block text-sm font-semibold text-slate-800 transition-colors group-hover:text-[#0b3d62]">
                         {item.title}
@@ -439,9 +439,9 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
 
   const patientConfig = {
     metrics: [
-      { label: 'Upcoming Consultations', value: patientAppointments.filter(isOpenAppointment).length, helper: 'Scheduled or confirmed consults', icon: <Calendar className="h-4 w-4" />, tone: 'primary' as Tone, href: '/dashboard/appointments' },
-      { label: 'Prescription Regimes', value: prescriptions.filter((item) => item.patientId === user?.id && item.status === 'active').length, helper: 'Active clinical regimes', icon: <Pill className="h-4 w-4" />, tone: 'success' as Tone, href: '/dashboard/prescriptions' },
-      { label: 'Laboratory Diagnostics', value: labTests.filter((item) => item.patientId === user?.id).length, helper: 'Synchronized diagnostic tests', icon: <FlaskConical className="h-4 w-4" />, tone: 'info' as Tone, href: '/dashboard/lab-results' },
+      { label: 'Upcoming appointments', value: patientAppointments.filter(isOpenAppointment).length, helper: 'Scheduled or confirmed', icon: <Calendar className="h-4 w-4" />, tone: 'primary' as Tone, href: '/dashboard/appointments' },
+      { label: 'Prescriptions', value: prescriptions.filter((item) => item.patientId === user?.id && item.status === 'active').length, helper: 'Active medications', icon: <Pill className="h-4 w-4" />, tone: 'success' as Tone, href: '/dashboard/prescriptions' },
+      { label: 'Lab results', value: labTests.filter((item) => item.patientId === user?.id).length, helper: 'Available tests and results', icon: <FlaskConical className="h-4 w-4" />, tone: 'info' as Tone, href: '/dashboard/lab-results' },
       { label: 'Active Alerts', value: ambulanceRequests.filter((item) => item.patientId === user?.id && !['completed', 'cancelled'].includes(item.status)).length, helper: 'Dispatched emergency units', icon: <Ambulance className="h-4 w-4" />, tone: 'critical' as Tone, href: '/dashboard/ambulance' },
     ],
     workItems: [
@@ -454,7 +454,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       })),
     ],
     actions: [
-      { label: 'Schedule Consult', href: '/dashboard/appointments', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' as const },
+      { label: 'Schedule appointment', href: '/dashboard/appointments', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' as const },
       { label: 'Request Emergency Help', href: '/dashboard/ambulance', icon: <Ambulance className="h-4 w-4" />, emphasis: 'danger' as const },
       { label: 'Message Primary', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       { label: 'Timeline', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
@@ -481,7 +481,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       actions: [
         { label: 'Open Consultation Room', href: '/dashboard/appointments', icon: <Video className="h-4 w-4" />, emphasis: 'primary' },
         { label: 'Record Clinical Note', href: '/dashboard/clinical-notes', icon: <FileText className="h-4 w-4" /> },
-        { label: 'Order Diagnostic Assay', href: '/dashboard/lab-referrals', icon: <FlaskConical className="h-4 w-4" /> },
+        { label: 'Order lab test', href: '/dashboard/lab-referrals', icon: <FlaskConical className="h-4 w-4" /> },
         { label: 'Draft Prescription', href: '/dashboard/prescriptions', icon: <Pill className="h-4 w-4" /> },
       ],
       signal: { label: 'Today', value: `${doctorAppointments.filter((item) => item.date === today && isOpenAppointment(item)).length} appointments scheduled`, detail: 'Review visits and items waiting for your action.', tone: 'primary' },
@@ -501,10 +501,10 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: appointmentItems(doctorAppointments.filter(isOpenAppointment)),
       actions: [
-        { label: 'Open Therapy Console', href: '/dashboard/appointments', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' },
-        { label: 'Edit Physical Regime', href: '/dashboard/clinical-notes', icon: <FileText className="h-4 w-4" /> },
-        { label: 'Verify Patient Timeline', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
-        { label: 'Secure Message Box', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
+        { label: 'View sessions', href: '/dashboard/appointments', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' },
+        { label: 'Add clinical note', href: '/dashboard/clinical-notes', icon: <FileText className="h-4 w-4" /> },
+        { label: 'Care timeline', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
+        { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
       signal: { label: 'Recovery plans', value: `${doctorAppointments.filter(isOpenAppointment).length} sessions scheduled`, detail: 'Review therapy plans and recovery notes.', tone: 'success' },
       secondaryTitle: 'Active Specialist Handoffs',
@@ -552,7 +552,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       role: 'imaging',
       metrics: [
         { label: 'Study Requests', value: imagingScans.filter((item) => item.status === 'requested').length, helper: 'Awaiting equipment scheduling', icon: <ScanLine className="h-4 w-4" />, tone: 'warning', href: '/dashboard/scan-requests' },
-        { label: 'Active DICOM Studies', value: imagingScans.filter((item) => item.status === 'in-progress').length, helper: 'Active PACS study acquisitions', icon: <Activity className="h-4 w-4" />, tone: 'info', href: '/dashboard/imaging-referrals' },
+        { label: 'Scans in progress', value: imagingScans.filter((item) => item.status === 'in-progress').length, helper: 'Scans being processed', icon: <Activity className="h-4 w-4" />, tone: 'info', href: '/dashboard/imaging-referrals' },
         { label: 'Completed Studies', value: imagingScans.filter((item) => item.status === 'completed').length, helper: 'Findings published to EMR', icon: <CheckCircle2 className="h-4 w-4" />, tone: 'success', href: '/dashboard/results' },
         { label: 'Clinical Referrals', value: visibleReferrals.filter((item) => item.referralType === 'imaging').length, helper: 'Referral diagnostics queued', icon: <FileText className="h-4 w-4" />, tone: 'neutral', href: '/dashboard/imaging-referrals' },
       ],

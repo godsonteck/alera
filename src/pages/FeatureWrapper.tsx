@@ -76,7 +76,9 @@ const FeatureWrapper = ({ page }: FeatureWrapperProps) => {
   return (
     <DashboardLayout>
       <Suspense fallback={<RouteLoader compact label="Loading dashboard..." />}>
-        <Page {...pageProps} />
+        <div className="alera-feature">
+          <Page {...pageProps} />
+        </div>
       </Suspense>
     </DashboardLayout>
   );

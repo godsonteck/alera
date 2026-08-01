@@ -12,7 +12,6 @@ export const badgeVariants = cva(
         success: 'border-transparent bg-[var(--state-success)] text-[color:var(--surface-elevated)]',
         warning: 'border-transparent bg-[var(--state-warning)] text-[color:var(--surface-elevated)]',
         critical: 'border-transparent bg-[var(--state-critical)] text-[color:var(--surface-elevated)]',
-        ai: 'border-dashed border-[color:var(--state-ai)] bg-[var(--surface-elevated)] text-[var(--state-ai)]',
       },
     },
     defaultVariants: {

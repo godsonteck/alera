@@ -97,7 +97,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
         patient_id: Number(orderForm.patientId),
         destination_provider_id: Number(lab.id),
         test_name: orderForm.testName.trim(),
-        description: `Assay ordered for ${patient.name}`,
+        description: `Lab test ordered for ${patient.name}`,
       });
 
       addLabTest({
@@ -114,7 +114,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
       });
 
       addNotification({
-        title: 'Diagnostic Assay Requisitioned',
+        title: 'Lab test ordered',
         message: `${orderForm.testName} ordered for ${patient.name}.`,
         type: 'result',
         priority: 'medium',
@@ -150,14 +150,14 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
   };
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="alera-feature space-y-4 text-slate-700">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Assay Telemetry Node</span>
+            <span className="text-lg font-bold text-[#0b3d62]">Lab results</span>
             <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
-              {filteredLabTests.length} ASSAYS TRACKED
+              {filteredLabTests.length} tests tracked
             </span>
           </div>
           <p className="text-[11px] text-slate-400 mt-0.5">
@@ -171,7 +171,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
             className="flex items-center gap-2 bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold px-3 py-1.5 rounded-[2px] text-xs transition-colors"
           >
             {showOrder ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            <span>{showOrder ? 'CANCEL REQUISITION' : 'ORDER DIAGNOSTIC ASSAY'}</span>
+            <span>{showOrder ? 'Cancel' : 'Order lab test'}</span>
           </button>
         )}
       </div>
@@ -180,7 +180,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
       {showOrder && (
         <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-3">
           <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">
-            Requisition Biological Diagnostic Assay
+            Order lab test
           </span>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -213,7 +213,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
             </div>
 
             <div>
-              <label className="text-[10px] text-slate-400 uppercase block mb-1">Assay Test Name</label>
+              <label className="text-[10px] text-slate-400 uppercase block mb-1">Test name</label>
               <input
                 type="text"
                 value={orderForm.testName}
@@ -228,7 +228,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
             onClick={() => void handleOrder()}
             className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-2 rounded-[2px] transition-colors uppercase tracking-wider text-xs"
           >
-            DISPATCH ASSAY REQUISITION
+            Send lab request
           </button>
         </div>
       )}
@@ -246,7 +246,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
                   : 'bg-[#0F1218] border-[#252A35] text-slate-400 hover:text-[#ECEEF2]'
               }`}
             >
-              {st === 'all' ? 'ALL ASSAYS' : st.replace('-', ' ')}
+              {st === 'all' ? 'All tests' : st.replace('-', ' ')}
             </button>
           ))}
         </div>
@@ -266,7 +266,7 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
       {/* Assay List Grid */}
       {filteredLabTests.length === 0 ? (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
-          No matching diagnostic assay records found.
+          No matching lab tests found.
         </div>
       ) : (
         <div className="space-y-2">
@@ -332,14 +332,14 @@ const LabResultsPage = ({ page }: LabResultsPageProps) => {
 
               {test.results && (
                 <div className="p-2 bg-[#06080C] border border-[#1F232E] rounded-[2px] text-[11px] text-slate-300">
-                  <strong className="text-cyan-400 block text-[10px] uppercase font-mono">PUBLISHED ASSAY VALUES:</strong>
+                  <strong className="text-cyan-400 block text-[10px] uppercase font-mono">Lab results:</strong>
                   <span>{test.results}</span>
                 </div>
               )}
 
               {showUpload === test.id && (
                 <div className="p-3 bg-[#0F1218] border border-cyan-500/50 rounded-[2px] space-y-2 mt-2">
-                  <span className="text-[10px] font-bold text-cyan-300 uppercase block">Input Verified Laboratory Assay Telemetry</span>
+                  <span className="text-[10px] font-semibold text-[#0b3d62] block">Enter verified lab results</span>
                   <textarea
                     value={uploadResult}
                     onChange={(e) => setUploadResult(e.target.value)}

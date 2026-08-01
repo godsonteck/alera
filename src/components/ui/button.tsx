@@ -9,7 +9,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
-  state?: 'default' | 'error' | 'ai';
+  state?: 'default' | 'error';
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
