@@ -434,9 +434,14 @@ async def oauth_google(
             "csrf_token": csrf_token,
         }
         
-    except ValueError:
-        # Invalid token
-        raise HTTPException(status_code=401, detail="Invalid Google token")
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.warning("Google OAuth token verification failed: %s", exc, exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Google verification failed: {str(exc)}",
+        ) from exc
 
 
 @router.post("/oauth/google/register")
@@ -538,9 +543,14 @@ async def oauth_google_register(
             "csrf_token": csrf_token,
         }
         
-    except ValueError:
-        # Invalid token
-        raise HTTPException(status_code=401, detail="Invalid Google token")
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.warning("Google OAuth registration token verification failed: %s", exc, exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Google verification failed: {str(exc)}",
+        ) from exc
 
 
 @router.post("/oauth/apple")
