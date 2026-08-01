@@ -364,7 +364,10 @@ async def oauth_google(
         raise HTTPException(status_code=500, detail="google-auth library is not installed")
         
     if not settings.GOOGLE_CLIENT_ID:
-        raise HTTPException(status_code=500, detail="Google Auth is not configured on the server")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Google Auth is not configured on the server. Please set GOOGLE_CLIENT_ID in environment variables.",
+        )
         
     try:
         # Verify the token
@@ -450,7 +453,10 @@ async def oauth_google_register(
         raise HTTPException(status_code=500, detail="google-auth library is not installed")
         
     if not settings.GOOGLE_CLIENT_ID:
-        raise HTTPException(status_code=500, detail="Google Auth is not configured on the server")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Google Auth is not configured on the server. Please set GOOGLE_CLIENT_ID in environment variables.",
+        )
         
     try:
         # Verify the token
