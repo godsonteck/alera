@@ -751,12 +751,14 @@ def init_db():
         is_production = settings.ENVIRONMENT == "production"
         is_sqlite = str(engine.url).startswith("sqlite")
 
+        # Always ensure schema tables exist (idempotent IF NOT EXISTS)
+        Base.metadata.create_all(bind=engine)
+
         if is_serverless or (is_production and not is_sqlite):
-            print("✓ Bypassing legacy DDL schema patches under serverless/production environment")
+            print("✓ Database tables verified (bypassing legacy DDL migration patches under serverless environment)")
         else:
-            # 2. Legacy create_all (idempotent, won't hurt if migrations already created tables)
+            # 2. Legacy create_all and DDL patches for local dev
             run_migrations()
-            Base.metadata.create_all(bind=engine)
             _patch_referrals_referral_type_column()
             _patch_users_session_version_column()
             _patch_users_account_recovery_columns()
