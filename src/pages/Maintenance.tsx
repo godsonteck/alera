@@ -6,7 +6,7 @@ interface MaintenancePageProps {
 }
 
 const MaintenancePage: React.FC<MaintenancePageProps> = ({ 
-  message = "Alera is currently undergoing scheduled node updates to optimize clinical telemetry. System access will resume shortly." 
+  message = "Alera is temporarily unavailable while we update the service. Please try again in a few minutes." 
 }) => {
   return (
     <div className="alera-dark-backdrop min-h-screen text-foreground flex items-center justify-center p-6 font-body">
@@ -21,7 +21,7 @@ const MaintenancePage: React.FC<MaintenancePageProps> = ({
         </div>
         
         <h1 className="text-2xl font-bold text-foreground font-display mb-2">
-          System Node Maintenance
+          Maintenance
         </h1>
         
         <p className="text-xs text-ink-soft mb-8 leading-relaxed font-light">
@@ -40,8 +40,8 @@ const MaintenancePage: React.FC<MaintenancePageProps> = ({
           <div className="flex items-center gap-3 p-3 bg-paper rounded-control border border-border text-left">
             <RefreshCw className="h-4 w-4 text-acuity-3 animate-spin" />
             <div>
-              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-ink-soft font-mono">Telemetry Status</p>
-              <p className="text-xs text-foreground font-mono">Auto-reconnecting to node...</p>
+              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-ink-soft font-mono">Status</p>
+              <p className="text-xs text-foreground font-mono">Reconnecting shortly...</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ const MaintenancePage: React.FC<MaintenancePageProps> = ({
           onClick={() => window.location.reload()}
           className="w-full bg-primary text-primary-foreground font-mono font-bold text-xs uppercase tracking-wider py-3 px-6 rounded-control hover:opacity-90 transition-opacity shadow-sm"
         >
-          Re-poll Telemetry Node
+          Try again
         </button>
         
         <div className="mt-8 pt-6 border-t border-border">

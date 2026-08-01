@@ -66,7 +66,7 @@ describe('provider portals', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByRole('link', { name: /messages|secure terminal|message box/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /messages|message box/i })).toBeInTheDocument();
   });
 
   it('allows operational roles to access messaging routes', () => {

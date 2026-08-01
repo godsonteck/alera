@@ -60,7 +60,7 @@ export const SynchronousCareContinuum: React.FC = () => {
                 SYNCHRONOUS CARE CONTINUUM (SCC)
               </span>
               <span className="text-[10px] bg-cyan-950/60 text-cyan-400 border border-cyan-800/60 px-1.5 py-0.2 rounded font-mono">
-                LIVE 4D TELEMETRY
+                LIVE CARE VIEW
               </span>
             </div>
             <p className="text-[11px] text-slate-400">
@@ -101,7 +101,7 @@ export const SynchronousCareContinuum: React.FC = () => {
         </div>
       </div>
 
-      {/* 4D Temporal Telemetry Stream Graph Surface */}
+      {/* Care timeline graph surface */}
       <div className="relative bg-[#06080C] border border-[#1F232E] rounded-[2px] p-4 space-y-4">
         {/* Baseline Axis Indicators */}
         <div className="flex items-center justify-between text-[10px] text-slate-500 pb-2 border-b border-white/5">
@@ -111,7 +111,7 @@ export const SynchronousCareContinuum: React.FC = () => {
           <span>12:00 (CURRENT)</span>
         </div>
 
-        {/* Telemetry Curves Representation */}
+        {/* Care curve overview */}
         <div className="grid grid-cols-6 gap-2">
           {telemetryStream.map((pt, idx) => {
             const isSelected = activePoint.time === pt.time;
@@ -159,14 +159,14 @@ export const SynchronousCareContinuum: React.FC = () => {
           })}
         </div>
 
-        {/* AI Accountability Trace Vector Surface */}
+        {/* Care insight trace */}
         {showAiTrace && (
           <div className="bg-[#120D1A] border border-purple-500/30 rounded-[2px] p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5">
               <Sparkles className="w-4 h-4 text-purple-400 shrink-0" />
               <div>
                 <div className="text-purple-300 font-semibold flex items-center gap-2">
-                  <span>AI PATTERN TRACE DETECTED</span>
+                  <span>Care pattern review detected</span>
                   <span className="text-[10px] bg-purple-950 border border-purple-700/50 px-1.5 py-0.2 rounded text-purple-200">
                     Confidence: 96.4%
                   </span>
@@ -213,11 +213,11 @@ export const SynchronousCareContinuum: React.FC = () => {
           </div>
         </div>
 
-        {/* Pharmacological Kinetics Card */}
+        {/* Medication plan card */}
         <div className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px] space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400 border-b border-white/5 pb-1.5">
             <span className="font-semibold text-[#ECEEF2] flex items-center gap-1.5">
-              <Pill className="w-3.5 h-3.5 text-purple-400" /> Pharmacological Kinetics
+              <Pill className="w-3.5 h-3.5 text-purple-400" /> Medication plan
             </span>
             <span>Vancomycin IV</span>
           </div>
@@ -238,11 +238,11 @@ export const SynchronousCareContinuum: React.FC = () => {
           </div>
         </div>
 
-        {/* Care Team Intent & Audit Envelope Card */}
+        {/* Care team and audit card */}
         <div className="p-3 bg-[#0F1218] border border-[#252A35] rounded-[2px] space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-400 border-b border-white/5 pb-1.5">
             <span className="font-semibold text-[#ECEEF2] flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Cryptographic Lineage
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Care audit trail
             </span>
             <span className="text-[10px] text-slate-500">Hash #7f9a2b</span>
           </div>

@@ -36,7 +36,7 @@ export const CareNetworkOrbit: React.FC = () => {
       status: "active",
       distance: 1,
       angle: 45,
-      metrics: "Live Telemetry • 99.8% Sync",
+      metrics: "Live sync • 99.8% uptime",
       icon: Stethoscope
     },
     {
@@ -80,7 +80,7 @@ export const CareNetworkOrbit: React.FC = () => {
       status: "telemetry",
       distance: 3,
       angle: 210,
-      metrics: "EEG Stream Active",
+      metrics: "EEG review active",
       icon: Zap
     },
     {
@@ -91,7 +91,7 @@ export const CareNetworkOrbit: React.FC = () => {
       status: "active",
       distance: 3,
       angle: 340,
-      metrics: "256-bit Encrypted",
+      metrics: "256-bit encrypted",
       icon: Shield
     }
   ];
@@ -132,9 +132,9 @@ export const CareNetworkOrbit: React.FC = () => {
           <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-cyan-400 animate-ping" />
         </div>
         <div className="mt-1.5 text-[11px] font-mono tracking-wider text-cyan-300 font-semibold uppercase">
-          ALERA CORE
+          ALERA CARE
         </div>
-        <div className="text-[9px] text-slate-400 font-mono">Living Patient</div>
+        <div className="text-[9px] text-slate-400 font-mono">Patient hub</div>
       </motion.div>
 
       {/* Orbiting Nodes */}

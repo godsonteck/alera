@@ -115,12 +115,12 @@ const App = () => {
                           <Routes>
                             <Route element={<PublicLayout><MainLayout /></PublicLayout>}>
                               <Route path="/" element={<LandingHome />} />
-                              <Route path="/about" element={<LandingAbout />} />
-                              <Route path="/how-it-works" element={<LandingHowItWorks />} />
-                              <Route path="/features" element={<LandingFeatures />} />
+                                <Route path="/how-it-works" element={<LandingHowItWorks />} />
                               <Route path="/trust" element={<LandingTrust />} />
-                              <Route path="/who-we-serve" element={<LandingWhoWeServe />} />
                               <Route path="/why-alera" element={<LandingWhyAlera />} />
+                              <Route path="/about" element={<Navigate to="/" replace />} />
+                              <Route path="/features" element={<Navigate to="/" replace />} />
+                              <Route path="/who-we-serve" element={<Navigate to="/" replace />} />
                               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                               <Route path="/terms" element={<TermsOfService />} />
                             </Route>

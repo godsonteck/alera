@@ -6,9 +6,8 @@
     <title>Alera | Healthcare Platform for Patients, Providers and Care Networks</title>
     
     <!-- Favicon & Icons -->
-    <link rel="icon" type="image/svg+xml" href="/alera-icon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/alera-icon.svg" />
+    <link rel="icon" type="image/jpeg" href="/sad.jpg" />
+    <link rel="apple-touch-icon" href="/sad.jpg" />
     
     <!-- Meta Tags -->
     <meta
@@ -36,7 +35,7 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://alera.health/" />
-    <meta property="og:image" content="/alera-icon.svg" />
+    <meta property="og:image" content="/sad.jpg" />
     <meta property="og:image:width" content="200" />
     <meta property="og:image:height" content="200" />
 
@@ -47,7 +46,7 @@
       name="twitter:description"
       content="Healthcare management software for patients, doctors, hospitals, pharmacies, labs, imaging centers, and ambulance teams."
     />
-    <meta name="twitter:image" content="/alera-icon.svg" />
+    <meta name="twitter:image" content="/sad.jpg" />
     <meta name="twitter:site" content="@alerahealth" />
     <script type="application/ld+json">
       {
@@ -86,13 +85,22 @@
 
   <body>
     <div id="root">
-      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#ffffff;color:#0f172a;font-family:Inter,system-ui,sans-serif;padding:24px;text-align:center">
-        <div style="border:1px solid #e2e8f0;padding:32px;background:#f8fafc;border-radius:4px;max-width:400px;width:100%">
-          <p style="margin:0 0 8px;font-size:10px;font-weight:700;font-family:monospace;letter-spacing:.2em;text-transform:uppercase;color:#475569">ALERA HEALTH OS</p>
-          <p style="margin:0;font-size:14px;font-weight:600;color:#0f172a">Loading secure care network coordinates...</p>
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f9fc;color:#0f172a;font-family:Inter,system-ui,sans-serif;padding:24px;text-align:center">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;border:1px solid rgba(15,23,42,0.08);padding:32px;background:#ffffff;border-radius:20px;max-width:420px;width:100%;box-shadow:0 10px 30px rgba(15,23,42,0.08)">
+          <img src="/sad.jpg" alt="Alera logo" style="width:56px;height:56px;border-radius:14px;object-fit:cover" />
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+            <p style="margin:0;font-size:10px;font-weight:700;font-family:monospace;letter-spacing:.2em;text-transform:uppercase;color:#475569">ALERA</p>
+            <div style="width:32px;height:32px;border-radius:9999px;border:3px solid rgba(15,23,42,0.12);border-top-color:#0b3d62;animation:spin 1s linear infinite"></div>
+            <p style="margin:0;font-size:14px;font-weight:700;color:#0f172a">Loading your care dashboard...</p>
+          </div>
         </div>
       </div>
     </div>
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
     <noscript>
       <div style="padding:24px;font-family:Inter,system-ui,sans-serif">
         ALERA requires JavaScript to load appointments, diagnostics, messaging, and dashboard workflows.

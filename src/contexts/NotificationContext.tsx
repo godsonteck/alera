@@ -95,7 +95,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     setLastUpdatedAt(optimistic.timestamp);
 
     if (draft.priority === 'critical' && 'Notification' in window && Notification.permission === 'granted') {
-      new Notification(optimistic.title, { body: optimistic.message, icon: '/alera-icon.png' });
+      new Notification(optimistic.title, { body: optimistic.message, icon: '/sad.jpg' });
     }
 
     try {

@@ -8,14 +8,14 @@
   "theme_color": "#0ea5e9",
   "icons": [
     {
-      "src": "/alera-icon.png",
+      "src": "/sad.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "/alera-icon.svg",
+      "src": "/sad.jpg",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/jpeg",
       "purpose": "any"
     }
   ]

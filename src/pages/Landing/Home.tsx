@@ -8,16 +8,19 @@ const careHighlights = [
     title: "Book before you go",
     text: "See available services and book an appointment instead of joining a long queue.",
     icon: CalendarDays,
+    tone: "bg-[#e7f7f2] text-[#0f6f5f]",
   },
   {
     title: "Send the right request",
     text: "Doctors can send lab, scan, pharmacy, or specialist requests to the right place.",
     icon: MessageCircle,
+    tone: "bg-[#fff1ea] text-[#b75843]",
   },
   {
     title: "Follow your care",
     text: "Check your results, prescriptions, referrals, and appointment updates in one account.",
     icon: ShieldCheck,
+    tone: "bg-[#edf5ff] text-[#295f8d]",
   },
 ];
 
@@ -33,21 +36,21 @@ const roleViews = [
     title: "For patients",
     summary: "Book visits, view results, refill prescriptions, and follow your referrals.",
     detail: "You should not have to call different places just to find out what is happening with your care.",
-    image: "/images/doctor_consultation.png",
+    image: "/images/consulting_patients.png",
   },
   {
     id: "clinicians",
     title: "For clinicians",
     summary: "Manage appointments, send referrals, write prescriptions, and check patient updates.",
     detail: "Your work stays in one place, so the next team has the information they need.",
-    image: "/images/ambulance_fleet.png",
+    image: "/images/doctor_consultation.png",
   },
   {
     id: "teams",
     title: "For care teams",
     summary: "Receive requests, update their status, and hand patients over to the next service.",
     detail: "Hospitals, labs, imaging centres, pharmacies, and ambulance teams can work from the same request.",
-    image: "/images/hero_command_center.png",
+    image: "/images/ambulance_fleet.png",
   },
 ];
 
@@ -64,7 +67,7 @@ export const Home: React.FC = () => {
 
       <section className="alera-navy-backdrop relative z-20 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="max-w-2xl">
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} className="max-w-2xl">
             <p className="border-l-2 border-[#8fd0af] pl-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#b7e4ca]">One place for your care</p>
 
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -72,7 +75,7 @@ export const Home: React.FC = () => {
             </h1>
 
             <p className="mt-5 max-w-xl text-lg leading-8 text-[#d4e0e9]">
-              Alera helps you book care, send referrals, get results, and see updates from the people helping you. It is built for the moments when a missed message or wasted trip matters.
+              Alera keeps the next step visible before you travel.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -99,8 +102,8 @@ export const Home: React.FC = () => {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.08 }} className="border border-slate-200 bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.08)]">
-            <img src="/images/hero_medical_team.png" alt="A clinician and patient discussing care" className="h-[420px] w-full object-cover" />
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.08 }} whileHover={{ y: -4 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} className="overflow-hidden rounded-[28px] border border-white/25 bg-white p-2 shadow-[0_18px_42px_rgba(15,23,42,0.16)]">
+            <img src="/images/hero_command_center.png" alt="Alera dashboard view showing care coordination" className="h-[420px] w-full rounded-[20px] object-cover" />
             <p className="border-l-2 border-[#0b3d62] px-3 py-3 text-sm text-slate-600">Patients and care teams can see the request, its status, and the next step.</p>
           </motion.div>
         </div>
@@ -113,11 +116,11 @@ export const Home: React.FC = () => {
             {careHighlights.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className="border-l border-slate-700/40 px-5 py-2 first:border-l-0">
-                  <div className="flex items-center gap-2 text-sky-400">
+                <motion.article key={item.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} whileHover={{ y: -4 }} transition={{ duration: 0.25 }} className="rounded-3xl border border-slate-700/20 bg-[var(--surface-elevated)] p-5 shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
+                  <div className={`inline-flex h-10 w-10 items-center justify-center rounded-2xl ${item.tone}`}>
                     <Icon className="h-4 w-4" />
-                    <h3 className="font-semibold text-[var(--text-high)]">{item.title}</h3>
                   </div>
+                  <h3 className="mt-4 font-semibold text-[var(--text-high)]">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-[var(--text-medium)]">{item.text}</p>
                 </motion.article>
               );
@@ -143,8 +146,8 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="overflow-hidden border border-slate-200 bg-white p-2">
-            <img src="/images/consulting_patients.png" alt="A doctor speaking with a patient" className="h-[320px] w-full object-cover" />
+          <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.08)]">
+            <img src="/images/lab_imaging.png" alt="Alera lab and imaging workflow" className="h-[320px] w-full rounded-[18px] object-cover" />
           </div>
         </div>
       </section>
@@ -158,12 +161,14 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {roleViews.map((role) => (
-              <button key={role.id} onClick={() => setActiveRole(role.id)} className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${activeRole === role.id ? "border-sky-400 text-sky-400" : "border-transparent text-[var(--text-medium)] hover:border-slate-500 hover:text-[var(--text-high)]"}`}>
-                {role.title}
-              </button>
-            ))}
+          <div className="mt-8 overflow-x-auto pb-2">
+            <div className="flex min-w-max gap-2">
+              {roleViews.map((role) => (
+                <button key={role.id} onClick={() => setActiveRole(role.id)} className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${activeRole === role.id ? "border-sky-400 text-sky-400" : "border-transparent text-[var(--text-medium)] hover:border-slate-500 hover:text-[var(--text-high)]"}`}>
+                  {role.title}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">

@@ -15,7 +15,7 @@
   }
 
   :root {
-    --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Instrument Serif', Georgia, serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --font-data: 'JetBrains Mono', monospace;
     --radius: var(--radius-md);

@@ -33,15 +33,15 @@ export const DiagnosticStream: React.FC = () => {
           </div>
           <div>
             <h3 className="text-lg font-semibold tracking-tight text-white font-display">
-              Continuous Vital Telemetry Stream
+              Live vital signs
             </h3>
-            <p className="text-xs text-slate-400">Sub-second precision sensor sync via Alera Medical Core.</p>
+            <p className="text-xs text-slate-400">A clear view of the latest patient measurements.</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">LIVE SENSOR ONLINE</span>
+          <span className="text-xs font-mono text-emerald-400 font-semibold uppercase">Live monitoring</span>
         </div>
       </div>
 

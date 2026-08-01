@@ -19,9 +19,9 @@ const comparisonItems = [
   'End-to-end patient care records within a single login',
   'Real-time laboratory and diagnostic report distribution',
   'e-Prescriptions sent directly to patient-selected pharmacies',
-  'Emergency fleet telemetry and direct trauma department coordinates',
+  'Emergency fleet coordination and direct trauma department communication',
   'Cryptographically append-only audit logs with full security coverage',
-  'Role-specific command dashboards matching clinical tasks',
+  'Role-specific care dashboards matching clinical tasks',
   'Automated professional credential verification en route',
 ];
 

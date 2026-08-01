@@ -32,17 +32,17 @@ export const ContextDock: React.FC = () => {
 
   const navItems = [
     { label: "Overview", path: "/", icon: Compass },
-    { label: "Clinical OS", path: "/dashboard", icon: Activity },
-    { label: "Care Network", path: "/how-it-works", icon: Users },
-    { label: "Trust & Security", path: "/trust", icon: ShieldCheck },
-    { label: "Specialist Radar", path: "/who-we-serve", icon: Stethoscope },
+    { label: "Dashboard", path: "/dashboard", icon: Activity },
+    { label: "Care network", path: "/how-it-works", icon: Users },
+    { label: "Trust & security", path: "/trust", icon: ShieldCheck },
+    { label: "Specialists", path: "/who-we-serve", icon: Stethoscope },
   ];
 
   const rolePresets = [
-    { id: "doctor", label: "Physician Telemetry", icon: Stethoscope },
-    { id: "patient", label: "Patient Genome", icon: Heart },
-    { id: "hospital", label: "Hospital Command", icon: Activity },
-    { id: "emergency", label: "Emergency Acuity", icon: Cpu },
+    { id: "doctor", label: "Clinician view", icon: Stethoscope },
+    { id: "patient", label: "Patient view", icon: Heart },
+    { id: "hospital", label: "Hospital view", icon: Activity },
+    { id: "emergency", label: "Emergency view", icon: Cpu },
   ];
 
   const isActive = (path: string) => {
@@ -66,11 +66,11 @@ export const ContextDock: React.FC = () => {
               </div>
               <div className="hidden sm:block">
                 <div className="text-[11px] font-mono tracking-wider text-cyan-400 font-semibold flex items-center gap-1.5">
-                  <span>CNOS PHOENIX</span>
+                  <span>ALERA</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                 </div>
                 <div className="text-[10px] text-slate-400 capitalize">
-                  {user?.role || "Clinical Command"}
+                  {user?.role || "Care workspace"}
                 </div>
               </div>
               <ChevronUp className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
@@ -107,19 +107,19 @@ export const ContextDock: React.FC = () => {
               <button
                 onClick={() => setIsCommandOpen(true)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-[2px] bg-[#151922] border border-[#2F3542] hover:border-cyan-500/50 text-cyan-300 text-xs font-semibold transition-colors"
-                title="Global Command Palette (Cmd+K)"
+                title="Open quick actions"
               >
                 <Command className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Cmd+K</span>
+                <span className="hidden sm:inline">Quick actions</span>
               </button>
 
               <button
                 onClick={() => setIsEmergencyOpen(true)}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[2px] bg-red-950/60 border border-red-600/60 hover:bg-red-900 text-red-300 text-xs font-bold transition-colors"
-                title="Level 5 Emergency Resuscitation Lockdown"
+                title="Emergency access"
               >
                 <ShieldAlert className="w-3.5 h-3.5" />
-                <span className="hidden lg:inline">RESUS LOCK</span>
+                <span className="hidden lg:inline">Emergency</span>
               </button>
             </div>
           </div>
@@ -131,10 +131,10 @@ export const ContextDock: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <Sliders className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-semibold tracking-wider text-slate-300 uppercase">
-                    Adaptive Workspace Viewport
+                    Workspace shortcuts
                   </span>
                 </div>
-                <div className="text-[10px] text-slate-500">Cmd+K for Command Speed Layer</div>
+                <div className="text-[10px] text-slate-500">Use quick actions to move faster</div>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">

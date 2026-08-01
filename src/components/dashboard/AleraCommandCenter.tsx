@@ -82,73 +82,73 @@ type Action = {
 
 const roleCopy: Record<RoleKey, { eyebrow: string; title: string; summary: string; focus: string; icon: React.ReactNode }> = {
   patient: {
-    eyebrow: 'Patient Console',
-    title: 'Your Care Pathway',
-    summary: 'A clear, high-contrast overview of appointments, active prescription regimes, laboratory diagnostics, and clinical discharge instructions.',
-    focus: 'Access care resources, secure medical logs, and message your primary providers.',
+    eyebrow: 'Patient view',
+    title: 'Your care pathway',
+    summary: 'A clear overview of appointments, prescription plans, lab diagnostics, and discharge information.',
+    focus: 'Access care resources, review medical records, and message your providers.',
     icon: <HeartPulse className="h-4 w-4 text-cyan-400" />,
   },
   doctor: {
-    eyebrow: 'Clinician Workspace',
-    title: 'Clinical Consultation Deck',
-    summary: 'Visits cataloged with structured symptom histories, previous laboratory findings, and diagnostic scheduling shortcuts.',
-    focus: 'Review active medical records, draft prescriptions, and dispatch referrals.',
+    eyebrow: 'Clinician workspace',
+    title: 'Care plan overview',
+    summary: 'Visits, symptom history, previous lab findings, and quick access to referrals and next steps.',
+    focus: 'Review active records, draft prescriptions, and send referrals.',
     icon: <Stethoscope className="h-4 w-4 text-cyan-400" />,
   },
   physiotherapist: {
-    eyebrow: 'Recovery Center',
-    title: 'Physical Rehabilitation Plans',
-    summary: 'Coordinate patient exercise adherence, recovery milestones, clinical progress notes, and specialized care transitions.',
-    focus: 'Design recovery templates and monitor recovery progression.',
+    eyebrow: 'Recovery workspace',
+    title: 'Rehabilitation plans',
+    summary: 'Track therapy adherence, milestones, progress notes, and patient handoffs.',
+    focus: 'Build therapy plans and monitor recovery progress.',
     icon: <Activity className="h-4 w-4 text-cyan-400" />,
   },
   hospital: {
-    eyebrow: 'Hospital Coordination',
-    title: 'Emergency Admissions & Transfers',
-    summary: 'Manage incoming specialist referrals, ambulance ETA telemetry, hospital beds, and clinical on-call roster assignments.',
-    focus: 'Coordinate transfers cleanly across departments.',
+    eyebrow: 'Hospital coordination',
+    title: 'Admissions and transfers',
+    summary: 'Manage incoming referrals, ambulance updates, bed availability, and staff coordination.',
+    focus: 'Coordinate transfers across departments and teams.',
     icon: <Hospital className="h-4 w-4 text-amber-400" />,
   },
   laboratory: {
-    eyebrow: 'Laboratory Console',
-    title: 'Assay Diagnostics & Specimen Telemetry',
-    summary: 'Biological orders, tracking status of sample tubes, quality control reviews, and verified laboratory reports publishing.',
-    focus: 'Validate test values and publish reports directly into primary EMR records.',
+    eyebrow: 'Lab workflow',
+    title: 'Lab results and sample tracking',
+    summary: 'Track incoming samples, review test requests, and publish verified lab findings.',
+    focus: 'Confirm results and send them directly into the care record.',
     icon: <FlaskConical className="h-4 w-4 text-cyan-400" />,
   },
   imaging: {
-    eyebrow: 'Imaging Center Deck',
-    title: 'Study Scheduling & PACS Reports',
-    summary: 'Diagnostic radiology requests, imaging equipment timetables, study acquisitions, and radiologist findings distribution.',
-    focus: 'Manage PACS acquisitions and dispatch findings to referencing clinicians.',
+    eyebrow: 'Imaging workflow',
+    title: 'Imaging requests and reports',
+    summary: 'Manage scan requests, scheduling, imaging reports, and results distribution.',
+    focus: 'Coordinate scans and share findings with the right clinician.',
     icon: <ScanLine className="h-4 w-4 text-cyan-400" />,
   },
   pharmacy: {
-    eyebrow: 'Pharmacy Fulfillments',
-    title: 'e-Prescriptions Dispensation & Safety Auditing',
-    summary: 'Audit drug interactions, verify electronic clinician signatures, track inventory levels, and notify patients of prescription ready.',
-    focus: 'Dispense prescription medications and request stock replenishments.',
+    eyebrow: 'Pharmacy workflow',
+    title: 'Prescriptions and dispensing',
+    summary: 'Review medication orders, verify clinician signatures, manage inventory, and track refill readiness.',
+    focus: 'Dispense medication safely and keep stock updated.',
     icon: <Pill className="h-4 w-4 text-cyan-400" />,
   },
   ambulance: {
-    eyebrow: 'Emergency Dispatch',
-    title: 'Rig Telemetry & Trauma Priority Routing',
-    summary: 'Trauma priority dispatch queues, active vehicle GPS coordinates, onboard patient biometrics, and hospital destination routing.',
-    focus: 'Deploy active response rigs and update hospital trauma departments.',
+    eyebrow: 'Emergency dispatch',
+    title: 'Emergency response and routing',
+    summary: 'Track urgent dispatch queues, vehicle status, patient updates, and destination coordination.',
+    focus: 'Send responders and keep hospital teams informed.',
     icon: <Ambulance className="h-4 w-4 text-red-400" />,
   },
   admin: {
-    eyebrow: 'System Operations Console',
-    title: 'Platform Observability & Compliance Auditing',
-    summary: 'Clinician license verifications, identity node registrations, security event auditing, and global platform status metrics.',
-    focus: 'Review registration requests and confirm platform security logs.',
+    eyebrow: 'Admin oversight',
+    title: 'Platform review and compliance',
+    summary: 'Review clinician verification, user registrations, security logs, and platform activity.',
+    focus: 'Confirm access requests and audit platform activity.',
     icon: <ShieldCheck className="h-4 w-4 text-cyan-400" />,
   },
   super_admin: {
-    eyebrow: 'Platform Executive Console',
-    title: 'Global System Nodes Management',
-    summary: 'A unified operations overview of active clinic nodes, system-wide transaction values, and immutable system audit logs.',
-    focus: 'Manage administrator rosters and review billing records.',
+    eyebrow: 'System administration',
+    title: 'Operations and records',
+    summary: 'Review active organizations, system-wide activity, and key administrative records.',
+    focus: 'Manage admin access and review system activity.',
     icon: <BadgeCheck className="h-4 w-4 text-cyan-400" />,
   },
 };
@@ -206,10 +206,9 @@ const DashboardShell = ({
 
   return (
     <div className="space-y-6 text-[#ECEEF2] font-mono">
-      {/* 4D SYNCHRONOUS CARE CONTINUUM CANVAS SURFACE */}
       <SynchronousCareContinuum />
 
-      {/* Workspace Header Kicker */}
+      {/* Workspace header */}
       <div className="relative overflow-hidden rounded-[4px] border border-[#252A35] bg-[#090D14] p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -226,18 +225,18 @@ const DashboardShell = ({
           </div>
 
           <div className="rounded-[2px] border border-[#252A35] bg-[#0F1218] p-3 min-w-[220px]">
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest">Active System Target</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest">Current focus</p>
             <h2 className="mt-0.5 text-sm font-bold text-[#ECEEF2]">{signal.value}</h2>
             <p className="text-[11px] text-slate-400 mt-0.5">{signal.detail}</p>
             <div className="mt-2 pt-2 border-t border-[#252A35] flex justify-between items-center text-[10px]">
-              <span className="text-slate-500 uppercase">STATUS</span>
+              <span className="text-slate-500 uppercase">Status</span>
               <span className={`px-1.5 py-0.5 rounded-[2px] border ${toneClasses[signal.tone]}`}>{signal.label}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Metrics Section (High-density telemetry design) */}
+      {/* Key metrics */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {metrics.map((metric) => (
           <Link
@@ -325,8 +324,8 @@ const DashboardShell = ({
             ) : (
               <div className="flex flex-col items-center justify-center py-8 text-center border border-dashed border-[#252A35] rounded-[2px]">
                 <CheckCircle2 className="h-6 w-6 text-emerald-400" />
-                <strong className="text-xs text-[#ECEEF2] mt-2 block">System Sync Complete</strong>
-                <span className="text-[11px] text-slate-400 max-w-sm mt-0.5">No outstanding priority files require sign-off at this time.</span>
+                <strong className="text-xs text-[#ECEEF2] mt-2 block">Everything is up to date</strong>
+                <span className="text-[11px] text-slate-400 max-w-sm mt-0.5">No outstanding items need action right now.</span>
               </div>
             )}
           </div>
@@ -336,8 +335,8 @@ const DashboardShell = ({
         <aside className="space-y-4">
           <section className="rounded-[4px] border border-[#252A35] bg-[#090D14] p-4 sm:p-5">
             <div className="border-b border-[#252A35] pb-2 mb-3">
-              <p className="text-[10px] uppercase tracking-widest text-slate-500">System Gateway</p>
-              <h2 className="text-xs font-bold text-[#ECEEF2] mt-0.5">Console Pathfinders</h2>
+              <p className="text-[10px] uppercase tracking-widest text-slate-500">Quick access</p>
+              <h2 className="text-xs font-bold text-[#ECEEF2] mt-0.5">Common actions</h2>
             </div>
 
             <div className="grid gap-1.5">
@@ -366,7 +365,7 @@ const DashboardShell = ({
           {/* Activity Logs */}
           <section className="rounded-[4px] border border-[#252A35] bg-[#090D14] p-4 sm:p-5">
             <div className="border-b border-[#252A35] pb-2 mb-3">
-              <p className="text-[10px] uppercase tracking-widest text-slate-500">Activity Stream</p>
+              <p className="text-[10px] uppercase tracking-widest text-slate-500">Recent activity</p>
               <h2 className="text-xs font-bold text-[#ECEEF2] mt-0.5">{secondaryTitle}</h2>
             </div>
 
@@ -399,23 +398,23 @@ const DashboardShell = ({
         </aside>
       </div>
 
-      {/* Security Telemetry Audit */}
+      {/* Security and access notes */}
       <section className="grid gap-3 md:grid-cols-2 rounded-[4px] border border-[#252A35] bg-[#090D14] p-4 text-xs font-mono">
         <div className="flex items-start gap-2.5">
           <Terminal className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
           <div>
-            <p className="font-bold text-[#ECEEF2]">Ecosystem Integrity Engine</p>
+            <p className="font-bold text-[#ECEEF2]">Access and audit</p>
             <p className="text-[11px] text-slate-400 mt-0.5">
-              Clinician workspaces are audited dynamically. Cryptographic signatures verify medical node integrity.
+              Clinician workspaces are reviewed regularly to keep care access secure and accountable.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-2.5">
           <Database className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
           <div>
-            <p className="font-bold text-[#ECEEF2]">Telemetry Log Signature</p>
+            <p className="font-bold text-[#ECEEF2]">Security record</p>
             <p className="text-[11px] text-slate-400 mt-0.5">
-              Identity signature: {user?.name ? `${user.name.toUpperCase()}` : 'NODE_GUEST'}. Cryptographic records compiled on standard pipeline.
+              Identity signature: {user?.name ? `${user.name.toUpperCase()}` : 'GUEST'}. Audit records are kept in the platform log.
             </p>
           </div>
         </div>
@@ -490,11 +489,11 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
     ],
     actions: [
       { label: 'Schedule Consult', href: '/dashboard/appointments', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' as const },
-      { label: 'Request Dispatch', href: '/dashboard/ambulance', icon: <Ambulance className="h-4 w-4" />, emphasis: 'danger' as const },
+      { label: 'Request Emergency Help', href: '/dashboard/ambulance', icon: <Ambulance className="h-4 w-4" />, emphasis: 'danger' as const },
       { label: 'Message Primary', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
-      { label: 'Ecosystem Trace', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
+      { label: 'Timeline', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
     ],
-    signal: { label: 'Node Active', value: 'Unified Health Node Sync', detail: 'Telemetry pathways authorized. Credentials verified.', tone: 'success' as Tone },
+    signal: { label: 'Care status', value: 'Care network synced', detail: 'Care pathways authorized. Credentials verified.', tone: 'success' as Tone },
     secondaryTitle: 'Secondary Trace',
     secondaryItems: [
       ...labTests.filter((item) => item.patientId === user?.id).map((item) => ({ title: item.testName, meta: `${displayDate(item.date)} · ${item.patientName}`, status: item.status, href: '/dashboard/lab-results' })),
@@ -519,7 +518,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
         { label: 'Order Diagnostic Assay', href: '/dashboard/lab-referrals', icon: <FlaskConical className="h-4 w-4" /> },
         { label: 'Draft Prescription', href: '/dashboard/prescriptions', icon: <Pill className="h-4 w-4" /> },
       ],
-      signal: { label: 'Active Session', value: `${doctorAppointments.filter((item) => item.date === today && isOpenAppointment(item)).length} Scheduled Today`, detail: 'EMR timelines and references validated.', tone: 'primary' },
+      signal: { label: 'Active session', value: `${doctorAppointments.filter((item) => item.date === today && isOpenAppointment(item)).length} scheduled today`, detail: 'Care timelines and references validated.', tone: 'primary' },
       secondaryTitle: 'Pending Diagnostics',
       secondaryItems: [
         ...pendingLabs.map((item) => ({ title: item.testName, meta: `${item.patientName} · ${item.destinationProviderName ?? 'Laboratory'}`, status: item.status, href: '/dashboard/lab-referrals' })),
@@ -541,7 +540,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
         { label: 'Verify Patient Timeline', href: '/dashboard/timeline', icon: <Clock3 className="h-4 w-4" /> },
         { label: 'Secure Message Box', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
-      signal: { label: 'Node Verified', value: 'Sync Rehabilitation Hub', detail: 'Prescription timelines and exercise compliance are secured.', tone: 'success' },
+      signal: { label: 'Care verified', value: 'Rehabilitation hub synced', detail: 'Prescription timelines and exercise compliance are secured.', tone: 'success' },
       secondaryTitle: 'Active Specialist Handoffs',
       secondaryItems: referralItems(visibleReferrals),
     },
@@ -560,7 +559,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
         { label: 'Clinician Roster', href: '/dashboard/doctors', icon: <Stethoscope className="h-4 w-4" /> },
         { label: 'Security Terminal', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
-      signal: { label: activeEmergency.length ? 'Emergency Alert' : 'Admissions Green', value: `${visibleReferrals.filter((item) => item.status === 'pending').length} Referrals Mapped`, detail: 'Roster timelines and bed spaces are secured.', tone: activeEmergency.length ? 'critical' : 'primary' },
+      signal: { label: activeEmergency.length ? 'Emergency alert' : 'Admissions clear', value: `${visibleReferrals.filter((item) => item.status === 'pending').length} referrals mapped`, detail: 'Roster timelines and bed spaces are secured.', tone: activeEmergency.length ? 'critical' : 'primary' },
       secondaryTitle: 'Trauma Unit Fleet',
       secondaryItems: activeEmergency.map((item) => ({ title: item.patientName, meta: `${item.location} · Priority Code`, status: item.status, href: '/dashboard/requests' })),
     },
@@ -574,10 +573,10 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: pendingLabs.map((item) => ({ title: item.testName, meta: `${item.patientName} · ordered by ${item.doctorName}`, status: item.status, href: '/dashboard/test-requests' })),
       actions: [
-        { label: 'Verify Accession Queue', href: '/dashboard/test-requests', icon: <FlaskConical className="h-4 w-4" />, emphasis: 'primary' },
-        { label: 'Publish Assay Values', href: '/dashboard/lab-results-management', icon: <FileText className="h-4 w-4" /> },
-        { label: 'Verify Spectrum Telemetry', href: '/dashboard/results', icon: <BadgeCheck className="h-4 w-4" /> },
-        { label: 'Operational Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
+        { label: 'Review test queue', href: '/dashboard/test-requests', icon: <FlaskConical className="h-4 w-4" />, emphasis: 'primary' },
+        { label: 'Share results', href: '/dashboard/lab-results-management', icon: <FileText className="h-4 w-4" /> },
+        { label: 'Review result summary', href: '/dashboard/results', icon: <BadgeCheck className="h-4 w-4" /> },
+        { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
       signal: { label: 'Assay Syncing', value: `${pendingLabs.length} Samples Unverified`, detail: 'Verify critical biological bounds prior to dispatch.', tone: pendingLabs.length ? 'warning' : 'success' },
       secondaryTitle: 'Historical Diagnostics',
@@ -593,12 +592,12 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: pendingImaging.map((item) => ({ title: `${item.scanType}${item.bodyPart ? ` · ${item.bodyPart}` : ''}`, meta: `${item.patientName} · ${item.clinicalIndication ?? item.doctorName}`, status: item.status, href: '/dashboard/scan-requests' })),
       actions: [
-        { label: 'Schedule Scan Modality', href: '/dashboard/scan-requests', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' },
-        { label: 'Open Referrals Queue', href: '/dashboard/imaging-referrals', icon: <ScanLine className="h-4 w-4" /> },
-        { label: 'Publish Radiology Study', href: '/dashboard/results', icon: <FileText className="h-4 w-4" /> },
-        { label: 'Secure Terminal', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
+        { label: 'Schedule imaging', href: '/dashboard/scan-requests', icon: <Calendar className="h-4 w-4" />, emphasis: 'primary' },
+        { label: 'Open referral queue', href: '/dashboard/imaging-referrals', icon: <ScanLine className="h-4 w-4" /> },
+        { label: 'Publish study results', href: '/dashboard/results', icon: <FileText className="h-4 w-4" /> },
+        { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
-      signal: { label: 'Acquisitions Mapped', value: `${pendingImaging.length} PACS Studies Scheduled`, detail: 'Equipment timetables and imaging pathways are secured.', tone: pendingImaging.length ? 'warning' : 'success' },
+      signal: { label: 'Imaging queue', value: `${pendingImaging.length} studies scheduled`, detail: 'Equipment timetables and imaging pathways are secured.', tone: pendingImaging.length ? 'warning' : 'success' },
       secondaryTitle: 'Historical Radiology',
       secondaryItems: sortByDateDesc(imagingScans).map((item) => ({ title: item.scanType, meta: `${item.patientName} · ${displayDate(item.date)}`, status: item.status, href: '/dashboard/results' })),
     },
@@ -612,10 +611,10 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: activePrescriptions.map((item) => ({ title: item.patientName, meta: `${item.medications[0]?.name ?? 'Medication'}${item.medications.length > 1 ? ` +${item.medications.length - 1}` : ''} · ${item.doctorName}`, status: item.status, href: '/dashboard/prescriptions' })),
       actions: [
-        { label: 'Verify Rx Clinician Sig', href: '/dashboard/prescriptions', icon: <Pill className="h-4 w-4" />, emphasis: 'primary' },
-        { label: 'Replenish Core Stock', href: '/dashboard/inventory', icon: <Package className="h-4 w-4" />, emphasis: lowStock.length ? 'danger' : undefined },
-        { label: 'Referral Requests', href: '/dashboard/pharmacy-referrals', icon: <FileText className="h-4 w-4" /> },
-        { label: 'Secure Message Box', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
+        { label: 'Verify prescription sign-off', href: '/dashboard/prescriptions', icon: <Pill className="h-4 w-4" />, emphasis: 'primary' },
+        { label: 'Replenish stock', href: '/dashboard/inventory', icon: <Package className="h-4 w-4" />, emphasis: lowStock.length ? 'danger' : undefined },
+        { label: 'Referral requests', href: '/dashboard/pharmacy-referrals', icon: <FileText className="h-4 w-4" /> },
+        { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
       signal: { label: lowStock.length ? 'Replenish Alert' : 'Drug Safety Clear', value: `${activePrescriptions.length} Refills Queued`, detail: 'Dosage limits and clinician credentials validated.', tone: lowStock.length ? 'critical' : 'primary' },
       secondaryTitle: 'Stock Warning Logs',
@@ -631,10 +630,10 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: activeEmergency.map((item) => ({ title: item.patientName, meta: `${item.location} · ${item.time} · ${item.priority} Priority`, status: item.status, href: '/dashboard/requests', tone: item.priority === 'critical' || item.priority === 'high' ? 'critical' : statusTone(item.status) })),
       actions: [
-        { label: 'Deploy Incident Unit', href: '/dashboard/requests', icon: <Radio className="h-4 w-4" />, emphasis: activeEmergency.length ? 'danger' : 'primary' },
-        { label: 'Track Rig Fleet', href: '/dashboard/vehicles', icon: <Ambulance className="h-4 w-4" /> },
-        { label: 'Signal Hospital Trauma', href: '/dashboard/messages', icon: <Hospital className="h-4 w-4" /> },
-        { label: 'Telemetry Maps', href: '/dashboard/requests', icon: <MapPin className="h-4 w-4" /> },
+        { label: 'Deploy incident unit', href: '/dashboard/requests', icon: <Radio className="h-4 w-4" />, emphasis: activeEmergency.length ? 'danger' : 'primary' },
+        { label: 'Track fleet', href: '/dashboard/vehicles', icon: <Ambulance className="h-4 w-4" /> },
+        { label: 'Message trauma team', href: '/dashboard/messages', icon: <Hospital className="h-4 w-4" /> },
+        { label: 'Care map', href: '/dashboard/requests', icon: <MapPin className="h-4 w-4" /> },
       ],
       signal: { label: criticalEmergency.length ? 'Priority Trauma' : 'Rig Standby', value: `${activeEmergency.length} Emergencies Active`, detail: 'Hospital bed schedules and fleet targets verified.', tone: criticalEmergency.length ? 'critical' : 'success' },
       secondaryTitle: 'Trauma Fleet Status',
@@ -650,10 +649,10 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       ],
       workItems: pendingVerifications.map((item) => ({ title: item.name, meta: `${item.role} · ${item.email}`, status: item.status, href: '/dashboard/verifications' })),
       actions: [
-        { label: 'Audit Doctor Credentials', href: '/dashboard/verifications', icon: <ShieldCheck className="h-4 w-4" />, emphasis: 'primary' },
-        { label: 'Register Active Users', href: '/dashboard/users', icon: <Users className="h-4 w-4" /> },
-        { label: 'Telemetry Analytics', href: '/dashboard/analytics', icon: <Activity className="h-4 w-4" /> },
-        { label: 'Global System Alerts', href: '/dashboard/notifications', icon: <MessageSquare className="h-4 w-4" /> },
+        { label: 'Audit credentials', href: '/dashboard/verifications', icon: <ShieldCheck className="h-4 w-4" />, emphasis: 'primary' },
+        { label: 'Register active users', href: '/dashboard/users', icon: <Users className="h-4 w-4" /> },
+        { label: 'Care analytics', href: '/dashboard/analytics', icon: <Activity className="h-4 w-4" /> },
+        { label: 'Global alerts', href: '/dashboard/notifications', icon: <MessageSquare className="h-4 w-4" /> },
       ],
       signal: { label: 'Compliance Lock', value: `${pendingVerifications.length} Verifications Pending`, detail: 'Global credentials verified. Database encryption verified.', tone: pendingVerifications.length ? 'warning' : 'success' },
       secondaryTitle: 'Platform Security Logs',
@@ -681,8 +680,8 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
         { label: 'Ecosystem Payments Matrix', href: '/dashboard/admin-billing', icon: <FileText className="h-4 w-4" /> },
         { label: 'Register Secondary Admin', href: '/dashboard/admin/create', icon: <BadgeCheck className="h-4 w-4" /> },
       ],
-      signal: { label: 'Central Console', value: `${users.length} Active System Nodes`, detail: 'Database replication verified. SOC2 metrics green.', tone: 'primary' },
-      secondaryTitle: 'System Node Activity Flow',
+      signal: { label: 'Care overview', value: `${users.length} active care nodes`, detail: 'Database replication verified. SOC2 metrics green.', tone: 'primary' },
+      secondaryTitle: 'Care activity flow',
       secondaryItems: appointmentItems(openAppointments, '/dashboard/appointments'),
     },
   };

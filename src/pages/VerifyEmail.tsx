@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { HeartPulse, ArrowLeft, CheckCircle2, Mail, Loader2, Lock, Terminal } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Mail, Loader2, Lock } from 'lucide-react';
 import { authApi } from '@/lib/apiService';
 import { handleApiError } from '@/lib/errorHandler';
 
@@ -15,7 +15,7 @@ const VerifyEmail = () => {
 
     const run = async () => {
       if (!token) {
-        setMessage('This verification link is missing its cryptographic token.');
+        setMessage('This verification link is missing its security token.');
         return;
       }
 
@@ -23,7 +23,7 @@ const VerifyEmail = () => {
         await authApi.verifyEmail(token);
         if (!cancelled) {
           setStatus('success');
-          setMessage('Email coordinates verified. Clinical enclave access is fully authorized.');
+          setMessage('Your email has been verified. You can now continue to your Alera dashboard.');
         }
       } catch (error) {
         if (!cancelled) {
@@ -47,12 +47,10 @@ const VerifyEmail = () => {
           <div>
             <div className="flex items-center justify-between">
               <Link to="/" className="inline-flex items-center gap-3 group">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[2px] border border-cyan-500/40 bg-cyan-950/30 text-cyan-400">
-                  <HeartPulse className="h-5 w-5" />
-                </div>
+                <img src="/sad.jpg" alt="Alera logo" className="h-9 w-9 rounded-[2px] border border-cyan-500/40 bg-white/70 object-cover shadow-[0_2px_10px_rgba(0,0,0,0.18)]" />
                 <div>
-                  <p className="text-xs font-bold tracking-widest text-[#ECEEF2] uppercase font-mono">ALERA CNOS</p>
-                  <p className="text-[9px] text-slate-500 uppercase tracking-widest">Clinical Neural Operating System</p>
+                  <p className="text-xs font-bold tracking-widest text-[#ECEEF2] uppercase font-mono">ALERA</p>
+                  <p className="text-[9px] text-slate-500 uppercase tracking-widest">Email verification</p>
                 </div>
               </Link>
 
@@ -61,46 +59,45 @@ const VerifyEmail = () => {
                 className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-300 transition-colors border border-[#252A35] bg-[#0F1218] px-2.5 py-1 rounded-[2px]"
               >
                 <ArrowLeft className="h-3.5 w-3.5" />
-                <span>Return to Auth</span>
+                <span>Back to sign in</span>
               </Link>
             </div>
 
             <div className="mt-12 space-y-4">
               <div className="inline-flex items-center gap-2 rounded-[2px] border border-[#252A35] bg-[#0F1218] px-2.5 py-1 text-[10px] uppercase tracking-wider text-cyan-400 font-bold">
                 <Lock className="w-3 h-3 text-cyan-400" />
-                <span>COORDINATE VERIFICATION PROTOCOL</span>
+                <span>Secure email verification</span>
               </div>
 
               <h1 className="text-2xl font-bold tracking-tight text-[#ECEEF2]">
-                Verify Email Coordinates
+                Verify your email
               </h1>
 
               <p className="text-xs leading-relaxed text-slate-400 max-w-md">
-                Verifies patient or clinician node email coordinates to confirm cryptographic authorization and enable secure data enclaves.
+                Confirm your email address so we can secure your account and keep your care updates moving.
               </p>
             </div>
           </div>
 
           <div className="p-3 bg-[#090D14] border border-[#252A35] rounded-[2px] text-[10px] text-slate-500 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              <span>COORDINATE AUDIT ACTIVE</span>
+              <Lock className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Verification keeps your account secure.</span>
             </div>
-            <span>PROTOCOL V1.0.1</span>
           </div>
         </section>
 
         {/* Right Side Form Card */}
         <section className="bg-[#090D14] border border-[#252A35] rounded-[4px] p-6 sm:p-8 space-y-6 shadow-2xl">
           <div>
-            <span className="text-[10px] uppercase tracking-widest text-slate-500 block">IDENTITY VALIDATION</span>
-            <h2 className="text-lg font-bold text-[#ECEEF2] mt-0.5">Verification Status</h2>
+            <span className="text-[10px] uppercase tracking-widest text-slate-500 block">EMAIL VALIDATION</span>
+            <h2 className="text-lg font-bold text-[#ECEEF2] mt-0.5">Verification status</h2>
           </div>
 
           {status === 'loading' && (
             <div className="p-4 rounded-[2px] border border-cyan-500/40 bg-cyan-950/20 text-xs text-cyan-300 flex items-center gap-3 font-mono">
               <Loader2 className="w-4 h-4 animate-spin text-cyan-400 shrink-0" />
-              <span>Verifying cryptographic token coordinates...</span>
+              <span>Checking your verification link...</span>
             </div>
           )}
 
@@ -119,10 +116,10 @@ const VerifyEmail = () => {
 
           <div className="pt-4 border-t border-[#252A35] flex items-center justify-between text-[11px] font-mono">
             <Link to="/login" className="text-cyan-400 hover:text-cyan-300 font-bold uppercase">
-              Authenticate Session $\rightarrow$
+              Sign in →
             </Link>
             <Link to="/dashboard" className="text-slate-400 hover:text-[#ECEEF2] uppercase">
-              Launch Workspace
+              Open dashboard
             </Link>
           </div>
         </section>

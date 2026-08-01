@@ -67,9 +67,9 @@ export const ClinicalRadar: React.FC = () => {
           </div>
           <div>
             <h3 className="text-lg font-semibold tracking-tight text-white font-display">
-              Clinical Acuity Radar & Triage
+              Care acuity overview
             </h3>
-            <p className="text-xs text-slate-400">Live emergency corridor telemetry and trauma bed capacity.</p>
+            <p className="text-xs text-slate-400">A quick look at incoming cases and bed readiness.</p>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export const ClinicalRadar: React.FC = () => {
 
         <div className="lg:col-span-6 space-y-3">
           <div className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
-            Active High-Acuity Stream
+            Active high-acuity cases
           </div>
 
           {triageCases.map((item) => (

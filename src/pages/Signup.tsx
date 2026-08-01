@@ -194,12 +194,10 @@ const Signup = () => {
     <div className="alera-navy-backdrop relative min-h-screen overflow-hidden text-[#223127]">
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
-        <div className="w-full max-w-md border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] sm:p-8">
+        <div className="w-full max-w-2xl rounded-3xl border border-white/25 bg-[color:var(--surface-elevated)] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.24)] sm:p-8">
         <div className="mb-6 flex items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#0b3d62] text-white">
-              <HeartPulse className="h-5 w-5" />
-            </div>
+            <img src="/sad.jpg" alt="Alera logo" className="h-9 w-9 rounded-md border border-white/10 bg-white/70 object-cover shadow-[0_2px_10px_rgba(0,0,0,0.15)]" />
             <div>
               <p className="text-sm font-semibold text-[#223127]">Alera</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-[#6e7d71]">Sign up</p>
@@ -242,7 +240,7 @@ const Signup = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="mb-2 block text-sm font-medium text-[#34463d]">Select your role</label>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 {roles.map((role) => (
                   <button
                     type="button"
@@ -251,10 +249,10 @@ const Signup = () => {
                     onMouseEnter={() => setPreviewRole(role.value)}
                     onFocus={() => setPreviewRole(role.value)}
                     onMouseLeave={() => setPreviewRole(selectedRole)}
-                    className={`alera-focus-ring flex items-start gap-2.5 rounded-md border p-3 text-left transition ${
+                    className={`alera-focus-ring flex items-start gap-3 rounded-2xl border p-4 text-left transition-all duration-200 ${
                       selectedRole === role.value
-                        ? 'border-[#4a785c] bg-[#f4faf4] text-[#223127]'
-                        : 'border-[#dfe8e0] bg-white text-[#4f6154] hover:border-[#c3d7c8]'
+                        ? 'border-[#4a785c] bg-[#f4faf4] text-[#223127] shadow-[0_8px_24px_rgba(75,116,93,0.16)]'
+                        : 'border-[#dfe8e0] bg-white text-[#4f6154] hover:border-[#c3d7c8] hover:bg-[#f8fcf8]'
                     }`}
                   >
                     <div className="mt-0.5 rounded-xl bg-[#f8fcf8] p-2 text-[#4a785c]">{role.icon}</div>
@@ -265,7 +263,7 @@ const Signup = () => {
                   </button>
                 ))}
               </div>
-              <div className="mt-3 min-h-[108px] border-l-2 border-[#0b3d62] bg-[#f6fafc] px-4 py-3 text-sm text-[#405467]" aria-live="polite">
+              <div className="mt-4 min-h-[124px] rounded-2xl border border-[#dce7df] bg-[#f6fafc] px-4 py-4 text-sm text-[#405467] shadow-sm" aria-live="polite">
                 {displayedRole ? (
                   <>
                     <p className="font-semibold text-[#223127]">{roles.find((role) => role.value === displayedRole)?.label}</p>

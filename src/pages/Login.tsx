@@ -98,12 +98,10 @@ const Login = () => {
     <div className="alera-navy-backdrop relative min-h-screen overflow-hidden text-[#223127]">
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
-        <div className="w-full max-w-md border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] sm:p-8">
+        <div className="w-full max-w-md rounded-3xl border border-white/25 bg-[color:var(--surface-elevated)] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.24)] sm:p-8">
         <div className="mb-6 flex items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#0b3d62] text-white">
-              <HeartPulse className="h-5 w-5" />
-            </div>
+            <img src="/sad.jpg" alt="Alera logo" className="h-9 w-9 rounded-md border border-white/10 bg-white/70 object-cover shadow-[0_2px_10px_rgba(0,0,0,0.15)]" />
             <div>
               <p className="text-sm font-semibold text-[#223127]">Alera</p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-[#6e7d71]">Sign in</p>
@@ -122,6 +120,28 @@ const Login = () => {
           {error && (
             <div className="mb-4 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {error}
+            </div>
+          )}
+
+          {googleAuthAvailable && (
+            <div className="mb-6">
+              <GoogleAuthSection
+                mode="signin"
+                disabled={loading}
+                isAvailable={googleAuthAvailable}
+                onSuccess={handleGoogleSignIn}
+                onError={() => setError('Google sign in failed. Please try again.')}
+              />
+            </div>
+          )}
+          {appleAuthAvailable && (
+            <div className="mb-6">
+              <AppleAuthButton
+                clientId={frontendEnv.appleClientId}
+                disabled={loading}
+                onSuccess={handleAppleSignIn}
+                onError={() => setError('Apple sign in failed. Please try again.')}
+              />
             </div>
           )}
 
@@ -179,28 +199,6 @@ const Login = () => {
               )}
             </button>
           </form>
-
-          {googleAuthAvailable && (
-            <div className="mt-6 border-t border-[#e7efe9] pt-6">
-              <GoogleAuthSection
-                mode="signin"
-                disabled={loading}
-                isAvailable={googleAuthAvailable}
-                onSuccess={handleGoogleSignIn}
-                onError={() => setError('Google sign in failed. Please try again.')}
-              />
-            </div>
-          )}
-          {appleAuthAvailable && (
-            <div className="mt-3">
-              <AppleAuthButton
-                clientId={frontendEnv.appleClientId}
-                disabled={loading}
-                onSuccess={handleAppleSignIn}
-                onError={() => setError('Apple sign in failed. Please try again.')}
-              />
-            </div>
-          )}
 
           <div className="mt-6 flex items-center justify-between border-t border-[#e7efe9] pt-4 text-sm text-[#4f6154]">
             <span>New here?</span>
