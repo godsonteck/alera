@@ -215,9 +215,9 @@ describe('provider role smoke tests', () => {
   it.each([
     ['doctor', /clinician workspace/i],
     ['hospital', /hospital coordination/i],
-    ['laboratory', /laboratory console/i],
-    ['imaging', /imaging center deck/i],
-    ['pharmacy', /pharmacy fulfillments/i],
+    ['laboratory', /lab work/i],
+    ['imaging', /imaging/i],
+    ['pharmacy', /pharmacy/i],
   ] as const)('loads %s dashboard', (role, heading) => {
     currentUser = baseUsers.find((user) => user.role === role) as MockUser;
 

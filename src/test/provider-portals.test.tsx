@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import DashboardLayout from '@/components/DashboardLayout';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { canAccessFeature } from '@/lib/featureAccess';
 
 const logoutMock = vi.fn();
@@ -59,11 +60,7 @@ describe('provider portals', () => {
     };
 
     render(
-      <MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <DashboardLayout>
-          <div>Portal content</div>
-        </DashboardLayout>
-      </MemoryRouter>
+      <ThemeProvider><MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><DashboardLayout><div>Portal content</div></DashboardLayout></MemoryRouter></ThemeProvider>
     );
 
     expect(screen.getByRole('link', { name: /messages|message box/i })).toBeInTheDocument();

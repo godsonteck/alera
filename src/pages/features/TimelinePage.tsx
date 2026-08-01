@@ -111,7 +111,7 @@ const TimelinePage = () => {
   if (!isSupportedRole) {
     return (
       <div className="p-8 bg-[#090D14] border border-[#252A35] rounded-[4px] text-center font-mono text-xs text-slate-500">
-        Temporal clinical timeline is restricted to patient and clinician role nodes.
+        This timeline is available to patients and clinicians.
       </div>
     );
   }
@@ -129,7 +129,7 @@ const TimelinePage = () => {
         <p className="text-[11px] text-slate-400 mt-0.5">
           {focusedPatientId && user?.role === 'doctor'
             ? 'Focused longitudinal history for selected patient node.'
-            : 'Complete chronological medical event timeline across all clinical vectors.'}
+            : 'A complete chronological view of medical events.'}
         </p>
       </div>
 
@@ -145,7 +145,7 @@ const TimelinePage = () => {
                 : 'bg-[#0F1218] border-[#252A35] text-slate-400 hover:text-[#ECEEF2]'
             }`}
           >
-            {filter === 'all' ? 'ALL VECTORS' : filter === 'lab_test' ? 'LAB ASSAYS' : filter.replace('_', ' ')}
+            {filter === 'all' ? 'All records' : filter === 'lab_test' ? 'Lab tests' : filter.replace('_', ' ')}
           </button>
         ))}
       </div>

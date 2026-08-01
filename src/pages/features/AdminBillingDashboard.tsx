@@ -29,31 +29,31 @@ const AdminBillingDashboard: React.FC = () => {
   const collectionRate = stats.totalIssued > 0 ? ((stats.totalCollected / stats.totalIssued) * 100).toFixed(1) : '0';
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="space-y-6 text-slate-800">
       {/* Header */}
-      <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Financial Command Center</span>
-        <p className="text-[11px] text-slate-400 mt-0.5">Global ledger oversight and revenue cycle management.</p>
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h1 className="text-2xl font-bold text-[#0b3d62]">Billing</h1>
+        <p className="mt-1 text-sm text-slate-600">Review providers, invoices, pricing, and payment activity.</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
         <div className="p-3 bg-[#090D14] border border-[#252A35] rounded-[2px] text-center">
-          <div className="text-[9px] text-slate-500 uppercase font-bold flex items-center justify-center gap-1"><Users className="w-3 h-3" /> ACTIVE VENDORS</div>
+          <div className="text-[9px] text-slate-500 font-bold flex items-center justify-center gap-1"><Users className="w-3 h-3" /> Active providers</div>
           <div className="text-xl font-bold font-mono text-[#ECEEF2] mt-0.5">{stats.totalProviders}</div>
-          <div className="text-[9px] text-slate-600 mt-1 uppercase">{stats.totalPricingServices} SKU(s) REGISTERED</div>
+          <div className="text-[9px] text-slate-600 mt-1">{stats.totalPricingServices} services listed</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-cyan-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-cyan-500 uppercase font-bold flex items-center justify-center gap-1"><BarChart3 className="w-3 h-3" /> GROSS INVOICED</div>
+          <div className="text-[9px] text-cyan-500 font-bold flex items-center justify-center gap-1"><BarChart3 className="w-3 h-3" /> Total invoiced</div>
           <div className="text-xl font-bold font-mono text-cyan-400 mt-0.5">₵{stats.totalIssued.toFixed(0)}</div>
           <div className="text-[9px] text-cyan-700 mt-1 uppercase">{stats.totalInvoices} TRANSACTIONS</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-emerald-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-emerald-500 uppercase font-bold flex items-center justify-center gap-1"><TrendingUp className="w-3 h-3" /> REALIZED REVENUE</div>
+          <div className="text-[9px] text-emerald-500 font-bold flex items-center justify-center gap-1"><TrendingUp className="w-3 h-3" /> Collected</div>
           <div className="text-xl font-bold font-mono text-emerald-400 mt-0.5">₵{stats.totalCollected.toFixed(0)}</div>
           <div className="text-[9px] text-emerald-700 mt-1 uppercase">{collectionRate}% CAPTURE RATE</div>
         </div>
         <div className="p-3 bg-[#090D14] border border-red-600/40 rounded-[2px] text-center">
-          <div className="text-[9px] text-red-500 uppercase font-bold flex items-center justify-center gap-1"><AlertTriangle className="w-3 h-3" /> UNREALIZED ACCOUNTS</div>
+          <div className="text-[9px] text-red-500 font-bold flex items-center justify-center gap-1"><AlertTriangle className="w-3 h-3" /> Outstanding</div>
           <div className="text-xl font-bold font-mono text-red-400 mt-0.5">₵{stats.totalOutstanding.toFixed(0)}</div>
           <div className="text-[9px] text-red-700 mt-1 uppercase">{stats.overdueBills} DELINQUENT ITEMS</div>
         </div>
@@ -63,8 +63,8 @@ const AdminBillingDashboard: React.FC = () => {
         <div className="p-3 bg-red-950/20 border border-red-900/40 rounded-[2px] text-[10px] text-red-500/80 uppercase leading-relaxed flex items-start gap-2">
           <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-red-500" />
           <div>
-            <span className="font-bold text-red-400 block mb-1">FINANCIAL RISK ALERT: DELINQUENT ACCOUNTS</span>
-            {stats.overdueBills} INVOICES HAVE BREACHED PAYMENT HORIZONS. TOTAL CAPITAL AT RISK: ₵{overdueInvoices.reduce((sum, inv) => sum + inv.outstandingAmountGHS, 0).toFixed(2)}. INITIATE RECOVERY PROTOCOLS.
+            <span className="font-bold text-red-700 block mb-1">Overdue invoices need attention</span>
+            {stats.overdueBills} invoices are overdue. Review their outstanding balances and follow up as needed.
           </div>
         </div>
       )}
@@ -73,7 +73,7 @@ const AdminBillingDashboard: React.FC = () => {
       <div className="flex gap-2">
         {(['overview', 'providers', 'billing', 'audit'] as const).map((tab) => (
           <button key={tab} onClick={() => { setSelectedTab(tab); setSelectedProvider(null); }} className={`px-3 py-1.5 rounded-[2px] text-[10px] font-bold tracking-wider uppercase transition-colors border ${selectedTab === tab ? 'bg-cyan-950/40 border-cyan-500/60 text-cyan-400' : 'bg-[#0F1218] border-[#252A35] text-slate-500 hover:text-slate-300 hover:border-slate-600'}`}>
-            {tab === 'billing' ? 'LEDGER' : tab}
+            {tab === 'billing' ? 'Invoices & pricing' : tab}
           </button>
         ))}
       </div>
@@ -81,18 +81,18 @@ const AdminBillingDashboard: React.FC = () => {
       <div className="bg-[#090D14] border border-[#252A35] rounded-[4px] p-4">
         {selectedTab === 'overview' && (
           <div className="space-y-6">
-            <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">FISCAL TELEMETRY</span>
+            <span className="text-xs font-bold text-slate-600 block border-b border-[#252A35] pb-2">Summary</span>
             <div className="grid md:grid-cols-3 gap-2">
               <div className="p-4 bg-[#0F1218] border border-[#252A35] rounded-[2px]">
                 <div className="text-[10px] text-slate-500 uppercase font-bold mb-1">TOTAL INVOICED VOLUME</div>
                 <div className="text-2xl font-bold font-mono text-[#ECEEF2]">₵{stats.totalIssued.toFixed(2)}</div>
               </div>
               <div className="p-4 bg-emerald-950/10 border border-emerald-900/30 rounded-[2px]">
-                <div className="text-[10px] text-emerald-600 uppercase font-bold mb-1">CAPTURED LIQUIDITY</div>
+                <div className="text-[10px] text-emerald-600 font-bold mb-1">Collected</div>
                 <div className="text-2xl font-bold font-mono text-emerald-500">₵{stats.totalCollected.toFixed(2)}</div>
               </div>
               <div className="p-4 bg-red-950/10 border border-red-900/30 rounded-[2px]">
-                <div className="text-[10px] text-red-600 uppercase font-bold mb-1">EXPOSED CAPITAL</div>
+                <div className="text-[10px] text-red-600 font-bold mb-1">Outstanding</div>
                 <div className="text-2xl font-bold font-mono text-red-500">₵{stats.totalOutstanding.toFixed(2)}</div>
               </div>
             </div>
@@ -121,9 +121,9 @@ const AdminBillingDashboard: React.FC = () => {
 
         {selectedTab === 'providers' && (
           <div className="space-y-3">
-            <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">VENDOR DIRECTORY</span>
+            <span className="text-xs font-bold text-slate-600 block border-b border-[#252A35] pb-2">Providers</span>
             {providers.length === 0 ? (
-              <div className="p-8 text-center text-[10px] text-slate-500 uppercase">NO REGISTERED VENDORS LOCATED IN MATRIX.</div>
+              <div className="p-8 text-center text-sm text-slate-500">No providers found.</div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {providers.map((provider) => (
@@ -133,7 +133,7 @@ const AdminBillingDashboard: React.FC = () => {
                       <div className="text-[9px] text-slate-500 uppercase mt-1 font-mono">ID: {provider.id}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-bold text-cyan-400 font-mono">{provider.totalServices} SKU(s)</div>
+                      <div className="text-sm font-bold text-cyan-400 font-mono">{provider.totalServices} services</div>
                       <div className="text-[9px] text-slate-500 uppercase mt-1">MEAN: ₵{provider.avgPrice.toFixed(2)}</div>
                     </div>
                   </div>
@@ -146,7 +146,7 @@ const AdminBillingDashboard: React.FC = () => {
         {selectedTab === 'billing' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-[#252A35] pb-2">
-              <span className="text-xs font-bold uppercase text-slate-400">LEDGER: {selectedProvider ? providers.find(p => p.id === selectedProvider)?.name || 'UNKNOWN' : 'GLOBAL MATRIX'}</span>
+              <span className="text-xs font-bold text-slate-600">Invoices and pricing: {selectedProvider ? providers.find(p => p.id === selectedProvider)?.name || 'Unknown provider' : 'All providers'}</span>
               {selectedProvider && <button onClick={() => setSelectedProvider(null)} className="text-[10px] font-bold text-slate-500 hover:text-slate-300 uppercase">CLEAR FILTER</button>}
             </div>
 
@@ -154,11 +154,11 @@ const AdminBillingDashboard: React.FC = () => {
               <table className="w-full text-left text-xs">
                 <thead className="bg-[#0F1218] border-b border-[#252A35]">
                   <tr>
-                    <th className="px-3 py-2 font-bold text-slate-400 uppercase">VENDOR</th>
-                    <th className="px-3 py-2 font-bold text-slate-400 uppercase">SKU DESC</th>
-                    <th className="px-3 py-2 font-bold text-slate-400 uppercase">CLASS</th>
-                    <th className="px-3 py-2 font-bold text-slate-400 uppercase text-right">VAL (₵)</th>
-                    <th className="px-3 py-2 font-bold text-slate-400 uppercase">REV</th>
+                    <th className="px-3 py-2 font-bold text-slate-600">Provider</th>
+                    <th className="px-3 py-2 font-bold text-slate-600">Service</th>
+                    <th className="px-3 py-2 font-bold text-slate-600">Type</th>
+                    <th className="px-3 py-2 font-bold text-slate-600 text-right">Price (GHS)</th>
+                    <th className="px-3 py-2 font-bold text-slate-600">Updated</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#252A35]">

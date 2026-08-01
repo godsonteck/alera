@@ -60,7 +60,7 @@ const PatientsPage = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Clinical Patient Register</span>
               <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
-                {filteredPatients.length} NODES LINKED
+                {filteredPatients.length} patients found
               </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5">

@@ -41,13 +41,13 @@ describe('Recovery flows', () => {
     );
 
     fireEvent.change(screen.getByPlaceholderText(/clinician@hospital\.org/i), { target: { value: 'patient@example.com' } });
-    fireEvent.click(screen.getByRole('button', { name: /dispatch recovery token/i }));
+    fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
     await waitFor(() => {
       expect(requestPasswordResetMock).toHaveBeenCalledWith('patient@example.com');
     });
 
-    expect(await screen.findByText(/cryptographic recovery token has been dispatched/i)).toBeInTheDocument();
+    expect(await screen.findByText(/if that account exists/i)).toBeInTheDocument();
   });
 
   it('submits a reset-password token exchange', async () => {
@@ -60,14 +60,14 @@ describe('Recovery flows', () => {
     );
 
     fireEvent.change(screen.getByPlaceholderText(/at least 8 characters/i), { target: { value: 'newpassword123' } });
-    fireEvent.change(screen.getByPlaceholderText(/re-enter new password key/i), { target: { value: 'newpassword123' } });
-    fireEvent.click(screen.getByRole('button', { name: /re-establish password key/i }));
+    fireEvent.change(screen.getByPlaceholderText(/re-enter new password/i), { target: { value: 'newpassword123' } });
+    fireEvent.click(screen.getByRole('button', { name: /update password/i }));
 
     await waitFor(() => {
       expect(resetPasswordMock).toHaveBeenCalledWith('reset-token-123', 'newpassword123', 'newpassword123');
     });
 
-    expect(await screen.findByText(/password key re-established/i)).toBeInTheDocument();
+    expect(await screen.findByText(/password updated/i)).toBeInTheDocument();
   });
 
   it('verifies an email token on load', async () => {
@@ -83,6 +83,6 @@ describe('Recovery flows', () => {
       expect(verifyEmailMock).toHaveBeenCalledWith('verify-token-123');
     });
 
-    expect(await screen.findByText(/email coordinates verified/i)).toBeInTheDocument();
+    expect(await screen.findByText(/your email has been verified/i)).toBeInTheDocument();
   });
 });

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import DashboardLayout from '@/components/DashboardLayout';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 const logoutMock = vi.fn();
 const resendEmailVerificationMock = vi.fn();
@@ -59,11 +60,7 @@ describe('DashboardLayout', () => {
 
   it('shows the email verification banner for unverified emails', () => {
     render(
-      <MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <DashboardLayout>
-          <div>Dashboard content</div>
-        </DashboardLayout>
-      </MemoryRouter>
+      <ThemeProvider><MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><DashboardLayout><div>Dashboard content</div></DashboardLayout></MemoryRouter></ThemeProvider>
     );
 
     expect(screen.getByText(/A quick step is still needed/i)).toBeInTheDocument();
@@ -81,11 +78,7 @@ describe('DashboardLayout', () => {
     };
 
     render(
-      <MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <DashboardLayout>
-          <div>Dashboard content</div>
-        </DashboardLayout>
-      </MemoryRouter>
+      <ThemeProvider><MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><DashboardLayout><div>Dashboard content</div></DashboardLayout></MemoryRouter></ThemeProvider>
     );
 
     expect(screen.queryByText(/A quick step is still needed/i)).not.toBeInTheDocument();
@@ -104,11 +97,7 @@ describe('DashboardLayout', () => {
     };
 
     render(
-      <MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <DashboardLayout>
-          <div>Dashboard content</div>
-        </DashboardLayout>
-      </MemoryRouter>
+      <ThemeProvider><MemoryRouter initialEntries={['/dashboard']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><DashboardLayout><div>Dashboard content</div></DashboardLayout></MemoryRouter></ThemeProvider>
     );
 
     expect(screen.queryByText(/A quick step is still needed/i)).not.toBeInTheDocument();

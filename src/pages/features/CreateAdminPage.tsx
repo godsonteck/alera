@@ -49,7 +49,7 @@ const CreateAdminPage = () => {
       <div className="p-8 bg-[#090D14] border border-red-600/60 rounded-[4px] text-center font-mono text-xs text-red-400 space-y-2">
         <ShieldCheck className="w-8 h-8 mx-auto text-red-500" />
         <div className="font-bold uppercase">ACCESS DENIED</div>
-        <p className="text-slate-500">Only Supreme Cockpit nodes may provision admin credentials.</p>
+        <p className="text-slate-500">Only authorized administrators can create admin accounts.</p>
       </div>
     );
   }

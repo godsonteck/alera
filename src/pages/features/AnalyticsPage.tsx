@@ -99,15 +99,15 @@ const AnalyticsPage = () => {
     return (
       <div className="space-y-4 font-mono text-[#ECEEF2]">
         <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Health Telemetry Matrix</span>
-          <p className="text-[11px] text-slate-400 mt-0.5">High-level quantitative overview of local session medical records.</p>
+          <span className="text-xs font-bold tracking-wider text-[#ECEEF2]">Your care summary</span>
+          <p className="text-[11px] text-slate-400 mt-0.5">A clear overview of appointments, prescriptions, and results.</p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
           {[
             { icon: <Heart className="w-3.5 h-3.5" />, label: 'APPOINTMENTS', value: stats.totalAppointments, color: 'text-cyan-400' },
-            { icon: <FlaskConical className="w-3.5 h-3.5" />, label: 'LAB ASSAYS', value: stats.totalLabTests, color: 'text-emerald-400' },
-            { icon: <ScanLine className="w-3.5 h-3.5" />, label: 'DICOM SCANS', value: stats.totalImagingScans, color: 'text-amber-400' },
+            { icon: <FlaskConical className="w-3.5 h-3.5" />, label: 'LAB TESTS', value: stats.totalLabTests, color: 'text-emerald-400' },
+            { icon: <ScanLine className="w-3.5 h-3.5" />, label: 'IMAGING', value: stats.totalImagingScans, color: 'text-amber-400' },
             { icon: <Activity className="w-3.5 h-3.5" />, label: 'PRESCRIPTIONS', value: stats.totalPrescriptions, color: 'text-purple-400' },
           ].map((s, i) => (
             <div key={i} className="p-4 bg-[#090D14] border border-[#252A35] rounded-[2px] flex flex-col items-center justify-center">
@@ -124,7 +124,7 @@ const AnalyticsPage = () => {
           <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">Active Metric Snapshot</span>
           <div className="space-y-1">
             <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px] text-xs">
-              <span className="text-slate-400">Appointments (T=0)</span>
+              <span className="text-slate-400">Appointments today</span>
               <span className="font-bold font-mono text-cyan-400">{stats.appointmentsTodayCount}</span>
             </div>
             <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px] text-xs">
@@ -132,11 +132,11 @@ const AnalyticsPage = () => {
               <span className="font-bold font-mono text-purple-400">{stats.prescriptionsActive}</span>
             </div>
             <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px] text-xs">
-              <span className="text-slate-400">Pending Lab Assays</span>
+              <span className="text-slate-400">Pending lab tests</span>
               <span className="font-bold font-mono text-emerald-400">{stats.labTestsPending}</span>
             </div>
             <div className="flex justify-between p-2 bg-[#0F1218] border border-[#252A35] rounded-[2px] text-xs">
-              <span className="text-slate-400">Pending DICOM Resolves</span>
+              <span className="text-slate-400">Pending imaging results</span>
               <span className="font-bold font-mono text-amber-400">{stats.imagingScansPending}</span>
             </div>
           </div>
@@ -150,7 +150,7 @@ const AnalyticsPage = () => {
     ? [
         {
           icon: <Users className="w-4 h-4" />,
-          label: 'REGISTERED NODES',
+          label: 'USERS',
           value: platformLoading ? 'SYNCING' : (platformStats?.users.total ?? 'N/A'),
           sub: platformError ? 'OFFLINE' : `CLI: ${byRole.provider ?? 0} | PAT: ${byRole.patient ?? 0}`,
           color: 'text-cyan-400',
@@ -164,7 +164,7 @@ const AnalyticsPage = () => {
         },
         {
           icon: <Activity className="w-4 h-4" />,
-          label: 'PENDING RESOLVES',
+          label: 'PENDING RESULTS',
           value: platformLoading
             ? 'SYNCING'
             : platformStats
@@ -191,14 +191,14 @@ const AnalyticsPage = () => {
         },
         {
           icon: <Activity className="w-4 h-4" />,
-          label: 'LAB ASSAYS',
+          label: 'LAB TESTS',
           value: stats.totalLabTests,
           sub: `RSLV: ${stats.labTestsCompleted}`,
           color: 'text-emerald-400',
         },
         {
           icon: <ScanLine className="w-4 h-4" />,
-          label: 'DICOM SCANS',
+          label: 'IMAGING',
           value: stats.totalImagingScans,
           sub: `PEND: ${stats.imagingScansPending}`,
           color: 'text-amber-400',
@@ -216,8 +216,8 @@ const AnalyticsPage = () => {
     <div className="space-y-4 font-mono text-[#ECEEF2]">
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">System Telemetry Matrix</span>
-          <p className="text-[11px] text-slate-400 mt-0.5">{isAdmin ? 'Global platform metrics sourced from master node.' : 'Local clinical practice data snapshot.'}</p>
+          <span className="text-xs font-bold tracking-wider text-[#ECEEF2]">Analytics</span>
+          <p className="text-[11px] text-slate-400 mt-0.5">{isAdmin ? 'Platform activity and care records.' : 'A summary of your care activity.'}</p>
         </div>
         {isAdmin && (
           <button
@@ -225,7 +225,7 @@ const AnalyticsPage = () => {
             disabled={platformLoading}
             className="px-3 py-1.5 bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold rounded-[2px] transition-colors uppercase tracking-wider text-[10px] disabled:opacity-30"
           >
-            {platformLoading ? 'SYNCING...' : 'FORCE SYNC'}
+            {platformLoading ? 'Refreshing...' : 'Refresh'}
           </button>
         )}
       </div>
@@ -255,7 +255,7 @@ const AnalyticsPage = () => {
           <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">Activity Breakdown</span>
           
           <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase text-cyan-400 block">APPOINTMENT VECTORS</span>
+            <span className="text-[10px] font-bold uppercase text-cyan-400 block">Appointments</span>
             <div className="space-y-1">
               {[
                 { label: 'SCHEDULED', value: stats.appointmentsScheduled, max: stats.totalAppointments },
@@ -277,7 +277,7 @@ const AnalyticsPage = () => {
               ))}
             </div>
 
-            <span className="text-[10px] font-bold uppercase text-emerald-400 block pt-2 border-t border-[#252A35]">TEST VECTORS</span>
+            <span className="text-[10px] font-bold uppercase text-emerald-400 block pt-2 border-t border-[#252A35]">Lab tests, imaging, and prescriptions</span>
             <div className="space-y-1">
               {[
                 { label: 'LABS RESOLVED', value: stats.labTestsCompleted, max: stats.totalLabTests, color: 'bg-emerald-500/60' },
@@ -303,7 +303,7 @@ const AnalyticsPage = () => {
 
         <div className="space-y-4">
           <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-3">
-            <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">NODE STATUS</span>
+            <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">Service status</span>
             <div className="space-y-1 text-xs">
               {[
                 { name: 'API GATEWAY', status: platformError ? 'DEGRADED' : 'OPERATIONAL', ok: !platformError },
@@ -319,7 +319,7 @@ const AnalyticsPage = () => {
 
           <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-3">
             <span className="text-xs font-bold uppercase text-slate-400 block border-b border-[#252A35] pb-2">
-              {isAdmin ? 'ROLE DISTRIBUTION (GLOBAL)' : 'LOCAL NODE SUMMARY'}
+              {isAdmin ? 'Role distribution' : 'Care summary'}
             </span>
             <div className="space-y-1 text-xs">
               {isAdmin && platformStats ? (

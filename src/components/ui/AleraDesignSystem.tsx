@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-export type SignalType = "critical" | "urgent" | "stable" | "info" | "ai";
+export type SignalType = "critical" | "urgent" | "stable" | "info";
 
 interface SignalIndicatorProps {
   type: SignalType;
@@ -19,11 +19,10 @@ export const SignalIndicator: React.FC<SignalIndicatorProps> = ({
   className,
 }) => {
   const signalColors = {
-    critical: "bg-[#D94444] text-[#E88A8A] border-[#D94444]/40 signal-glow-critical",
-    urgent: "bg-[#E8A317] text-[#E8C460] border-[#E8A317]/40 signal-glow-urgent",
-    stable: "bg-[#34B578] text-[#6DD4A0] border-[#34B578]/40 signal-glow-stable",
-    info: "bg-[#4A8FD4] text-[#84B5E0] border-[#4A8FD4]/40",
-    ai: "bg-[#8F5CC4] text-[#B08CD8] border-[#8F5CC4]/40",
+    critical: "bg-red-500 text-red-700 border-red-200",
+    urgent: "bg-amber-500 text-amber-800 border-amber-200",
+    stable: "bg-[#4a785c] text-[#2f6b4f] border-[#8fd0af]",
+    info: "bg-[#0b3d62] text-[#0b3d62] border-sky-200",
   };
 
   const dotSizes = {
@@ -33,7 +32,7 @@ export const SignalIndicator: React.FC<SignalIndicatorProps> = ({
   };
 
   return (
-    <div className={cn("inline-flex items-center gap-2 font-mono text-xs", className)}>
+    <div className={cn("inline-flex items-center gap-2 text-xs", className)}>
       <span
         className={cn(
           "rounded-full inline-block shrink-0 transition-transform duration-300",
@@ -46,8 +45,8 @@ export const SignalIndicator: React.FC<SignalIndicatorProps> = ({
         {label}
       </span>
       {sublabel && (
-        <span className="text-[#5F6370] text-[10px] uppercase tracking-wider">
-          [{sublabel}]
+        <span className="text-slate-500 text-[10px]">
+          {sublabel}
         </span>
       )}
     </div>
@@ -76,9 +75,9 @@ export const MetricDisplay: React.FC<MetricDisplayProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("flex flex-col gap-1 p-3 alera-instrument-bezel", className)}>
+    <div className={cn("flex flex-col gap-1 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm", className)}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] font-medium text-[#8D929E] uppercase tracking-wider font-sans">
+        <span className="text-[11px] font-medium text-slate-600 font-sans">
           {label}
         </span>
         {signal && signalLabel && (
@@ -87,18 +86,18 @@ export const MetricDisplay: React.FC<MetricDisplayProps> = ({
       </div>
 
       <div className="flex items-baseline gap-1.5">
-        <span className="text-2xl font-bold font-mono tracking-tight text-[#ECEEF2]">
+        <span className="text-2xl font-bold font-mono tracking-tight text-[#0b3d62]">
           {value}
         </span>
         {unit && (
-          <span className="text-xs font-mono text-[#8D929E]">
+          <span className="text-xs font-mono text-slate-500">
             {unit}
           </span>
         )}
       </div>
 
       {context && (
-        <div className="flex items-center gap-1 text-[11px] font-mono text-[#5F6370] border-t border-[#252A35]/60 pt-1.5 mt-0.5">
+        <div className="flex items-center gap-1 text-[11px] text-slate-500 border-t border-slate-100 pt-1.5 mt-0.5">
           {trend === "up" && <span className="text-[#D94444]">▲</span>}
           {trend === "down" && <span className="text-[#34B578]">▼</span>}
           {trend === "stable" && <span className="text-[#8D929E]">►</span>}
@@ -165,21 +164,20 @@ export const InstrumentGauge: React.FC<InstrumentGaugeProps> = ({
     urgent: "bg-[#E8A317]",
     stable: "bg-[#2BB5A0]",
     info: "bg-[#4A8FD4]",
-    ai: "bg-[#8F5CC4]",
   };
 
   return (
-    <div className={cn("p-3 alera-instrument-bezel space-y-2", className)}>
+    <div className={cn("space-y-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm", className)}>
       <div className="flex justify-between items-center text-xs">
-        <span className="font-sans font-medium text-[#8D929E] tracking-wide uppercase text-[11px]">
+        <span className="font-sans font-medium text-slate-600 text-[11px]">
           {label}
         </span>
-        <span className="font-mono font-semibold text-[#ECEEF2]">
-          {current} <span className="text-[#8D929E] text-[10px]">{unit}</span>
+        <span className="font-mono font-semibold text-[#0b3d62]">
+          {current} <span className="text-slate-500 text-[10px]">{unit}</span>
         </span>
       </div>
 
-      <div className="relative h-2 bg-[#0F1218] rounded-sm overflow-hidden border border-[#252A35]">
+      <div className="relative h-2 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
         {/* Threshold Markers */}
         {lowThreshold && (
           <div
@@ -201,7 +199,7 @@ export const InstrumentGauge: React.FC<InstrumentGaugeProps> = ({
         />
       </div>
 
-      <div className="flex justify-between text-[10px] font-mono text-[#5F6370]">
+      <div className="flex justify-between text-[10px] font-mono text-slate-500">
         <span>{min}</span>
         <span>{max}</span>
       </div>

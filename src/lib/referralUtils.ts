@@ -2,7 +2,7 @@ import type { User } from '@/contexts/AuthContext';
 import type { Referral, ReferralType } from '@/data/mockData';
 import { normalizeUserRole } from '@/lib/roleUtils';
 
-/** Clinical queue — must match backend `referral_type` */
+/** Referral type mapping — must match backend `referral_type` */
 export type ReferralKind = ReferralType;
 
 export const DEFAULT_HOSPITAL_DEPARTMENTS = [

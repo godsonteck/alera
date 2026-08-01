@@ -31,7 +31,7 @@ const DoctorsPage = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Clinical Specialist Registry</span>
               <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
-                {filtered.length} NODES INDEXED
+                {filtered.length} clinicians found
               </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5">
@@ -72,7 +72,7 @@ const DoctorsPage = () => {
       {/* Doctors Grid */}
       {filtered.length === 0 ? (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
-          No clinician nodes matched the search parameters.
+          No clinicians matched the search.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

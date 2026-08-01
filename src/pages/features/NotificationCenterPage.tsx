@@ -63,13 +63,13 @@ const NotificationCenterPage = () => {
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#090D14] border border-[#252A35] rounded-[4px]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Alert Signal Telemetry</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Notifications</span>
             <span className="text-[10px] bg-amber-950 text-amber-300 border border-amber-800 px-1.5 py-0.2 rounded font-mono">
               {stats.unread} UNREAD SIGNALS
             </span>
           </div>
           <p className="text-[11px] text-slate-400 mt-0.5">
-            Real-time clinical event notifications, appointment confirmations, and system telemetry.
+            Appointment confirmations and updates from your care team.
           </p>
         </div>
 
@@ -130,7 +130,7 @@ const NotificationCenterPage = () => {
       {/* Notification List */}
       {sorted.length === 0 ? (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
-          No matching alert signals found in active telemetry store.
+          No matching notifications found.
         </div>
       ) : (
         <div className="space-y-1.5">

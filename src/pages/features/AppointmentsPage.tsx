@@ -189,7 +189,7 @@ const AppointmentsPage = () => {
               {isLoadingDoctors ? (
                 <div className="py-6 text-center text-xs text-slate-500">Querying clinician registry...</div>
               ) : availableDoctors.length === 0 ? (
-                <div className="py-6 text-center text-xs text-slate-500">No registered specialist nodes available.</div>
+                <div className="py-6 text-center text-xs text-slate-500">No specialists are available.</div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {availableDoctors.map((doc) => (
@@ -310,7 +310,7 @@ const AppointmentsPage = () => {
       {/* Appointment Records List */}
       {filtered.length === 0 ? (
         <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
-          No matching consult records found in active telemetry store.
+          No matching appointment records found.
         </div>
       ) : (
         <div className="space-y-2">

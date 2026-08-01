@@ -63,8 +63,8 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: '8 Nodes', label: 'Ecosystem Alignment', sub: 'Unified operational consoles' },
-  { value: '100%', label: 'Cipher Protection', sub: 'AES-256 standard encryption' },
+  { value: '8 roles', label: 'Connected care', sub: 'One place for every care team' },
+  { value: 'Secure', label: 'Protected information', sub: 'Your information is handled with care' },
   { value: '&lt; 15ms', label: 'Network Latency', sub: 'Instant status distribution' },
   { value: 'Full Log', label: 'Cryptographic Audit', sub: 'Chronological append-only events' },
 ];
@@ -76,7 +76,7 @@ const WhyAlera = () => {
       <section className="relative px-6 pb-16 pt-16 sm:px-8 lg:px-12 border-b border-border">
         <div className="mx-auto max-w-7xl">
           <motion.div variants={sectionReveal} initial="hidden" animate="visible" className="max-w-3xl">
-            <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-ink-soft">Clinical Efficacy Report</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-ink-soft">Care that stays clear</p>
             <h1 className="mt-3 text-3xl font-normal tracking-tight text-foreground font-display sm:text-4xl">
               Eliminating Systemic Care Fragmentation
             </h1>
@@ -107,7 +107,7 @@ const WhyAlera = () => {
       <section className="px-6 py-16 sm:px-8 lg:px-12 border-b border-border">
         <div className="mx-auto max-w-7xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}>
-            <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-ink-soft">Operational Comparison Matrix</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-ink-soft">One place for your care</p>
             <h2 className="mt-3 text-2xl font-normal tracking-tight text-foreground font-display">
               The Analogue Pipeline vs. Alera Operating Layer
             </h2>
@@ -138,7 +138,7 @@ const WhyAlera = () => {
               <div className="bg-card p-8 sm:p-10">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-control border border-acuity-3/40 bg-acuity-3/10 px-3 py-1 text-[10px] font-mono font-bold uppercase text-acuity-3">
                   <CheckCircle2 className="h-3.5 w-3.5 text-acuity-3" />
-                  Alera Core Unified Layer
+                  A clearer care experience
                 </div>
                 <div className="space-y-4">
                   {comparisonItems.map((item, i) => (
@@ -159,7 +159,7 @@ const WhyAlera = () => {
                 </p>
                 <Button asChild className="rounded-control bg-primary-foreground px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-primary hover:opacity-90 flex-shrink-0">
                   <Link to="/signup">
-                    Initialize Core Node
+                    Get started
                   </Link>
                 </Button>
               </div>
@@ -177,7 +177,7 @@ const WhyAlera = () => {
               Integrated Performance Outcomes
             </h2>
             <p className="mt-4 text-xs leading-relaxed text-ink-soft font-light">
-              Review verified evaluations from active medical networks running Alera core nodes daily.
+              Review feedback from people and care teams using Alera every day.
             </p>
           </motion.div>
 
@@ -216,7 +216,7 @@ const WhyAlera = () => {
           >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-primary-foreground/70">Deploy Operating Layer</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground/70">Care made clearer</p>
                 <h2 className="mt-2 text-xl font-bold tracking-tight font-display">
                   Stop patching fragmented, non-compliant portals.
                 </h2>
