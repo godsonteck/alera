@@ -16,7 +16,6 @@ import {
   LogOut, Menu, X, Clock, MessageSquare, Settings, HeartPulse, Mail, Terminal,
   UserCheck, ShieldAlert
 } from 'lucide-react';
-import { ContextDock } from '@/components/ContextDock';
 
 const roleNavItems: Record<string, { label: string; icon: React.ReactNode; path: string }[]> = {
   patient: [
@@ -346,8 +345,6 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
       {/* Floating Chat Widget */}
       <ChatWidget />
 
-      {/* Instrument-Grade Contextual Dock */}
-      <ContextDock />
     </div>
   );
 });
