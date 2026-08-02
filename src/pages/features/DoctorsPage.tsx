@@ -33,7 +33,7 @@ const DoctorsPage = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold tracking-wide text-[var(--text-high)]">Doctor directory</span>
               <span className="text-[10px] bg-[var(--surface-elevated)] text-[var(--text-medium)] border border-[var(--border)] px-1.5 py-0.2 rounded font-mono">
-                {filtered.length} clinicians found
+                {filtered.length} doctors found
               </span>
             </div>
             <p className="text-[11px] text-[var(--text-medium)] mt-0.5">
@@ -74,7 +74,7 @@ const DoctorsPage = () => {
       {/* Doctors Grid */}
       {filtered.length === 0 ? (
         <div className="p-8 text-center bg-[var(--surface-secondary)] border border-[var(--border)] rounded-[16px] text-xs text-[var(--text-medium)]">
-          No clinicians matched the search.
+          No doctors matched the search.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -98,7 +98,7 @@ const DoctorsPage = () => {
                     ? 'bg-emerald-950/50 border-emerald-600/60 text-emerald-400'
                     : doctor.status === 'busy'
                     ? 'bg-amber-950/50 border-amber-600/60 text-amber-300'
-                    : 'bg-[#151922] border-[#2F3542] text-slate-500'
+                    : 'bg-[var(--surface-secondary)] border-[var(--border)] text-[var(--text-medium)]'
                 }`}>
                   {doctor.status}
                 </span>
@@ -120,7 +120,7 @@ const DoctorsPage = () => {
               </div>
 
               {doctor.availableHours.length > 0 && (
-                <div className="text-[10px] text-slate-500 space-y-0.5">
+                <div className="text-[10px] text-[var(--text-medium)] space-y-0.5">
                   {doctor.availableHours.slice(0, 2).map((hours, i) => (
                     <div key={i} className="flex items-center gap-1">
                       <Clock className="w-2.5 h-2.5" />
@@ -128,7 +128,7 @@ const DoctorsPage = () => {
                     </div>
                   ))}
                   {doctor.availableHours.length > 2 && (
-                    <span className="text-slate-600">+{doctor.availableHours.length - 2} more</span>
+                    <span className="text-[var(--text-medium)]">+{doctor.availableHours.length - 2} more</span>
                   )}
                 </div>
               )}

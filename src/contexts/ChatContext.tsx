@@ -299,6 +299,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (payload.type === 'error') {
           console.error('Telemedicine socket error:', payload.detail);
+          // If there's a pending call that hasn't been confirmed by the server, clear it
+          setCurrentCall((current) =>
+            current && current.id.startsWith('pending_') ? null : current
+          );
         }
       };
 
@@ -366,9 +370,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [addNotification, loadMessages, sendSocketMessage, user]);
 
   const startVideoCall = useCallback((participantId: string, participantName: string, participantRole: string) => {
-    const callId = crypto.randomUUID();
+    // Set a temporary "pending" call so the UI shows the call window immediately
+    const pendingId = `pending_${Date.now()}`;
     setCurrentCall({
-      id: callId,
+      id: pendingId,
       participantId,
       participantName,
       participantRole,
@@ -376,11 +381,18 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       status: 'ringing',
     });
 
-    sendSocketMessage({
+    const sent = sendSocketMessage({
       type: 'call_invite',
       recipient_id: Number(participantId),
-      call_id: callId,
     });
+
+    if (!sent) {
+      // WebSocket not connected — clear the phantom call
+      setCurrentCall(null);
+      console.error('Cannot place call: WebSocket is not connected');
+    }
+    // When the backend processes the call, it sends back "call_invite_sent"
+    // which will update currentCall with the real server-generated ID (see socket.onmessage handler).
   }, [sendSocketMessage]);
 
   const acceptCurrentCall = useCallback(() => {

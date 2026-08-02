@@ -17,7 +17,7 @@ const stakeholders: Stakeholder[] = [
   },
   {
     icon: Stethoscope,
-    role: 'Clinicians',
+    role: 'Doctors',
     tagline: 'A calmer way to coordinate care',
     description: 'Keep plans and notes clear so support can move along smoothly.',
   },
@@ -69,7 +69,7 @@ const WhoWeServe = () => {
             Designed for the people supporting care each day.
           </h1>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-[#45564d]">
-            Alera works for patients, clinicians, care teams, and service partners who all need a simple way to stay connected.
+            Alera works for patients, doctors, care teams, and service partners who all need a simple way to stay connected.
           </p>
         </div>
 

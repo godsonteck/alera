@@ -111,7 +111,7 @@ const TimelinePage = () => {
   if (!isSupportedRole) {
     return (
       <div className="p-8 bg-[#090D14] border border-[#252A35] rounded-[4px] text-center font-mono text-xs text-slate-500">
-        This timeline is available to patients and clinicians.
+        This timeline is available to patients, doctors, and physiotherapists.
       </div>
     );
   }

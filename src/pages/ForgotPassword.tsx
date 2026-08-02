@@ -108,7 +108,7 @@ const ForgotPassword = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="clinician@hospital.org"
+                  placeholder="doctor@hospital.org"
                   className="w-full bg-[#0F1218] border border-[#252A35] focus:border-cyan-500 rounded-[2px] px-3 py-2 pl-9 text-[#ECEEF2] placeholder:text-slate-600 focus:outline-none"
                   required
                 />

@@ -105,19 +105,19 @@ const roleNavItems: Record<string, { label: string; icon: React.ReactNode; path:
 };
 
 const roleLabels: Record<string, string> = {
-  patient: 'Patient', doctor: 'Clinician', hospital: 'Hospital team', laboratory: 'Lab team',
-  imaging: 'Imaging team', pharmacy: 'Pharmacy team', ambulance: 'Emergency unit', physiotherapist: 'Therapist', admin: 'Admin', super_admin: 'System admin',
+  patient: 'Patient', doctor: 'Doctor', hospital: 'Hospital', laboratory: 'Laboratory',
+  imaging: 'Imaging', pharmacy: 'Pharmacy', ambulance: 'Ambulance', physiotherapist: 'Physiotherapist', admin: 'Admin', super_admin: 'Super Admin',
 };
 
 const portalLabels: Record<string, string> = {
   patient: 'Patient Portal',
-  doctor: 'Clinician Portal',
+  doctor: 'Doctor Portal',
   hospital: 'Hospital Portal',
   laboratory: 'Laboratory Portal',
   imaging: 'Imaging Portal',
   pharmacy: 'Pharmacy Portal',
-  ambulance: 'Emergency Portal',
-  physiotherapist: 'Therapy Portal',
+  ambulance: 'Ambulance Portal',
+  physiotherapist: 'Physiotherapist Portal',
   admin: 'Admin Portal',
   super_admin: 'Super Admin Portal',
 };

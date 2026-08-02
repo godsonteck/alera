@@ -40,7 +40,7 @@ describe('Recovery flows', () => {
       </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/clinician@hospital\.org/i), { target: { value: 'patient@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText(/doctor@hospital\.org/i), { target: { value: 'patient@example.com' } });
     fireEvent.click(screen.getByRole('button', { name: /send reset link/i }));
 
     await waitFor(() => {

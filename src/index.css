@@ -165,30 +165,30 @@
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
 
-    :is(.alera-feature, .alera-dashboard) [class*="bg-[#090D14]"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-[#0F1218]"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-[#151922]"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-cyan-950"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-red-950"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-purple-950"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-emerald-950"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-amber-950"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-slate-900"],
-    :is(.alera-feature, .alera-dashboard) [class*="bg-slate-800"] {
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-[#090D14]"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-[#0F1218]"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-[#151922]"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-cyan-950"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-red-950"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-purple-950"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-emerald-950"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-amber-950"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-slate-900"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="bg-slate-800"] {
       background-color: #ffffff !important;
       border-color: #CBD5E1 !important;
       border-radius: 0.875rem !important;
       box-shadow: 0 1px 3px rgba(11, 61, 98, 0.08) !important;
     }
 
-    :is(.alera-feature, .alera-dashboard) [class*="text-[#ECEEF2]"] { color: #0F172A !important; }
-    :is(.alera-feature, .alera-dashboard) [class*="text-slate-400"],
-    :is(.alera-feature, .alera-dashboard) [class*="text-slate-500"],
-    :is(.alera-feature, .alera-dashboard) [class*="text-slate-600"],
-    :is(.alera-feature, .alera-dashboard) [class*="text-slate-700"] { color: #475569 !important; }
-    :is(.alera-feature, .alera-dashboard) [class*="text-cyan-"] { color: #0284C7 !important; }
-    :is(.alera-feature, .alera-dashboard) [class*="border-[#252A35]"],
-    :is(.alera-feature, .alera-dashboard) [class*="border-[#2F3542]"] { border-color: #CBD5E1 !important; }
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-[#ECEEF2]"] { color: #0F172A !important; }
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-slate-400"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-slate-500"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-slate-600"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-slate-700"] { color: #475569 !important; }
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="text-cyan-"] { color: #0284C7 !important; }
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="border-[#252A35]"],
+    :is(.alera-feature, .alera-dashboard, .alera-public, .alera-care-backdrop, .alera-dark-backdrop) [class*="border-[#2F3542]"] { border-color: #CBD5E1 !important; }
   }
   :is(.alera-feature, .alera-dashboard) button:not([class*="bg-red"]):not([class*="text-red"]) {
     border-radius: 0.75rem;

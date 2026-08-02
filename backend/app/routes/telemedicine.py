@@ -26,8 +26,8 @@ def _ensure_telemedicine_participant(user: User, action: str) -> None:
 
 
 def _is_call_pair_allowed(user: User, recipient: User) -> bool:
-    roles = {_user_role_value(user), _user_role_value(recipient)}
-    return roles == {"patient", "provider"}
+    """Allow any two distinct authenticated users to call each other."""
+    return user.id != recipient.id
 
 
 # ============ VIDEO CALLS ============
@@ -485,11 +485,17 @@ async def telemedicine_websocket(
                     continue
 
                 if not _is_call_pair_allowed(user, recipient):
-                    await websocket.send_json({"type": "error", "detail": "Video calls are limited to patient/provider sessions"})
+                    await websocket.send_json({"type": "error", "detail": "Cannot call yourself"})
                     continue
 
-                patient_id = user.id if user.role == UserRole.PATIENT else recipient.id
-                provider_id = user.id if user.role == UserRole.PROVIDER else recipient.id
+                # For any role pair, assign caller → patient_id, callee → provider_id
+                # (the patient/provider columns are just the two call legs)
+                if user.role == UserRole.PATIENT:
+                    patient_id, provider_id = user.id, recipient.id
+                elif recipient.role == UserRole.PATIENT:
+                    patient_id, provider_id = recipient.id, user.id
+                else:
+                    patient_id, provider_id = user.id, recipient.id
                 db_call = VideoCall(
                     patient_id=patient_id,
                     provider_id=provider_id,

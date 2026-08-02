@@ -111,7 +111,7 @@ const roleCopy: Record<RoleKey, { eyebrow: string; title: string; summary: strin
     eyebrow: 'Imaging',
     title: 'Imaging',
     summary: 'Scan requests and reports.',
-    focus: 'Coordinate scans and share findings with the right clinician.',
+    focus: 'Coordinate scans and share findings with the right doctor.',
     icon: <ScanLine className="h-4 w-4 text-cyan-400" />,
   },
   pharmacy: {
@@ -371,7 +371,7 @@ const DashboardShell = ({
           <div>
             <p className="font-semibold text-slate-800">Access and audit</p>
             <p className="mt-0.5 text-xs text-slate-500">
-              Clinician workspaces are reviewed regularly to keep care access secure and accountable.
+              Doctor and physiotherapist workspaces are reviewed regularly to keep care access secure and accountable.
             </p>
           </div>
         </div>
@@ -522,7 +522,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
       actions: [
         { label: 'Authorize Referrals', href: '/dashboard/referrals', icon: <FileText className="h-4 w-4" />, emphasis: 'primary' },
         { label: 'Live Emergency Feed', href: '/dashboard/requests', icon: <Ambulance className="h-4 w-4" />, emphasis: activeEmergency.length ? 'danger' : undefined },
-        { label: 'Clinician Roster', href: '/dashboard/doctors', icon: <Stethoscope className="h-4 w-4" /> },
+        { label: 'Doctor Roster', href: '/dashboard/doctors', icon: <Stethoscope className="h-4 w-4" /> },
         { label: 'Security Terminal', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
       signal: { label: activeEmergency.length ? 'Emergency alert' : 'Admissions', value: `${visibleReferrals.filter((item) => item.status === 'pending').length} referrals awaiting review`, detail: 'Coordinate incoming referrals and transfers.', tone: activeEmergency.length ? 'critical' : 'primary' },
@@ -570,7 +570,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
     pharmacy: {
       role: 'pharmacy',
       metrics: [
-        { label: 'Fulfillment Queue', value: activePrescriptions.length, helper: 'Awaiting clinician verification', icon: <Pill className="h-4 w-4" />, tone: 'warning', href: '/dashboard/prescriptions' },
+        { label: 'Fulfillment Queue', value: activePrescriptions.length, helper: 'Awaiting doctor verification', icon: <Pill className="h-4 w-4" />, tone: 'warning', href: '/dashboard/prescriptions' },
         { label: 'Dispensed Orders', value: prescriptions.filter((item) => item.status === 'dispensed').length, helper: 'Completed fulfillments', icon: <CheckCircle2 className="h-4 w-4" />, tone: 'success', href: '/dashboard/prescriptions' },
         { label: 'Inventory Warning', value: lowStock.length, helper: 'Below safe-stock metrics', icon: <Package className="h-4 w-4" />, tone: lowStock.length ? 'critical' : 'success', href: '/dashboard/inventory' },
         { label: 'Refill Requests', value: prescriptions.flatMap((item) => item.refillRequests ?? []).filter((item) => item.status === 'pending').length, helper: 'Pharmacist validation pending', icon: <Clock3 className="h-4 w-4" />, tone: 'info', href: '/dashboard/prescriptions' },
@@ -582,7 +582,7 @@ export default function AleraCommandCenter({ role: roleOverride }: { role?: Role
         { label: 'Referral requests', href: '/dashboard/pharmacy-referrals', icon: <FileText className="h-4 w-4" /> },
         { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare className="h-4 w-4" /> },
       ],
-      signal: { label: lowStock.length ? 'Replenish Alert' : 'Drug Safety Clear', value: `${activePrescriptions.length} Refills Queued`, detail: 'Dosage limits and clinician credentials validated.', tone: lowStock.length ? 'critical' : 'primary' },
+      signal: { label: lowStock.length ? 'Replenish Alert' : 'Drug Safety Clear', value: `${activePrescriptions.length} Refills Queued`, detail: 'Dosage limits and doctor credentials validated.', tone: lowStock.length ? 'critical' : 'primary' },
       secondaryTitle: 'Stock Warning Logs',
       secondaryItems: lowStock.map((item) => ({ title: item.name, meta: `${item.stock} ${item.unit} remaining · reorder at ${item.reorderLevel}`, status: item.status, href: '/dashboard/inventory' })),
     },

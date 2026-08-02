@@ -39,8 +39,8 @@ const roleViews = [
     image: "/images/consulting_patients.png",
   },
   {
-    id: "clinicians",
-    title: "For clinicians",
+    id: "doctors",
+    title: "For doctors",
     summary: "Manage appointments, send referrals, write prescriptions, and check patient updates.",
     detail: "Your work stays in one place, so the next team has the information they need.",
     image: "/images/doctor_consultation.png",

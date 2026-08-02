@@ -15,7 +15,7 @@ import {
 
 const audiences = [
   { icon: Users, title: 'Patients and families', text: 'Appointments, results, prescriptions, reminders, messages, and personal health information in one account.' },
-  { icon: HeartPulse, title: 'Clinicians and therapists', text: 'Patient lists, clinical notes, referrals, scheduling, and the context needed to coordinate care.' },
+  { icon: HeartPulse, title: 'Doctors and therapists', text: 'Patient lists, clinical notes, referrals, scheduling, and the context needed to coordinate care.' },
   { icon: Building2, title: 'Hospitals and care organisations', text: 'Shared visibility across teams, referrals, service coordination, and operational oversight.' },
   { icon: FlaskConical, title: 'Laboratories and imaging centres', text: 'Diagnostic requests, results, report publication, and secure handoffs to the people involved in care.' },
   { icon: Pill, title: 'Pharmacies', text: 'Prescription queues, refill workflows, inventory, and pharmacist-facing referral information.' },
@@ -33,7 +33,7 @@ const capabilities = [
   ['Medical records and history', 'Maintain structured health information, allergies, problems, clinical notes, consent, and history with controlled access.'],
   ['Diagnostics', 'Route laboratory and imaging requests, publish results, attach reports, and make the next action visible.'],
   ['Prescriptions and pharmacy', 'Create, route, review, and fulfil prescriptions while tracking refills and inventory.'],
-  ['Referrals and handoffs', 'Move people and information between clinicians, organisations, diagnostics, pharmacy, and emergency services.'],
+  ['Referrals and handoffs', 'Move people and information between doctors, organisations, diagnostics, pharmacy, and emergency services.'],
   ['Secure communication', 'Keep care conversations and notifications connected to the people and workflows they concern.'],
   ['Administration', 'Manage users, professional verification, system notices, billing views, audit activity, and system controls.'],
 ];
@@ -62,7 +62,7 @@ const About = () => (
           </div>
         </div>
         <div className="border border-slate-200 bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.08)]">
-          <img src="/images/consulting_patients.png" alt="A clinician and patient discussing care" className="h-[320px] w-full object-cover lg:h-full" />
+          <img src="/images/consulting_patients.png" alt="A doctor and patient discussing care" className="h-[320px] w-full object-cover lg:h-full" />
         </div>
       </div>
     </section>
