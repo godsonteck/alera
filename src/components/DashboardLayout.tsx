@@ -6,7 +6,6 @@ import NotificationCenter from '@/components/NotificationCenter';
 import ChatWidget from '@/components/ChatWidget';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { normalizeUserRole } from '@/lib/roleUtils';
-import { getProfessionalVerificationStatus } from '@/lib/verificationStatus';
 import {
   Heart, LayoutDashboard, Calendar, FileText, FlaskConical, ScanLine,
   Pill, Ambulance, Users, Building2, ShieldCheck, Activity, Bell, AlertCircle,
@@ -160,15 +159,13 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const [_verificationNotice, setVerificationNotice] = useState('');
+  const [verificationNotice, setVerificationNotice] = useState('');
   const [sendingVerification, setSendingVerification] = useState(false);
 
   if (!user) return null;
 
   const roleKey = normalizeUserRole(user.role) ?? user.role;
   const navItems = roleNavItems[roleKey] || [];
-  const professionalVerificationStatus = getProfessionalVerificationStatus(user.isVerified, user.isActive ?? true);
-  const _isPendingVerification = professionalVerificationStatus === 'pending';
   const isEmailUnverified = user.role !== 'admin' && user.emailVerified === false;
 
   const handleSignOut = async () => {
@@ -317,6 +314,7 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
                   <div>
                     <p className="font-bold text-[var(--state-warning)]">A quick step is still needed</p>
                     <p className="text-[11px] text-[var(--text-medium)]">Please verify your email to keep your account secure.</p>
+                    {verificationNotice && <p className="text-[11px] text-emerald-400 mt-1 font-sans">{verificationNotice}</p>}
                   </div>
                 </div>
                 <button
