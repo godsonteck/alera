@@ -276,10 +276,10 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
           <div className="flex items-center gap-3 border-l-2 border-sky-500 bg-[var(--surface-secondary)] px-3 py-1.5 text-xs rounded-r-md">
             <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
             <div>
-              <span className="font-semibold text-[var(--text-high)]">Care workspace</span>
+              <span className="font-semibold text-[var(--text-high)]">Patient Portal</span>
             </div>
-            <span className="border border-[var(--border)] bg-[var(--surface-elevated)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--brand-primary)]">
-              Ready
+            <span className="border border-[var(--border)] bg-[var(--surface-elevated)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--brand-primary)] rounded">
+              Active
             </span>
           </div>
 

@@ -40,7 +40,7 @@
   }
 }
 
-/* Dynamic Theme Overrides for Standard Classes */
+/* Dynamic Theme Overrides for High Contrast & Legibility */
 .dark,
 [data-theme="dark"],
 [data-theme="high-contrast"] {
@@ -66,27 +66,53 @@
 
   .text-slate-600,
   .text-slate-700 {
-    color: var(--text-medium) !important;
+    color: #CBD5E1 !important;
+  }
+
+  .text-slate-400,
+  .text-slate-500 {
+    color: #94A3B8 !important;
   }
 
   .border-slate-200,
   .border-slate-300 {
     border-color: var(--border) !important;
   }
+
+  /* Legacy dark hex override for dark theme */
+  [class*="bg-[#090D14]"],
+  [class*="bg-[#0F1218]"],
+  [class*="bg-[#151922]"] {
+    background-color: var(--surface-elevated) !important;
+    border-color: var(--border) !important;
+  }
+
+  [class*="border-[#252A35]"],
+  [class*="border-[#2F3542]"] {
+    border-color: var(--border) !important;
+  }
+
+  [class*="text-[#0b3d62]"] {
+    color: var(--text-high) !important;
+  }
+
+  [class*="text-[#ECEEF2]"] {
+    color: var(--text-high) !important;
+  }
 }
 
 /* High Contrast specific reinforcements */
-[data-theme="high-contrast"] {
+[data-theme="high-contrast"],
+[data-high-contrast="true"] {
   /* Make all card/panel borders super visible */
   .border,
   [class*="border-"] {
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
   }
 
   /* Thicker borders on interactive elements */
   button, input, textarea, select {
-    border-width: 1px !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
+    border-width: 1.5px !important;
   }
 
   /* Strong focus rings */
@@ -98,16 +124,15 @@
   /* Force card backgrounds to stay opaque dark */
   .bg-white\/95,
   .bg-white\/90 {
-    background-color: #111111 !important;
+    background-color: var(--surface-elevated) !important;
   }
 }
 
 @layer utilities {
-  /* Transitional shell for former console-style workflow pages.  Keep their
-     data and controls, while making every surface match the public product. */
-  html:not(.dark):not([data-theme="dark"]):not([data-theme="high-contrast"]) {
+  /* Light mode legacy overrides */
+  html:not(.dark):not([data-theme="dark"]) {
     .alera-feature {
-      color: #334155;
+      color: #1E293B;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
 
@@ -115,15 +140,15 @@
     :is(.alera-feature, .alera-dashboard) [class*="bg-[#0F1218]"],
     :is(.alera-feature, .alera-dashboard) [class*="bg-[#151922]"] {
       background-color: #ffffff !important;
-      border-color: #dbe5e8 !important;
+      border-color: #CBD5E1 !important;
       border-radius: 0.875rem !important;
       box-shadow: 0 1px 3px rgba(11, 61, 98, 0.08) !important;
     }
 
-    :is(.alera-feature, .alera-dashboard) [class*="text-[#ECEEF2]"] { color: #0b3d62 !important; }
-    :is(.alera-feature, .alera-dashboard) [class*="text-cyan-"] { color: #0b3d62 !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="text-[#ECEEF2]"] { color: #0F172A !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="text-cyan-"] { color: #0284C7 !important; }
     :is(.alera-feature, .alera-dashboard) [class*="border-[#252A35]"],
-    :is(.alera-feature, .alera-dashboard) [class*="border-[#2F3542]"] { border-color: #dbe5e8 !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="border-[#2F3542]"] { border-color: #CBD5E1 !important; }
   }
   :is(.alera-feature, .alera-dashboard) button:not([class*="bg-red"]):not([class*="text-red"]) {
     border-radius: 0.75rem;
