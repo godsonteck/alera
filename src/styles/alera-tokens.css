@@ -162,59 +162,61 @@
   --ring: 206 75% 50%;
 }
 
-/* High Contrast Theme — WCAG AAA Accessible */
-.high-contrast,
-[data-theme="high-contrast"] {
-  color-scheme: dark;
+/* High Contrast Overlay — boosts contrast on top of any base theme */
+[data-high-contrast="true"] {
+  /* Tighten text contrast */
+  --text-high: #000000;
+  --text-medium: #111111;
+  --text-low: #333333;
 
-  /* Pure black backgrounds */
-  --surface-base: #000000;
-  --surface-secondary: #0A0A0A;
-  --surface-elevated: #111111;
-  --surface-floating: #1A1A1A;
-  --surface-modal: #111111;
-  --surface-nav: #000000;
-  --surface-workspace: #000000;
+  /* Stronger borders */
+  --border: #000000;
+}
 
-  /* Pure white text for maximum contrast */
+/* On dark base + high contrast */
+[data-high-contrast="true"].dark,
+[data-high-contrast="true"][data-theme="dark"] {
   --text-high: #FFFFFF;
   --text-medium: #EEEEEE;
   --text-low: #CCCCCC;
-  --text-disabled: #888888;
-  --text-metadata: #BBBBBB;
+  --border: #FFFFFF;
 
-  /* Vivid yellow primary for max visibility */
-  --brand-primary: #FFE500;
-  --brand-primary-hover: #FFD000;
-  --brand-primary-active: #FFBA00;
-  --brand-secondary: #00FFAA;
-  --brand-secondary-hover: #00EE99;
+  --surface-base: #000000;
+  --surface-secondary: #0D0D0D;
+  --surface-elevated: #141414;
+  --surface-floating: #1C1C1C;
+  --surface-modal: #141414;
+}
 
-  /* Bright semantic colors */
-  --state-success: #00FF66;
-  --state-warning: #FFD700;
-  --state-danger: #FF3333;
-  --state-critical: #FF0000;
-  --state-info: #00CCFF;
+/* On light base + high contrast */
+[data-high-contrast="true"].light,
+[data-high-contrast="true"][data-theme="light"] {
+  --text-high: #000000;
+  --text-medium: #111111;
+  --text-low: #333333;
+  --border: #000000;
 
-  /* Tailwind-compatible aliases */
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 100%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 52 100% 50%;
-  --primary-foreground: 0 0% 0%;
-  --secondary: 160 100% 50%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: 0 0% 10%;
-  --muted-foreground: 0 0% 85%;
-  --accent: 0 0% 12%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 60%;
-  --input: 0 0% 60%;
-  --ring: 52 100% 50%;
+  --surface-base: #FFFFFF;
+  --surface-secondary: #F0F0F0;
+  --surface-elevated: #FFFFFF;
+  --surface-floating: #FFFFFF;
+  --surface-modal: #FFFFFF;
+}
+
+/* Shared high-contrast reinforcements */
+[data-high-contrast="true"] * {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-high-contrast="true"] button,
+[data-high-contrast="true"] input,
+[data-high-contrast="true"] textarea,
+[data-high-contrast="true"] select {
+  font-weight: 600 !important;
+}
+
+[data-high-contrast="true"] *:focus-visible {
+  outline: 3px solid currentColor !important;
+  outline-offset: 2px !important;
 }

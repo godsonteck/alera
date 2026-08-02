@@ -1,10 +1,11 @@
 import React from "react";
-import { Sun, Moon, Laptop, Eye } from "lucide-react";
+import { Sun, Moon, Laptop, Contrast } from "lucide-react";
 import { useTheme, ThemeMode } from "@/contexts/ThemeContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -15,14 +16,21 @@ interface ThemeSelectorProps {
 }
 
 export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdown", className = "" }) => {
-  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
+  const { theme, resolvedTheme, highContrast, setTheme, setHighContrast, toggleTheme } = useTheme();
 
-  const options: { mode: ThemeMode; label: string; icon: React.ReactNode }[] = [
+  const baseOptions: { mode: ThemeMode; label: string; icon: React.ReactNode }[] = [
     { mode: "light", label: "Light", icon: <Sun className="h-4 w-4 text-amber-500" /> },
     { mode: "dark", label: "Dark", icon: <Moon className="h-4 w-4 text-sky-400" /> },
-    { mode: "high-contrast", label: "High Contrast", icon: <Eye className="h-4 w-4 text-emerald-400" /> },
     { mode: "system", label: "System Default", icon: <Laptop className="h-4 w-4 text-slate-400" /> },
   ];
+
+  const currentIcon = resolvedTheme === "light"
+    ? <Sun className="h-4 w-4 text-amber-400" />
+    : <Moon className="h-4 w-4 text-sky-400" />;
+
+  const currentLabel = highContrast
+    ? `${theme === "system" ? "System" : theme.charAt(0).toUpperCase() + theme.slice(1)} + HC`
+    : theme === "system" ? "System" : theme.charAt(0).toUpperCase() + theme.slice(1);
 
   if (variant === "toggle") {
     return (
@@ -31,12 +39,10 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
         size="icon"
         onClick={toggleTheme}
         className={`relative h-9 w-9 rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--text-high)] transition-all hover:bg-[var(--surface-secondary)] ${className}`}
-        title={`Current theme: ${theme}. Click to switch.`}
+        title={`Current theme: ${theme}${highContrast ? " (High Contrast)" : ""}. Click to switch.`}
         aria-label="Toggle theme"
       >
-        {resolvedTheme === "light" && <Sun className="h-4 w-4 text-amber-400" />}
-        {resolvedTheme === "dark" && <Moon className="h-4 w-4 text-sky-400" />}
-        {resolvedTheme === "high-contrast" && <Eye className="h-4 w-4 text-emerald-400" />}
+        {currentIcon}
       </Button>
     );
   }
@@ -44,12 +50,12 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
   if (variant === "pills") {
     return (
       <div className={`flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] p-1 ${className}`}>
-        {options.map((opt) => (
+        {baseOptions.map((opt) => (
           <button
             key={opt.mode}
             onClick={() => setTheme(opt.mode)}
             className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
-              theme === opt.mode
+              theme === opt.mode && !highContrast
                 ? "bg-[var(--brand-primary)] text-white shadow-sm"
                 : "text-[var(--text-medium)] hover:bg-[var(--surface-secondary)] hover:text-[var(--text-high)]"
             }`}
@@ -58,6 +64,17 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
             <span>{opt.label}</span>
           </button>
         ))}
+        <button
+          onClick={() => setHighContrast(!highContrast)}
+          className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
+            highContrast
+              ? "bg-[var(--brand-primary)] text-white shadow-sm"
+              : "text-[var(--text-medium)] hover:bg-[var(--surface-secondary)] hover:text-[var(--text-high)]"
+          }`}
+        >
+          <Contrast className="h-4 w-4" />
+          <span>High Contrast</span>
+        </button>
       </div>
     );
   }
@@ -68,16 +85,14 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
         <Button
           variant="ghost"
           size="sm"
-          className={`flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-1.5 text-xs font-medium text-[var(--text-high)] transition-all hover:bg-[var(--surface-secondary)] ${className}`}
+          className={`flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-1.5 text-xs font-medium text-[var(--text-high)] transition-all hover:bg-[var(--surface-secondary)] ${highContrast ? "ring-2 ring-[var(--brand-primary)] ring-offset-1 ring-offset-[var(--surface-base)]" : ""} ${className}`}
         >
-          {resolvedTheme === "light" && <Sun className="h-4 w-4 text-amber-400" />}
-          {resolvedTheme === "dark" && <Moon className="h-4 w-4 text-sky-400" />}
-          {resolvedTheme === "high-contrast" && <Eye className="h-4 w-4 text-emerald-400" />}
-          <span className="capitalize">{theme === "high-contrast" ? "High Contrast" : theme === "system" ? "System" : theme}</span>
+          {currentIcon}
+          <span className="capitalize">{currentLabel}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48 rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)]/95 p-1 text-[var(--text-high)] shadow-xl backdrop-blur-md">
-        {options.map((opt) => (
+        {baseOptions.map((opt) => (
           <DropdownMenuItem
             key={opt.mode}
             onClick={() => setTheme(opt.mode)}
@@ -89,6 +104,17 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
             <span>{opt.label}</span>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuSeparator className="my-1 bg-[var(--border)]" />
+        <DropdownMenuItem
+          onClick={() => setHighContrast(!highContrast)}
+          className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium cursor-pointer transition-colors ${
+            highContrast ? "bg-[var(--brand-primary)]/15 font-semibold text-[var(--brand-primary)]" : "text-[var(--text-high)] hover:bg-[var(--surface-secondary)]"
+          }`}
+        >
+          <Contrast className="h-4 w-4" />
+          <span>High Contrast</span>
+          {highContrast && <span className="ml-auto text-[10px] font-bold uppercase tracking-wide opacity-70">On</span>}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
