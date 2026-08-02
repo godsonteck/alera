@@ -73,13 +73,10 @@
   }
 
   .text-slate-600,
-  .text-slate-700 {
-    color: #CBD5E1 !important;
-  }
-
-  .text-slate-400,
-  .text-slate-500 {
-    color: #94A3B8 !important;
+  .text-slate-700,
+  .text-slate-500,
+  .text-slate-400 {
+    color: var(--text-medium) !important;
   }
 
   .border-slate-200,

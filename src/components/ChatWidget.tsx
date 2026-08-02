@@ -57,7 +57,7 @@ const ChatWidget = () => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  if (!user || !['patient', 'doctor'].includes(user.role)) return null;
+  if (!user) return null;
 
   return (
     <>

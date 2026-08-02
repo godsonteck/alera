@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
-import { Heart, Search, Star, Clock, Inbox } from 'lucide-react';
+import { Heart, Search, Star, Clock, Inbox, Video } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/useAuth';
+import { useChat } from '@/contexts/useChat';
 import { getBookableDoctors } from '@/lib/providerDirectory';
 
 const DoctorsPage = () => {
   const { getUsers, user } = useAuth();
+  const { startVideoCall } = useChat();
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('all');
@@ -131,13 +133,21 @@ const DoctorsPage = () => {
                 </div>
               )}
 
-              <button
-                onClick={() => navigate(`/dashboard/appointments?doctor=${doctor.id}`)}
-                disabled={user?.role !== 'patient'}
-                className="w-full bg-[#151922] hover:bg-slate-800 border border-cyan-500/60 text-cyan-300 font-bold py-1.5 rounded-[2px] transition-colors uppercase tracking-wider text-[10px] disabled:opacity-30"
-              >
-                {user?.role === 'patient' ? 'REQUISITION CONSULT' : 'VIEW CLINICIAN'}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => startVideoCall(doctor.id, doctor.name, 'doctor')}
+                  className="flex-1 flex items-center justify-center gap-1.5 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white font-bold py-1.5 rounded-lg transition-colors text-xs shadow-xs"
+                >
+                  <Video className="w-3.5 h-3.5" />
+                  <span>Call Doctor</span>
+                </button>
+                <button
+                  onClick={() => navigate(`/dashboard/appointments?doctor=${doctor.id}`)}
+                  className="flex-1 bg-[var(--surface-elevated)] hover:bg-[var(--surface-secondary)] border border-[var(--border)] text-[var(--text-high)] font-semibold py-1.5 rounded-lg transition-colors text-xs text-center"
+                >
+                  Book Visit
+                </button>
+              </div>
             </div>
           ))}
         </div>

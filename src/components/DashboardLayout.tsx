@@ -109,6 +109,19 @@ const roleLabels: Record<string, string> = {
   imaging: 'Imaging team', pharmacy: 'Pharmacy team', ambulance: 'Emergency unit', physiotherapist: 'Therapist', admin: 'Admin', super_admin: 'System admin',
 };
 
+const portalLabels: Record<string, string> = {
+  patient: 'Patient Portal',
+  doctor: 'Clinician Portal',
+  hospital: 'Hospital Portal',
+  laboratory: 'Laboratory Portal',
+  imaging: 'Imaging Portal',
+  pharmacy: 'Pharmacy Portal',
+  ambulance: 'Emergency Portal',
+  physiotherapist: 'Therapy Portal',
+  admin: 'Admin Portal',
+  super_admin: 'Super Admin Portal',
+};
+
 const friendlyNavLabels: Record<string, string> = {
   'Dashboard': 'Home',
   'Appointments': 'Appointments',
@@ -269,7 +282,7 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
           <div className="flex items-center gap-3 border-l-2 border-sky-500 bg-[var(--surface-secondary)] px-3 py-1.5 text-xs rounded-r-md">
             <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
             <div>
-              <span className="font-semibold text-[var(--text-high)]">Patient Portal</span>
+              <span className="font-semibold text-[var(--text-high)]">{portalLabels[roleKey] || 'Health Portal'}</span>
             </div>
             <span className="border border-[var(--border)] bg-[var(--surface-elevated)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--brand-primary)] rounded">
               Active

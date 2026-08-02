@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/useAuth';
 import { useAppData } from '@/contexts/useAppData';
 import { useNotifications } from '@/contexts/useNotifications';
+import { useChat } from '@/contexts/useChat';
 import { type Doctor } from '@/data/mockData';
 import { api, type ApiUser } from '@/lib/apiService';
 import { handleApiError } from '@/lib/errorHandler';
@@ -24,6 +25,7 @@ const AppointmentsPage = () => {
   const { user } = useAuth();
   const { appointments, confirmAppointment, refreshAppData } = useAppData();
   const { addNotification } = useNotifications();
+  const { startVideoCall } = useChat();
   const [searchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
   const [filter, setFilter] = useState<string>('all');
@@ -351,6 +353,18 @@ const AppointmentsPage = () => {
                 }`}>
                   {apt.status}
                 </span>
+
+                <button
+                  onClick={() => startVideoCall(
+                    effectiveRole === 'doctor' ? apt.patientId : apt.doctorId,
+                    effectiveRole === 'doctor' ? apt.patientName : apt.doctorName,
+                    effectiveRole === 'doctor' ? 'patient' : 'doctor'
+                  )}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-hover)] text-white text-xs font-semibold rounded-lg transition-colors shadow-xs"
+                >
+                  <Video className="w-3.5 h-3.5" />
+                  <span>Start Call</span>
+                </button>
 
                 {effectiveRole === 'doctor' && apt.status === 'scheduled' && (
                   <button

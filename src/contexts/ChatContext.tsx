@@ -366,21 +366,21 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [addNotification, loadMessages, sendSocketMessage, user]);
 
   const startVideoCall = useCallback((participantId: string, participantName: string, participantRole: string) => {
-    const sent = sendSocketMessage({
-      type: 'call_invite',
-      recipient_id: Number(participantId),
+    const callId = crypto.randomUUID();
+    setCurrentCall({
+      id: callId,
+      participantId,
+      participantName,
+      participantRole,
+      direction: 'outgoing',
+      status: 'ringing',
     });
 
-    if (!sent) {
-      setCurrentCall({
-        id: crypto.randomUUID(),
-        participantId,
-        participantName,
-        participantRole,
-        direction: 'outgoing',
-        status: 'connecting',
-      });
-    }
+    sendSocketMessage({
+      type: 'call_invite',
+      recipient_id: Number(participantId),
+      call_id: callId,
+    });
   }, [sendSocketMessage]);
 
   const acceptCurrentCall = useCallback(() => {
