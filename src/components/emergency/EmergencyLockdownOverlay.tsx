@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Zap,
-  AlertTriangle,
   Heart,
   Activity,
   Clock,
@@ -189,7 +188,7 @@ export const EmergencyLockdownOverlay: React.FC<EmergencyLockdownProps> = ({
             </button>
             <button
               onClick={() => handleAddIntervention("Endotracheal Intubation Complete")}
-              className="p-3 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-600/80 text-white rounded-[2px] text-xs font-bold transition-all text-left"
+              className="p-3 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-600/60 text-white rounded-[2px] text-xs font-bold transition-all text-left"
             >
               + Intubation Secured
             </button>

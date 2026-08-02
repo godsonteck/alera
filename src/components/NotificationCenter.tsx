@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Check, CheckCheck, Trash2, AlertTriangle, Calendar, FlaskConical, Pill, MessageSquare, Settings, X } from 'lucide-react';
+import { Bell, CheckCheck, Trash2, AlertTriangle, Calendar, FlaskConical, Pill, MessageSquare, Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/useAuth';
 import { useNotifications } from '@/contexts/useNotifications';
 import { useNavigate } from 'react-router-dom';

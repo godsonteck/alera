@@ -3,7 +3,6 @@ import {
   ShieldAlert, 
   Bell, 
   Save, 
-  AlertTriangle, 
   Megaphone, 
   Info,
   Clock,
@@ -12,12 +11,10 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { adminApi, SystemSettings } from '@/lib/apiService';
-import { useAuth } from '@/contexts/useAuth';
 import { useSystem } from '@/contexts/useSystem';
 import { toast } from 'sonner';
 
 const SystemManagement: React.FC = () => {
-  const { user } = useAuth();
   const { refreshSettings } = useSystem();
   
   const [settings, setSettings] = useState<SystemSettings | null>(null);
@@ -101,7 +98,7 @@ const SystemManagement: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
             <ShieldAlert className="h-8 w-8 text-blue-600" />
-            System settings
+            System Settings
           </h1>
           <p className="text-slate-500 mt-2">Manage maintenance mode and global communications.</p>
         </div>

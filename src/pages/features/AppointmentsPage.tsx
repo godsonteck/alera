@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, Plus, X, Clock, Inbox, Star, MapPin, AlertCircle, Check, XCircle, Edit2, UserCheck, Video } from 'lucide-react';
+import { Plus, X, MapPin, Video } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/useAuth';
 import { useAppData } from '@/contexts/useAppData';
@@ -11,9 +10,6 @@ import { handleApiError } from '@/lib/errorHandler';
 import { normalizeUserRole } from '@/lib/roleUtils';
 import { getBookableDoctors } from '@/lib/providerDirectory';
 import { buildScheduledIso, getAvailableAppointmentSlots, getVisibleAppointments } from '@/lib/appointmentUtils';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import type { User as AuthUser } from '@/contexts/AuthContext';
 
 type AppointmentFormData = {
@@ -26,7 +22,7 @@ type AppointmentFormData = {
 
 const AppointmentsPage = () => {
   const { user } = useAuth();
-  const { appointments, cancelAppointment, confirmAppointment, rescheduleAppointment, refreshAppData } = useAppData();
+  const { appointments, confirmAppointment, refreshAppData } = useAppData();
   const { addNotification } = useNotifications();
   const [searchParams] = useSearchParams();
   const [showForm, setShowForm] = useState(false);
@@ -34,17 +30,12 @@ const AppointmentsPage = () => {
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [doctorUsers, setDoctorUsers] = useState<AuthUser[]>([]);
   const [isLoadingDoctors, setIsLoadingDoctors] = useState(false);
-  const [doctorsLoadError, setDoctorsLoadError] = useState<string | null>(null);
+  const [, setDoctorsLoadError] = useState<string | null>(null);
   const [formData, setFormData] = useState<AppointmentFormData>({ doctorId: '', date: '', time: '', type: '', appointmentMode: 'telemedicine' });
-  const [cancelDialogOpen, setCancelDialogOpen] = useState<string | null>(null);
-  const [rescheduleDialogOpen, setRescheduleDialogOpen] = useState<string | null>(null);
-  const [rescheduleData, setRescheduleData] = useState({ date: '', time: '' });
-  const [cancellationReason, setCancellationReason] = useState('');
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const effectiveRole = normalizeUserRole(user?.role) ?? user?.role;
   const focusId = searchParams.get('focus');
-  const selectedDoctorId = searchParams.get('doctor');
   const visibleAppointments = useMemo(() => getVisibleAppointments(appointments, user), [appointments, user]);
   const filtered = useMemo(
     () => (filter === 'all' ? visibleAppointments : visibleAppointments.filter((appointment) => appointment.status === filter)),
@@ -86,9 +77,9 @@ const AppointmentsPage = () => {
       setIsLoadingDoctors(true);
       setDoctorsLoadError(null);
       try {
-        const response = await api.getUsers({ role: 'doctor' });
+        const doctors = await api.users.getDoctors();
         if (mounted) {
-          const docs = (response.users || []).map(mapApiDoctorToAuthUser);
+          const docs = (doctors || []).map(mapApiDoctorToAuthUser);
           setDoctorUsers(docs);
         }
       } catch (err) {
@@ -110,174 +101,32 @@ const AppointmentsPage = () => {
 
   const availableSlots = useMemo(() => {
     if (!formData.date || !selectedDoctor) return [];
-    return getAvailableAppointmentSlots(appointments, selectedDoctor.id, formData.date);
+    return getAvailableAppointmentSlots(selectedDoctor, formData.date, appointments);
   }, [formData.date, selectedDoctor, appointments]);
 
   const handleBook = async () => {
     if (!selectedDoctor || !formData.date || !formData.time || !formData.type) {
-      setBookingError('Please complete all required appointment coordinates.');
+      setBookingError('Please complete all required appointment fields.');
       return;
     }
     setBookingLoading(true);
     setBookingError(null);
     try {
       const scheduledIso = buildScheduledIso(formData.date, formData.time);
-      await api.createAppointment({
-        doctor_id: selectedDoctor.id,
-        patient_id: user?.id,
-        appointment_date: scheduledIso,
-        appointment_type: formData.type,
-        appointment_mode: formData.appointmentMode,
+      const appointmentTypeMap: Record<string, 'in_person' | 'telehealth' | 'phone'> = {
+        'telemedicine': 'telehealth',
+        'in-person': 'in_person',
+      };
+      await api.appointments.createAppointment({
+        provider_id: Number(selectedDoctor.id),
+        title: formData.type,
+        appointment_type: appointmentTypeMap[formData.appointmentMode] || 'telehealth',
+        scheduled_time: scheduledIso,
       });
 
       addNotification({
-        title: 'Consultation Scheduled',
-        message: `Consultation with ${selectedDoctor.name} confirmed for ${formData.date} at ${formData.time}.`,
-        type: 'appointment',
-        priority: 'medium',
-        audience: 'personal',
-      });
-
-      await refreshAppData();
-      setShowForm(false);
-      setSelectedDoctor(null);
-      setFormData({ doctorId: '', date: '', time: '', type: '', appointmentMode: 'telemedicine' });
-    } catch (err) {
-import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, Plus, X, Clock, Inbox, Star, MapPin, AlertCircle, Check, XCircle, Edit2, UserCheck, Video } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
-import { useAuth } from '@/contexts/useAuth';
-import { useAppData } from '@/contexts/useAppData';
-import { useNotifications } from '@/contexts/useNotifications';
-import { type Doctor } from '@/data/mockData';
-import { api, type ApiUser } from '@/lib/apiService';
-import { handleApiError } from '@/lib/errorHandler';
-import { normalizeUserRole } from '@/lib/roleUtils';
-import { getBookableDoctors } from '@/lib/providerDirectory';
-import { buildScheduledIso, getAvailableAppointmentSlots, getVisibleAppointments } from '@/lib/appointmentUtils';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import type { User as AuthUser } from '@/contexts/AuthContext';
-
-type AppointmentFormData = {
-  doctorId: string;
-  date: string;
-  time: string;
-  type: string;
-  appointmentMode: 'telemedicine' | 'in-person';
-};
-
-const AppointmentsPage = () => {
-  const { user } = useAuth();
-  const { appointments, cancelAppointment, confirmAppointment, rescheduleAppointment, refreshAppData } = useAppData();
-  const { addNotification } = useNotifications();
-  const [searchParams] = useSearchParams();
-  const [showForm, setShowForm] = useState(false);
-  const [filter, setFilter] = useState<string>('all');
-  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
-  const [doctorUsers, setDoctorUsers] = useState<AuthUser[]>([]);
-  const [isLoadingDoctors, setIsLoadingDoctors] = useState(false);
-  const [doctorsLoadError, setDoctorsLoadError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<AppointmentFormData>({ doctorId: '', date: '', time: '', type: '', appointmentMode: 'telemedicine' });
-  const [cancelDialogOpen, setCancelDialogOpen] = useState<string | null>(null);
-  const [rescheduleDialogOpen, setRescheduleDialogOpen] = useState<string | null>(null);
-  const [rescheduleData, setRescheduleData] = useState({ date: '', time: '' });
-  const [cancellationReason, setCancellationReason] = useState('');
-  const [bookingLoading, setBookingLoading] = useState(false);
-  const [bookingError, setBookingError] = useState<string | null>(null);
-  const effectiveRole = normalizeUserRole(user?.role) ?? user?.role;
-  const focusId = searchParams.get('focus');
-  const selectedDoctorId = searchParams.get('doctor');
-  const visibleAppointments = useMemo(() => getVisibleAppointments(appointments, user), [appointments, user]);
-  const filtered = useMemo(
-    () => (filter === 'all' ? visibleAppointments : visibleAppointments.filter((appointment) => appointment.status === filter)),
-    [filter, visibleAppointments],
-  );
-  const availableDoctors = useMemo(() => getBookableDoctors(doctorUsers), [doctorUsers]);
-
-  const mapApiDoctorToAuthUser = (doc: ApiUser): AuthUser => {
-    const fullName = doc.full_name?.trim() || [doc.first_name, doc.last_name].filter(Boolean).join(' ').trim();
-    const [firstName = '', ...lastNameParts] = (fullName || doc.email).split(' ');
-
-    return {
-      id: String(doc.id),
-      email: doc.email,
-      name: fullName || doc.email,
-      role: 'doctor',
-      avatar: doc.avatar || doc.profile_image_url,
-      profile: {
-        firstName,
-        lastName: lastNameParts.join(' '),
-        phone: doc.phone,
-        address: doc.address,
-        city: doc.city,
-        state: doc.state,
-        zipCode: doc.zip_code,
-        dateOfBirth: doc.date_of_birth ? String(doc.date_of_birth) : undefined,
-        bio: doc.bio,
-        avatar: doc.avatar || doc.profile_image_url,
-        notificationEmail: true,
-        notificationSms: false,
-        privacyPublicProfile: false,
-      },
-    };
-  };
-
-  useEffect(() => {
-    let mounted = true;
-    const fetchDoctors = async () => {
-      setIsLoadingDoctors(true);
-      setDoctorsLoadError(null);
-      try {
-        const response = await api.getUsers({ role: 'doctor' });
-        if (mounted) {
-          const docs = (response.users || []).map(mapApiDoctorToAuthUser);
-          setDoctorUsers(docs);
-        }
-      } catch (err) {
-        if (mounted) {
-          setDoctorsLoadError(handleApiError(err, 'fetch doctors list'));
-        }
-      } finally {
-        if (mounted) setIsLoadingDoctors(false);
-      }
-    };
-    void fetchDoctors();
-    return () => { mounted = false; };
-  }, []);
-
-  const handleSelectDoctor = (doctor: Doctor) => {
-    setSelectedDoctor(doctor);
-    setFormData((prev) => ({ ...prev, doctorId: doctor.id, time: '' }));
-  };
-
-  const availableSlots = useMemo(() => {
-    if (!formData.date || !selectedDoctor) return [];
-    return getAvailableAppointmentSlots(appointments, selectedDoctor.id, formData.date);
-  }, [formData.date, selectedDoctor, appointments]);
-
-  const handleBook = async () => {
-    if (!selectedDoctor || !formData.date || !formData.time || !formData.type) {
-      setBookingError('Please complete all required appointment coordinates.');
-      return;
-    }
-    setBookingLoading(true);
-    setBookingError(null);
-    try {
-      const scheduledIso = buildScheduledIso(formData.date, formData.time);
-      await api.createAppointment({
-        doctor_id: selectedDoctor.id,
-        patient_id: user?.id,
-        appointment_date: scheduledIso,
-        appointment_type: formData.type,
-        appointment_mode: formData.appointmentMode,
-      });
-
-      addNotification({
-        title: 'Consultation Scheduled',
-        message: `Consultation with ${selectedDoctor.name} confirmed for ${formData.date} at ${formData.time}.`,
+        title: 'Appointment Booked',
+        message: `Appointment with ${selectedDoctor.name} booked for ${formData.date} at ${formData.time}.`,
         type: 'appointment',
         priority: 'medium',
         audience: 'personal',

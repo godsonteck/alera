@@ -6,15 +6,11 @@ import NotificationCenter from '@/components/NotificationCenter';
 import ChatWidget from '@/components/ChatWidget';
 import { ThemeSelector } from '@/components/ThemeSelector';
 import { normalizeUserRole } from '@/lib/roleUtils';
-import {
-  getProfessionalVerificationStatus,
-  getVerificationStatusLabel,
-} from '@/lib/verificationStatus';
+import { getProfessionalVerificationStatus } from '@/lib/verificationStatus';
 import {
   Heart, LayoutDashboard, Calendar, FileText, FlaskConical, ScanLine,
   Pill, Ambulance, Users, Building2, ShieldCheck, Activity, Bell, AlertCircle,
-  LogOut, Menu, X, Clock, MessageSquare, Settings, HeartPulse, Mail, Terminal,
-  UserCheck, ShieldAlert
+  LogOut, Menu, X, Clock, MessageSquare, Settings, HeartPulse, Mail
 } from 'lucide-react';
 
 const roleNavItems: Record<string, { label: string; icon: React.ReactNode; path: string }[]> = {
@@ -159,12 +155,12 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
   const { user, logout, resendEmailVerification } = useAuth();
-  const { unreadCount, feedLabel, isLive } = useNotifications();
+  const { unreadCount } = useNotifications();
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const [verificationNotice, setVerificationNotice] = useState('');
+  const [_verificationNotice, setVerificationNotice] = useState('');
   const [sendingVerification, setSendingVerification] = useState(false);
 
   if (!user) return null;
@@ -172,7 +168,7 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
   const roleKey = normalizeUserRole(user.role) ?? user.role;
   const navItems = roleNavItems[roleKey] || [];
   const professionalVerificationStatus = getProfessionalVerificationStatus(user.isVerified, user.isActive ?? true);
-  const isPendingVerification = professionalVerificationStatus === 'pending';
+  const _isPendingVerification = professionalVerificationStatus === 'pending';
   const isEmailUnverified = user.role !== 'admin' && user.emailVerified === false;
 
   const handleSignOut = async () => {

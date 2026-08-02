@@ -10,6 +10,7 @@ import { AppDataProvider } from "@/contexts/AppDataContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import { ChatProvider } from "@/contexts/ChatContext";
 import { SystemProvider } from "@/contexts/SystemContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { useAuth } from "@/contexts/useAuth";
 import { useSystem } from "@/contexts/useSystem";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -21,11 +22,8 @@ import type { MaintenanceBannerType } from "@/contexts/system-context";
 const MainLayout = lazy(() => import("./components/MainLayout"));
 const LandingHome = lazy(() => import("./pages/Landing/Home"));
 const LandingHowItWorks = lazy(() => import("./pages/Landing/HowItWorks"));
-const LandingFeatures = lazy(() => import("./pages/Landing/Features"));
 const LandingTrust = lazy(() => import("./pages/Landing/Trust"));
-const LandingWhoWeServe = lazy(() => import("./pages/Landing/WhoWeServe"));
 const LandingWhyAlera = lazy(() => import("./pages/Landing/WhyAlera"));
-const LandingAbout = lazy(() => import("./pages/Landing/About"));
 const PrivacyPolicy = lazy(() => import("./pages/Landing/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/Landing/TermsOfService"));
 const Login = lazy(() => import("./pages/Login"));
@@ -92,7 +90,6 @@ const MaintenanceGuard = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const App = () => {
   try {

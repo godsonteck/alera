@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, X, Info, AlertTriangle, CheckCircle } from 'lucide-react';
+import { X, Info, AlertTriangle, CheckCircle } from 'lucide-react';
 
 interface MaintenanceBannerProps {
   message: string;
