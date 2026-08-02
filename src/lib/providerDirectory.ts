@@ -1,5 +1,6 @@
 import type { User } from '@/contexts/AuthContext';
 import type { Doctor } from '@/data/mockData';
+import { normalizeUserRole } from '@/lib/roleUtils';
 
 const defaultAvailability: Doctor['availableHours'] = [
   { dayOfWeek: 'Monday', startTime: '09:00', endTime: '16:00' },
@@ -12,7 +13,12 @@ const defaultAvailability: Doctor['availableHours'] = [
 export const getBookableDoctors = (
   users: User[],
 ): Doctor[] => {
-  const registeredDoctors = users.filter((candidate) => ['doctor', 'physiotherapist'].includes(candidate.role) && candidate.isVerified !== false && candidate.isActive !== false);
+  const registeredDoctors = users.filter((candidate) => {
+    const normalizedRole = normalizeUserRole(candidate.role);
+    return (normalizedRole === 'doctor' || normalizedRole === 'physiotherapist') &&
+      candidate.isVerified !== false &&
+      candidate.isActive !== false;
+  });
   if (registeredDoctors.length === 0) return [];
 
   return registeredDoctors.map((doctor, index) => ({

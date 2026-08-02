@@ -30,7 +30,7 @@ const AppointmentsPage = () => {
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [doctorUsers, setDoctorUsers] = useState<AuthUser[]>([]);
   const [isLoadingDoctors, setIsLoadingDoctors] = useState(false);
-  const [, setDoctorsLoadError] = useState<string | null>(null);
+  const [doctorsLoadError, setDoctorsLoadError] = useState<string | null>(null);
   const [formData, setFormData] = useState<AppointmentFormData>({ doctorId: '', date: '', time: '', type: '', appointmentMode: 'telemedicine' });
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
@@ -180,10 +180,16 @@ const AppointmentsPage = () => {
           {!selectedDoctor ? (
             <div className="space-y-3">
               <span className="text-xs text-[var(--text-medium)] font-medium">Choose a doctor or specialist:</span>
-              {isLoadingDoctors ? (
+              {doctorsLoadError ? (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                  {doctorsLoadError}
+                </div>
+              ) : isLoadingDoctors ? (
                 <div className="py-6 text-center text-xs text-[var(--text-medium)]">Loading available doctors...</div>
               ) : availableDoctors.length === 0 ? (
-                <div className="py-6 text-center text-xs text-[var(--text-medium)]">No doctors are currently available.</div>
+                <div className="py-6 text-center text-xs text-[var(--text-medium)]">
+                  No doctors are currently available. If this persists, refresh the page or contact support.
+                </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {availableDoctors.map((doc) => (
