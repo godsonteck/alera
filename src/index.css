@@ -75,6 +75,33 @@
   }
 }
 
+/* High Contrast specific reinforcements */
+[data-theme="high-contrast"] {
+  /* Make all card/panel borders super visible */
+  .border,
+  [class*="border-"] {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Thicker borders on interactive elements */
+  button, input, textarea, select {
+    border-width: 1px !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  /* Strong focus rings */
+  *:focus-visible {
+    outline: 3px solid #FFE500 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Force card backgrounds to stay opaque dark */
+  .bg-white\/95,
+  .bg-white\/90 {
+    background-color: #111111 !important;
+  }
+}
+
 @layer utilities {
   /* Transitional shell for former console-style workflow pages.  Keep their
      data and controls, while making every surface match the public product. */

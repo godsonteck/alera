@@ -20,7 +20,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ variant = "dropdow
   const options: { mode: ThemeMode; label: string; icon: React.ReactNode }[] = [
     { mode: "light", label: "Light", icon: <Sun className="h-4 w-4 text-amber-500" /> },
     { mode: "dark", label: "Dark", icon: <Moon className="h-4 w-4 text-sky-400" /> },
-    { mode: "high-contrast", label: "Clinical High Contrast", icon: <Eye className="h-4 w-4 text-emerald-400" /> },
+    { mode: "high-contrast", label: "High Contrast", icon: <Eye className="h-4 w-4 text-emerald-400" /> },
     { mode: "system", label: "System Default", icon: <Laptop className="h-4 w-4 text-slate-400" /> },
   ];
 
