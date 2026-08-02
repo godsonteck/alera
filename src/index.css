@@ -85,6 +85,7 @@
   [class*="bg-[#151922]"] {
     background-color: var(--surface-elevated) !important;
     border-color: var(--border) !important;
+    color: var(--text-high) !important;
   }
 
   [class*="border-[#252A35]"],
@@ -92,12 +93,14 @@
     border-color: var(--border) !important;
   }
 
-  [class*="text-[#0b3d62]"] {
+  [class*="text-[#0b3d62]"],
+  [class*="text-[#ECEEF2]"] {
     color: var(--text-high) !important;
   }
 
-  [class*="text-[#ECEEF2]"] {
-    color: var(--text-high) !important;
+  [class*="text-slate-400"],
+  [class*="text-slate-500"] {
+    color: #CBD5E1 !important;
   }
 }
 

@@ -82,8 +82,8 @@ const roleCopy: Record<RoleKey, { eyebrow: string; title: string; summary: strin
   doctor: {
     eyebrow: 'Your clinic',
     title: 'Your clinic',
-    summary: 'Visits, prescriptions, and referrals for today.',
-    focus: 'Review active records, draft prescriptions, and send referrals.',
+    summary: 'Today’s visits, prescriptions, and referrals.',
+    focus: 'See what needs attention and take the next step.',
     icon: <Stethoscope className="h-4 w-4 text-cyan-400" />,
   },
   physiotherapist: {

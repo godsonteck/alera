@@ -23,31 +23,31 @@ const DoctorsPage = () => {
   }, [doctors, search, selectedSpecialty]);
 
   return (
-    <div className="space-y-4 font-mono text-[#ECEEF2]">
+    <div className="space-y-4 text-[var(--text-high)]">
       {/* Header Bar */}
-      <div className="p-4 bg-[#090D14] border border-[#252A35] rounded-[4px] space-y-3">
+      <div className="p-4 bg-[var(--surface-secondary)] border border-[var(--border)] rounded-[16px] space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#ECEEF2]">Clinical Specialist Registry</span>
-              <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.2 rounded font-mono">
+              <span className="text-xs font-semibold tracking-wide text-[var(--text-high)]">Doctor directory</span>
+              <span className="text-[10px] bg-[var(--surface-elevated)] text-[var(--text-medium)] border border-[var(--border)] px-1.5 py-0.2 rounded font-mono">
                 {filtered.length} clinicians found
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">
-              Verified clinician directory with real-time availability status, specialty mappings, and consultation scheduling.
+            <p className="text-[11px] text-[var(--text-medium)] mt-0.5">
+              Search doctors by name or specialty, then request a consult in a few clicks.
             </p>
           </div>
         </div>
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-medium)]" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search clinician by name or specialty..."
-            className="w-full bg-[#0F1218] border border-[#252A35] focus:border-cyan-500 rounded-[2px] pl-9 pr-3 py-2 text-xs text-[#ECEEF2] placeholder:text-slate-600 focus:outline-none"
+            placeholder="Search doctor by name or specialty..."
+            className="w-full bg-[var(--surface-elevated)] border border-[var(--border)] focus:border-[var(--brand-primary)] rounded-[12px] pl-9 pr-3 py-2 text-xs text-[var(--text-high)] placeholder:text-[var(--text-medium)] focus:outline-none"
           />
         </div>
 
@@ -57,13 +57,13 @@ const DoctorsPage = () => {
             <button
               key={spec}
               onClick={() => setSelectedSpecialty(spec)}
-              className={`px-3 py-1 rounded-[2px] text-xs font-mono uppercase tracking-wider border transition-colors ${
+              className={`px-3 py-1 rounded-[12px] text-xs font-medium tracking-wide border transition-colors ${
                 selectedSpecialty === spec
-                  ? 'bg-[#151922] border-cyan-500/60 text-cyan-300 font-semibold'
-                  : 'bg-[#0F1218] border-[#252A35] text-slate-400 hover:text-[#ECEEF2]'
+                  ? 'bg-[var(--brand-primary)] border-[var(--brand-primary)] text-white'
+                  : 'bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--text-medium)] hover:text-[var(--text-high)]'
               }`}
             >
-              {spec === 'all' ? 'ALL SPECIALTIES' : spec}
+              {spec === 'all' ? 'All specialties' : spec}
             </button>
           ))}
         </div>
@@ -71,7 +71,7 @@ const DoctorsPage = () => {
 
       {/* Doctors Grid */}
       {filtered.length === 0 ? (
-        <div className="p-8 text-center bg-[#090D14] border border-[#252A35] rounded-[4px] text-xs text-slate-500 font-mono">
+        <div className="p-8 text-center bg-[var(--surface-secondary)] border border-[var(--border)] rounded-[16px] text-xs text-[var(--text-medium)]">
           No clinicians matched the search.
         </div>
       ) : (
@@ -79,16 +79,16 @@ const DoctorsPage = () => {
           {filtered.map((doctor) => (
             <div
               key={doctor.id}
-              className="p-3 bg-[#090D14] border border-[#252A35] hover:border-cyan-500/50 rounded-[2px] space-y-2.5 transition-colors"
+              className="p-3 bg-[var(--surface-secondary)] border border-[var(--border)] hover:border-[var(--brand-primary)] rounded-[16px] space-y-2.5 transition-all"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-[2px] bg-[#151922] border border-[#2F3542] text-cyan-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-[12px] bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--brand-primary)] flex items-center justify-center">
                     <Heart className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-bold text-xs text-[#ECEEF2]">{doctor.name}</div>
-                    <div className="text-[10px] text-cyan-400">{doctor.specialty}</div>
+                    <div className="font-bold text-xs text-[var(--text-high)]">{doctor.name}</div>
+                    <div className="text-[10px] text-[var(--text-medium)]">{doctor.specialty}</div>
                   </div>
                 </div>
                 <span className={`px-2 py-0.5 rounded-[2px] text-[9px] font-bold uppercase border ${
@@ -102,18 +102,18 @@ const DoctorsPage = () => {
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 gap-1 bg-[#0F1218] p-2 rounded-[2px] text-center text-[10px] border border-[#252A35]">
+              <div className="grid grid-cols-3 gap-1 bg-[var(--surface-elevated)] p-2 rounded-[12px] text-center text-[10px] border border-[var(--border)]">
                 <div>
-                  <span className="text-slate-500 block">EXP</span>
-                  <span className="font-bold text-[#ECEEF2]">{doctor.experience}yr</span>
+                  <span className="text-[var(--text-medium)] block">EXP</span>
+                  <span className="font-bold text-[var(--text-high)]">{doctor.experience}yr</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">RATING</span>
-                  <span className="font-bold text-cyan-400">{doctor.rating}</span>
+                  <span className="text-[var(--text-medium)] block">RATING</span>
+                  <span className="font-bold text-[var(--text-high)]">{doctor.rating}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">FEE</span>
-                  <span className="font-bold text-emerald-400">${doctor.consultationFee}</span>
+                  <span className="text-[var(--text-medium)] block">FEE</span>
+                  <span className="font-bold text-[var(--text-high)]">${doctor.consultationFee}</span>
                 </div>
               </div>
 
