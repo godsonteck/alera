@@ -1,11 +1,11 @@
-from sqlalchemy import create_engine, event, inspect, text, Enum as SQLEnum
-from sqlalchemy.orm import sessionmaker, Session, declarative_base
-from sqlalchemy.pool import NullPool, StaticPool
+from sqlalchemy import create_engine, event, inspect, text, Enum as SQLEnum  # type: ignore
+from sqlalchemy.orm import sessionmaker, Session, declarative_base  # type: ignore
+from sqlalchemy.pool import NullPool, StaticPool  # type: ignore
 from config import settings
 from app.utils.time import utcnow
 from app.utils.db_types import enum_value_renames
 from datetime import datetime
-from typing import Generator
+from typing import Any, Dict, Generator
 import sys
 import os
 import re
@@ -46,7 +46,7 @@ AUDIT_STATUS_SEVERITY_MAP = {
 }
 
 # Database engine configuration
-engine_kwargs = {
+engine_kwargs: Dict[str, Any] = {
     "echo": settings.DATABASE_ECHO,
     # pool_pre_ping is incompatible with StaticPool (SQLite), added per-dialect below
 }
@@ -62,7 +62,6 @@ elif database_url.startswith("postgresql"):
     # pool_pre_ping keeps connections alive and detects stale connections.
     engine_kwargs["pool_pre_ping"] = True
     if os.environ.get("DB_POOL_DISABLED") == "true" or os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV"):
-        from sqlalchemy.pool import NullPool
         engine_kwargs["poolclass"] = NullPool
         engine_kwargs.pop("pool_pre_ping", None)  # NullPool doesn't need pre-ping
     else:
@@ -549,7 +548,7 @@ def _missing_postgres_enum_labels(current_labels: list[str], desired_labels: lis
 def _patch_postgres_enum_values():
     """Normalize legacy PostgreSQL enum labels and append any newly introduced labels."""
 
-    if not str(database_url).startswith("postgresql"):
+    if not database_url.startswith("postgresql"):
         return
 
     # Use raw SQL instead of inspect(engine).get_enums() which was removed in SQLAlchemy 2.x
@@ -606,7 +605,7 @@ def _patch_postgres_enum_values():
 
 def _patch_userrole_enum_values():
     """Add missing user role enum values and rename uppercase to lowercase for PostgreSQL userrole type."""
-    if not str(database_url).startswith("postgresql"):
+    if not database_url.startswith("postgresql"):
         # SQLite uses VARCHAR, so no enum alteration needed
         # But we still need to normalize any existing legacy values.
         _normalize_legacy_roles_sqlite()
@@ -700,7 +699,7 @@ def _patch_userrole_enum_values():
 
 def _normalize_legacy_roles_sqlite():
     """Normalize legacy SQLite role values to the backend's canonical enum values."""
-    if not str(database_url).startswith("sqlite"):
+    if not database_url.startswith("sqlite"):
         return
 
     try:
@@ -738,8 +737,8 @@ def _normalize_legacy_roles_sqlite():
 
 def run_migrations():
     """Run Alembic migrations programmatically."""
-    from alembic.config import Config
-    from alembic import command
+    from alembic.config import Config  # type: ignore
+    from alembic import command  # type: ignore
     import os
 
     # Path to alembic.ini relative to this file
