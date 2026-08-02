@@ -194,33 +194,33 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
   };
 
   return (
-    <div className="alera-care-backdrop min-h-screen flex text-[#223127] font-sans">
+    <div className="alera-care-backdrop min-h-screen flex text-[var(--text-high)] font-sans bg-[var(--surface-base)]">
       {/* Sidebar Navigation */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-[#dfe8e0] bg-white text-[#223127] shadow-[0_12px_35px_rgba(20,30,24,0.08)] transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--text-high)] shadow-[0_12px_35px_rgba(0,0,0,0.15)] transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full justify-between">
           <div>
             {/* Header / Brand */}
-            <div className="flex h-16 items-center justify-between border-b border-[#e7efe9] px-5">
+            <div className="flex h-16 items-center justify-between border-b border-[var(--border)] px-5">
               <Link to="/dashboard" className="flex items-center gap-2.5 group">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d7e4da] bg-[#f4faf4] text-xs font-bold text-[#4a785c]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface-secondary)] text-xs font-bold text-[var(--brand-primary)]">
                   A
                 </div>
-                <span className="text-sm font-semibold text-[#223127] transition-colors group-hover:text-[#4a785c]">Alera</span>
+                <span className="text-sm font-semibold text-[var(--text-high)] transition-colors group-hover:text-[var(--brand-primary)]">Alera</span>
               </Link>
-              <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-slate-400">
+              <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-[var(--text-medium)]">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Profile Signpost */}
-            <div className="border-b border-[#e7efe9] bg-[#f8fcf8] px-4 py-3">
-              <div className="flex items-center gap-3 border border-slate-200 bg-white p-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#0b3d62] text-white">
+            <div className="border-b border-[var(--border)] bg-[var(--surface-secondary)]/50 px-4 py-3">
+              <div className="flex items-center gap-3 border border-[var(--border)] bg-[var(--surface-elevated)] p-2.5 rounded-lg">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--brand-primary)] text-white shrink-0">
                   {roleIcons[roleKey]}
                 </div>
                 <div className="min-w-0">
-                  <div className="truncate text-xs font-bold text-[#223127]">{user.name}</div>
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-[#6e7d71]">{roleLabels[roleKey]} account</div>
+                  <div className="truncate text-xs font-bold text-[var(--text-high)]">{user.name}</div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-medium)]">{roleLabels[roleKey]} account</div>
                 </div>
               </div>
             </div>
@@ -234,10 +234,10 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
                     key={item.path}
                     to={item.path}
                     onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 border-l-2 px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-3 border-l-2 px-3 py-2 text-sm font-medium rounded-r-md transition-colors ${
                       active
-                        ? 'border-[#0b3d62] bg-slate-100 font-semibold text-[#0b3d62]'
-                        : 'border-transparent text-[#4f6154] hover:bg-slate-50 hover:text-[#223127]'
+                        ? 'border-[var(--brand-primary)] bg-[var(--brand-primary)]/15 font-semibold text-[var(--brand-primary)]'
+                        : 'border-transparent text-[var(--text-medium)] hover:bg-[var(--surface-secondary)] hover:text-[var(--text-high)]'
                     }`}
                   >
                     {item.icon}
@@ -249,10 +249,10 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
           </div>
 
           {/* Bottom Sign-out Action */}
-          <div className="border-t border-[#e7efe9] bg-white p-3">
+          <div className="border-t border-[var(--border)] bg-[var(--surface-elevated)] p-3">
             <button
               onClick={() => void handleSignOut()}
-              className="flex w-full items-center gap-3 border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-[#b34b4b] transition-colors hover:bg-red-100"
+              className="flex w-full items-center gap-3 border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm font-semibold text-red-400 rounded-lg transition-colors hover:bg-red-500/20"
             >
               <LogOut className="w-4 h-4" />
               <span>Sign out</span>
@@ -267,18 +267,18 @@ const DashboardLayout = memo(({ children }: DashboardLayoutProps) => {
       {/* Main dashboard area */}
       <div className="alera-dashboard flex-1 lg:ml-64 flex flex-col min-h-screen bg-[var(--surface-base)] text-[var(--text-high)] transition-colors">
         {/* Top navigation header */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-700/30 bg-[var(--surface-elevated)]/90 px-4 backdrop-blur-md transition-colors sm:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[var(--border)] bg-[var(--surface-elevated)]/90 px-4 backdrop-blur-md transition-colors sm:px-6">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-[var(--text-medium)] hover:text-[var(--text-high)]">
             <Menu className="w-5 h-5" />
           </button>
 
           {/* Care workspace status */}
           <div className="flex items-center gap-3 border-l-2 border-sky-500 bg-[var(--surface-secondary)] px-3 py-1.5 text-xs rounded-r-md">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-[#4a785c]" />
+            <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
             <div>
-              <span className="font-semibold text-[#223127]">Care workspace</span>
+              <span className="font-semibold text-[var(--text-high)]">Care workspace</span>
             </div>
-            <span className="border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#0b3d62]">
+            <span className="border border-[var(--border)] bg-[var(--surface-elevated)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--brand-primary)]">
               Ready
             </span>
           </div>
