@@ -78,24 +78,26 @@
 @layer utilities {
   /* Transitional shell for former console-style workflow pages.  Keep their
      data and controls, while making every surface match the public product. */
-  .alera-feature {
-    color: #334155;
-    font-family: ui-sans-serif, system-ui, sans-serif;
-  }
+  html:not(.dark):not([data-theme="dark"]):not([data-theme="high-contrast"]) {
+    .alera-feature {
+      color: #334155;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
 
-  :is(.alera-feature, .alera-dashboard) [class*="bg-[#090D14]"],
-  :is(.alera-feature, .alera-dashboard) [class*="bg-[#0F1218]"],
-  :is(.alera-feature, .alera-dashboard) [class*="bg-[#151922]"] {
-    background-color: #ffffff !important;
-    border-color: #dbe5e8 !important;
-    border-radius: 0.875rem !important;
-    box-shadow: 0 1px 3px rgba(11, 61, 98, 0.08) !important;
-  }
+    :is(.alera-feature, .alera-dashboard) [class*="bg-[#090D14]"],
+    :is(.alera-feature, .alera-dashboard) [class*="bg-[#0F1218]"],
+    :is(.alera-feature, .alera-dashboard) [class*="bg-[#151922]"] {
+      background-color: #ffffff !important;
+      border-color: #dbe5e8 !important;
+      border-radius: 0.875rem !important;
+      box-shadow: 0 1px 3px rgba(11, 61, 98, 0.08) !important;
+    }
 
-  :is(.alera-feature, .alera-dashboard) [class*="text-[#ECEEF2]"] { color: #0b3d62 !important; }
-  :is(.alera-feature, .alera-dashboard) [class*="text-cyan-"] { color: #0b3d62 !important; }
-  :is(.alera-feature, .alera-dashboard) [class*="border-[#252A35]"],
-  :is(.alera-feature, .alera-dashboard) [class*="border-[#2F3542]"] { border-color: #dbe5e8 !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="text-[#ECEEF2]"] { color: #0b3d62 !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="text-cyan-"] { color: #0b3d62 !important; }
+    :is(.alera-feature, .alera-dashboard) [class*="border-[#252A35]"],
+    :is(.alera-feature, .alera-dashboard) [class*="border-[#2F3542]"] { border-color: #dbe5e8 !important; }
+  }
   :is(.alera-feature, .alera-dashboard) button:not([class*="bg-red"]):not([class*="text-red"]) {
     border-radius: 0.75rem;
   }
