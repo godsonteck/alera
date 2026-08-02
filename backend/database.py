@@ -833,7 +833,8 @@ def _seed_admin():
         admin_email = settings.ADMIN_EMAIL
         admin_password = settings.ADMIN_PASSWORD
 
-        if not db.query(User).filter(User.email == admin_email).first():
+        admin_user = db.query(User).filter(User.email == admin_email).first()
+        if not admin_user:
             admin = User(
                 email=admin_email,
                 username="admin",
@@ -853,12 +854,20 @@ def _seed_admin():
             db.add(admin)
             db.flush()
             print(f"✓ Default admin seeded: {admin_email}")
+        else:
+            admin_user.hashed_password = hash_password(admin_password)
+            admin_user.is_active = True
+            admin_user.is_verified = True
+            admin_user.email_verified = True
+            admin_user.role = UserRole.ADMIN
+            print(f"✓ Updated existing admin password/state: {admin_email}")
 
         # ── super admin ────────────────────────────────────────────────────
         super_email = settings.SUPER_ADMIN_EMAIL
         super_password = settings.SUPER_ADMIN_PASSWORD
 
-        if not db.query(User).filter(User.email == super_email).first():
+        super_user = db.query(User).filter(User.email == super_email).first()
+        if not super_user:
             super_admin = User(
                 email=super_email,
                 username="superadmin",
@@ -878,6 +887,13 @@ def _seed_admin():
             db.add(super_admin)
             db.flush()
             print(f"✓ Default super admin seeded: {super_email}")
+        else:
+            super_user.hashed_password = hash_password(super_password)
+            super_user.is_active = True
+            super_user.is_verified = True
+            super_user.email_verified = True
+            super_user.role = UserRole.SUPER_ADMIN
+            print(f"✓ Updated existing super admin password/state: {super_email}")
 
         db.commit()
     except Exception as e:
