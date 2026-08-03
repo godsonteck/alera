@@ -23,6 +23,7 @@ const MAX_NOTIFICATIONS = 50;
 const roleFeedLabels: Record<UserRole, string> = {
   patient: 'Patient activity',
   doctor: 'Doctor activity',
+  physiotherapist: 'Physiotherapy activity',
   hospital: 'Hospital activity',
   laboratory: 'Laboratory activity',
   imaging: 'Imaging activity',

@@ -71,6 +71,7 @@ const isMessageRead = (value: string) => value === 'Y' || value === 'y' || value
 const roleSubtitleMap: Record<UserRole, string> = {
   patient: 'Patient',
   doctor: 'Doctor',
+  physiotherapist: 'Physiotherapist',
   hospital: 'Hospital team',
   laboratory: 'Laboratory team',
   imaging: 'Imaging center',

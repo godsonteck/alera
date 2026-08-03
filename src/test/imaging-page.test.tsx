@@ -171,10 +171,10 @@ describe('ImagingPage', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /PUBLISH DICOM/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Save scan report/i }));
     fireEvent.change(screen.getByPlaceholderText(/Enter radiology findings/i), { target: { value: 'No acute intracranial abnormality.' } });
 
-    fireEvent.click(screen.getByRole('button', { name: /PUBLISH DICOM STUDY/i }));
+    fireEvent.click(screen.getAllByRole('button', { name: /Save scan report/i })[1]);
 
     await waitFor(() => {
       expect(updateImagingScanMock).toHaveBeenCalledWith('scan-1', expect.any(Function));

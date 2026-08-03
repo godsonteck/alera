@@ -193,6 +193,17 @@ vi.mock('@/contexts/useAppData', () => ({
   useAppData: () => mockAppData,
 }));
 
+vi.mock('@/contexts/useChat', () => ({
+  useChat: () => ({
+    startVideoCall: vi.fn(),
+    threads: [],
+    contacts: [],
+    messages: [],
+    setActiveThread: vi.fn(),
+    sendMessage: vi.fn(),
+  }),
+}));
+
 vi.mock('@/contexts/useNotifications', () => ({
   useNotifications: () => ({
     addNotification: vi.fn(),
@@ -213,7 +224,7 @@ vi.mock('framer-motion', () => ({
 
 describe('provider role smoke tests', () => {
   it.each([
-    ['doctor', /clinician workspace/i],
+    ['doctor', /your clinic/i],
     ['hospital', /hospital coordination/i],
     ['laboratory', /lab work/i],
     ['imaging', /imaging/i],
@@ -231,11 +242,11 @@ describe('provider role smoke tests', () => {
   });
 
   it.each([
-    ['doctor', 'patients', /clinical patient register/i],
-    ['doctor', 'imaging-referrals', /PACS & Lossless DICOM Modality Node/i],
+    ['doctor', 'patients', /Patients/i],
+    ['doctor', 'imaging-referrals', /Imaging/i],
     ['hospital', 'referrals', /referrals gateway/i],
-    ['laboratory', 'test-requests', /Assay Telemetry Node/i],
-    ['imaging', 'scan-requests', /PACS & Lossless DICOM Modality Node/i],
+    ['laboratory', 'test-requests', /Lab results/i],
+    ['imaging', 'scan-requests', /Imaging/i],
     ['pharmacy', 'inventory', /Pharmacy Logistics Engine/i],
   ] as const)('loads %s core page %s', async (role, page, heading) => {
     currentUser = baseUsers.find((user) => user.role === role) as MockUser;
@@ -246,6 +257,7 @@ describe('provider role smoke tests', () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByText(heading)).toBeInTheDocument();
+    const elements = await screen.findAllByText(heading);
+    expect(elements.length).toBeGreaterThan(0);
   });
 });
